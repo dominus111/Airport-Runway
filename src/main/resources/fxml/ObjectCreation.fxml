@@ -27,13 +27,13 @@
                </font>
             </Label>
             <TextField layoutX="32.0" layoutY="93.0" />
-            <Label layoutX="35.0" layoutY="119.0" text="Height m.">
+            <Label layoutX="35.0" layoutY="119.0" text="Height (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
             <TextField layoutX="32.0" layoutY="136.0" />
-            <Label layoutX="35.0" layoutY="166.0" text="Length m.">
+            <Label layoutX="35.0" layoutY="166.0" text="Length (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
@@ -50,13 +50,13 @@
                </toggleGroup></RadioButton>
             <RadioButton layoutX="52.0" layoutY="277.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$runwaySelect" />
             <Separator layoutX="-2.0" layoutY="218.0" prefHeight="11.0" prefWidth="226.0" />
-            <Label layoutX="35.0" layoutY="303.0" text="Distance to centerline m.">
+            <Label layoutX="35.0" layoutY="303.0" text="Distance to centerline (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
             <TextField layoutX="32.0" layoutY="323.0" />
-            <Label layoutX="35.0" layoutY="357.0" text="Distance to threshold  m.">
+            <Label layoutX="35.0" layoutY="357.0" text="Distance to threshold  (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
