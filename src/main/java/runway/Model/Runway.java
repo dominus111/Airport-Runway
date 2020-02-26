@@ -1,7 +1,7 @@
 package runway.Model;
 
 /**
- * Models a physical runway and has two virtual Runways, one for each direction
+ * Models a physical runway that has two virtual Runways, one for each direction
  */
 public class Runway {
 
