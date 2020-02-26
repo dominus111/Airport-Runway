@@ -26,8 +26,14 @@ public class Controller {
 
     }
     @FXML
-    void addRunwayButtonEvent(ActionEvent event) {
-
+    void addRunwayButtonEvent(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+        URL url = new File("src/main/resources/fxml/RunwayCreation.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        stage.setTitle("Runway Creation");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root, 423, 521));
+        stage.show();
     }
 
     @FXML
