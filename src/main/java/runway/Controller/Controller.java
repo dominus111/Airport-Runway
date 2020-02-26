@@ -44,8 +44,9 @@ public class Controller {
         Stage stage = new Stage();
         URL url = new File("src/main/resources/fxml/ObjectCreation.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
-        stage.setTitle("Object Creation");
-        stage.setScene(new Scene(root, 624, 540));
+        stage.setTitle("Object");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root, 223, 521));
         stage.show();
     }
 

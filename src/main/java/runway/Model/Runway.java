@@ -12,4 +12,8 @@ public class Runway {
         this.leftRunway = leftRunway;
         this.rightRunway = rightRunway;
     }
+
+  /*//  public String toString() {
+        return "Runway " + leftRunway.toString() + "/" + ""
+    }*/
 }
