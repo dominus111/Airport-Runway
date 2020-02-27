@@ -25,6 +25,8 @@ public class Controller {
     void topDownTabEvent(Event event) {
 
     }
+
+    // Opens up the Runway Creation Window
     @FXML
     void addRunwayButtonEvent(ActionEvent event) throws IOException {
         Stage stage = new Stage();
@@ -45,6 +47,7 @@ public class Controller {
 
     }
 
+    // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) throws IOException {
         Stage stage = new Stage();
