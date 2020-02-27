@@ -6,14 +6,17 @@ package runway.Model;
  */
 public class VirtualRunway {
 
-    public String direction;
+    public String designator;
+    private RunwayParameters initialParameters;
+    private RunwayParameters recalculatedParameters;
 
-    public VirtualRunway(String direction) {
-        this.direction = direction;
+    public VirtualRunway(String designator) {
+        this.designator = designator;
     }
 
     @Override
     public String toString() {
-        return direction;
+        return designator;
     }
+
 }
