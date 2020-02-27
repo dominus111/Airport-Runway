@@ -13,5 +13,7 @@ public class Runway {
         this.rightRunway = rightRunway;
     }
 
-
+    public String toString () {
+        return "Runway" + leftRunway.toString() + "/" + rightRunway.toString();
+    }
 }
