@@ -2,14 +2,14 @@ package runway.Model;
 
 public class RunwayParameters {
 
+    private int tora, toda, asda, lda;
+
     public RunwayParameters(int tora, int toda, int asda, int lda) {
         this.tora = tora;
         this.toda = toda;
         this.asda = asda;
         this.lda = lda;
     }
-
-    private int tora, toda, asda, lda;
 
     public int getLda() {
         return lda;

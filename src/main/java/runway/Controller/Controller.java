@@ -1,20 +1,42 @@
 package runway.Controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.Stage;
+import runway.Model.Airport;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Controller {
+
+    @FXML
+    private ComboBox<String> runwaySelect;
+    private Airport airport;
+
+    @FXML
+    public void initialize() {
+        airport = new Airport();
+        if(runwaySelect != null) {
+            runwaySelect.getItems().clear();
+            runwaySelect.getItems().addAll(airport.getObservableRunwayList());
+            runwaySelect.getSelectionModel().select("Runway 2");
+        }
+    }
+
+    public void setAirport(Airport airport) {
+        this.airport = airport;
+    }
 
     @FXML
     void sideOnTabEvent(Event event) {
@@ -57,6 +79,6 @@ public class Controller {
         stage.setResizable(false);
         stage.setScene(new Scene(root, 216, 521));
         stage.show();
-    }
 
+    }
 }
