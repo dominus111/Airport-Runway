@@ -9,7 +9,6 @@ import java.util.Set;
 
 public class Airport {
 
-
     private ObservableList<Runway> observableRunwayList;
 
     public Airport() {
