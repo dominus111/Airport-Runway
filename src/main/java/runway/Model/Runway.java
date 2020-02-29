@@ -5,8 +5,8 @@ package runway.Model;
  */
 public class Runway {
 
-    public VirtualRunway leftRunway;
-    public VirtualRunway rightRunway;
+    private VirtualRunway leftRunway;
+    private VirtualRunway rightRunway;
 
     public Runway(VirtualRunway leftRunway, VirtualRunway rightRunway) {
         this.leftRunway = leftRunway;
@@ -15,5 +15,13 @@ public class Runway {
 
     public String toString () {
         return "Runway" + leftRunway.toString() + "/" + rightRunway.toString();
+    }
+
+    public VirtualRunway getLeftRunway() {
+        return leftRunway;
+    }
+
+    public VirtualRunway getRightRunway() {
+        return rightRunway;
     }
 }

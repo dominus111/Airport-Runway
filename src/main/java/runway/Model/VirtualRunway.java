@@ -19,4 +19,11 @@ public class VirtualRunway {
         return designator;
     }
 
+    public RunwayParameters getInitialParameters() {
+        return initialParameters;
+    }
+
+    public void setRecalculatedParameters(RunwayParameters recalculatedParameters) {
+        this.recalculatedParameters = recalculatedParameters;
+    }
 }

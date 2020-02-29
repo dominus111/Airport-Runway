@@ -55,7 +55,7 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <ComboBox layoutX="127.0" layoutY="45.0" prefWidth="150.0" promptText="Right/Left/Center" />
+            <ComboBox fx:id="topRunwayComboBox" layoutX="127.0" layoutY="45.0" prefWidth="150.0" />
          </children>
       </Pane>
       <Pane prefHeight="697.0" prefWidth="302.0">
@@ -101,7 +101,7 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <ComboBox layoutX="127.0" layoutY="45.0" prefWidth="150.0" promptText="Right/Left/Center" />
+            <ComboBox fx:id="bottomRunwayComboBox" layoutX="127.0" layoutY="45.0" prefWidth="150.0" />
             <Button layoutX="104.0" layoutY="259.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Runway" />
             <Button fx:id="cancelButton" layoutX="123.0" layoutY="296.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
          </children>
