@@ -29,8 +29,8 @@ public class Controller {
         airport = new Airport();
         if(runwaySelect != null) {
             runwaySelect.getItems().clear();
-            runwaySelect.getItems().addAll(airport.getObservableRunwayList());
-            runwaySelect.getSelectionModel().select("Runway 2");
+            runwaySelect.getItems().addAll(airport.getObservableRunwayList().toString());
+            //runwaySelect.getSelectionModel().select("Runway 2");
         }
     }
 
@@ -51,8 +51,14 @@ public class Controller {
     // Opens up the Runway Creation Window
     @FXML
     void addRunwayButtonEvent(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
         Stage stage = new Stage();
         URL url = new File("src/main/resources/fxml/RunwayCreation.fxml").toURI().toURL();
+        loader.setLocation(url);
+        RunwayCreationController controller = new RunwayCreationController();
+        controller.setAirport(airport);
+        loader.setController(controller);
+
         Parent root = FXMLLoader.load(url);
         stage.setTitle("Runway Creation");
         stage.setResizable(false);
@@ -79,6 +85,5 @@ public class Controller {
         stage.setResizable(false);
         stage.setScene(new Scene(root, 216, 521));
         stage.show();
-
     }
 }

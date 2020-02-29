@@ -22,7 +22,6 @@ public class GUI extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL url = new File("src/main/resources/fxml/Scheleton.fxml").toURI().toURL();
         loader.setLocation(url);
-        Airport airport = new Airport();
         Controller controller = new Controller();
         loader.setController(controller);
 

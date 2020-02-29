@@ -9,14 +9,18 @@ import java.util.Set;
 
 public class Airport {
 
-    private ObservableList<String> observableRunwayList;
+
+    private ObservableList<Runway> observableRunwayList;
 
     public Airport() {
-        observableRunwayList = FXCollections.observableArrayList("Runway 1", "Runway 2", "Runway 3");
-
+        observableRunwayList = FXCollections.observableArrayList();
     }
 
-    public ObservableList<String> getObservableRunwayList() {
+    public ObservableList<Runway> getObservableRunwayList() {
         return observableRunwayList;
+    }
+
+    public void addRunway (Runway runway) {
+        this.observableRunwayList.add(runway);
     }
 }

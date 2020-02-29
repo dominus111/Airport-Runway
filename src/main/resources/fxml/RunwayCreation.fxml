@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -9,88 +10,100 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="296.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.RunwayCreationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="302.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.RunwayCreationController">
    <children>
-      <Pane prefHeight="551.0" prefWidth="295.0">
+      <Pane prefHeight="612.0" prefWidth="389.0">
          <children>
-            <Label layoutX="21.0" layoutY="13.0" text="Left Side Runway">
+            <Label layoutX="21.0" layoutY="13.0" text="Runway">
                <font>
                   <Font name="Calibri Bold" size="16.0" />
                </font>
             </Label>
             <Separator layoutX="1.0" layoutY="34.0" prefHeight="10.0" prefWidth="295.0" />
-            <Label layoutX="16.0" layoutY="49.0" text="Heading direction">
+            <Label layoutX="16.0" layoutY="52.0" text="Relative direction">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="128.0" layoutY="46.0" />
-            <Text layoutX="16.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
+            <TextField fx:id="leftHeading" layoutX="128.0" layoutY="78.0" />
+            <Text layoutX="16.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Text>
-            <Text layoutX="16.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODA (m)">
+            <Text layoutX="16.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Text>
-            <TextField layoutX="128.0" layoutY="82.0" />
-            <TextField layoutX="128.0" layoutY="120.0" />
-            <Label layoutX="16.0" layoutY="159.0" text="ASDA (m)">
+            <TextField fx:id="leftLDA" layoutX="128.0" layoutY="113.0" />
+            <TextField fx:id="leftTODA" layoutX="128.0" layoutY="148.0" />
+            <Label layoutX="16.0" layoutY="187.0" text="ASDA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <Label layoutX="16.0" layoutY="193.0" text="TORA (m)">
+            <Label layoutX="16.0" layoutY="223.0" text="TORA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="128.0" layoutY="154.0" />
-            <TextField layoutX="128.0" layoutY="189.0" />
-            <Pane layoutX="1.0" layoutY="225.0" prefHeight="508.0" prefWidth="295.0">
-               <children>
-                  <Label layoutX="21.0" layoutY="13.0" text="Right Side Runway">
-                     <font>
-                        <Font name="Calibri Bold" size="16.0" />
-                     </font>
-                  </Label>
-                  <Separator layoutX="1.0" layoutY="34.0" prefHeight="10.0" prefWidth="295.0" />
-                  <Label layoutX="16.0" layoutY="49.0" text="Heading direction">
-                     <font>
-                        <Font name="Calibri" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="128.0" layoutY="46.0" />
-                  <Text layoutX="16.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
-                     <font>
-                        <Font name="Calibri" size="13.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="16.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODA (m)">
-                     <font>
-                        <Font name="Calibri" size="13.0" />
-                     </font>
-                  </Text>
-                  <TextField layoutX="128.0" layoutY="82.0" />
-                  <TextField layoutX="128.0" layoutY="120.0" />
-                  <Label layoutX="16.0" layoutY="159.0" text="ASDA (m)">
-                     <font>
-                        <Font name="Calibri" size="13.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="16.0" layoutY="193.0" text="TORA (m)">
-                     <font>
-                        <Font name="Calibri" size="13.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="128.0" layoutY="154.0" />
-                  <TextField layoutX="128.0" layoutY="189.0" />
-                  <Button layoutX="55.0" layoutY="229.0" mnemonicParsing="false" text="Add Runway LeftSide/RightSide" />
-                  <Button fx:id="cancelButton" layoutX="123.0" layoutY="273.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
-               </children>
-            </Pane>
+            <TextField fx:id="leftASDA" layoutX="128.0" layoutY="182.0" />
+            <TextField fx:id="leftTORA" layoutX="128.0" layoutY="217.0" />
+            <Label layoutX="16.0" layoutY="84.0" text="Heading Direction">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="127.0" layoutY="45.0" prefWidth="150.0" promptText="Right/Left/Center" />
+         </children>
+      </Pane>
+      <Pane prefHeight="697.0" prefWidth="302.0">
+         <children>
+            <Label layoutX="21.0" layoutY="13.0" text="Runway">
+               <font>
+                  <Font name="Calibri Bold" size="16.0" />
+               </font>
+            </Label>
+            <Separator layoutX="1.0" layoutY="34.0" prefHeight="10.0" prefWidth="295.0" />
+            <Label layoutX="16.0" layoutY="52.0" text="Relative direction">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="leftHeading1" layoutX="128.0" layoutY="78.0" />
+            <Text layoutX="16.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Text>
+            <Text layoutX="16.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODA (m)">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Text>
+            <TextField fx:id="leftLDA1" layoutX="128.0" layoutY="113.0" />
+            <TextField fx:id="leftTODA1" layoutX="128.0" layoutY="148.0" />
+            <Label layoutX="16.0" layoutY="187.0" text="ASDA (m)">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="16.0" layoutY="223.0" text="TORA (m)">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="leftASDA1" layoutX="128.0" layoutY="182.0" />
+            <TextField fx:id="leftTORA1" layoutX="128.0" layoutY="217.0" />
+            <Label layoutX="16.0" layoutY="84.0" text="Heading Direction">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="127.0" layoutY="45.0" prefWidth="150.0" promptText="Right/Left/Center" />
+            <Button layoutX="104.0" layoutY="259.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Runway" />
+            <Button fx:id="cancelButton" layoutX="123.0" layoutY="296.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
          </children>
       </Pane>
    </children>
