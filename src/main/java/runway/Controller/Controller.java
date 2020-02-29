@@ -83,7 +83,7 @@ public class Controller {
         Parent root = FXMLLoader.load(url);
         stage.setTitle("Object");
         stage.setResizable(false);
-        stage.setScene(new Scene(root, 216, 521));
+        stage.setScene(new Scene(root, 256, 556));
         stage.show();
     }
 }
