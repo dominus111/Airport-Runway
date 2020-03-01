@@ -68,7 +68,7 @@ public class Controller {
         Parent root = FXMLLoader.load(url);
         stage.setTitle("Runway Creation");
         stage.setResizable(false);
-        stage.setScene(new Scene(root, 296, 540));
+        stage.setScene(new Scene(root, 295, 585));
         stage.show();
     }
 
