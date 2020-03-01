@@ -21,6 +21,10 @@ public class Airport {
         return observableRunwayList;
     }
 
+    public void setObservableRunwayList(ObservableList<Runway> observableRunwayList) {
+        this.observableRunwayList = observableRunwayList;
+    }
+
     public void addRunway (Runway runway) {
         this.observableRunwayList.add(runway);
     }

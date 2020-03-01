@@ -1,5 +1,6 @@
 package runway.Controller;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -74,7 +75,23 @@ public class Controller {
     @FXML
     void removeRunwayButtonEvent(ActionEvent event) {
 
+        // Removes the runway that is selected
+        if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            ObservableList<Runway> observableNewList = FXCollections.observableArrayList();
+            String runwaySelected = runwaySelect.getSelectionModel().getSelectedItem();
+            runwaySelect.getItems().clear();
+
+            for (Runway currentRunway : airport.getObservableRunwayList()) {
+                if (!runwaySelected.equals(currentRunway.toString())) {
+                    observableNewList.add(currentRunway);
+                    runwaySelect.getItems().add(currentRunway.toString());
+                }
+            }
+
+            airport.setObservableRunwayList(observableNewList);
+        }
     }
+
     @FXML
     void runwaySelectEvent(Event event) {
 
