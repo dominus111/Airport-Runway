@@ -14,7 +14,7 @@ public class Runway {
     }
 
     public String toString () {
-        return "Runway" + leftRunway.toString() + "/" + rightRunway.toString();
+        return "Runway " + leftRunway.toString() + "/" + rightRunway.toString();
     }
 
     public VirtualRunway getLeftRunway() {

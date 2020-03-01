@@ -1,5 +1,6 @@
 package runway.Controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -16,6 +17,7 @@ import runway.Model.Runway;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ListIterator;
 
 public class Controller {
 
@@ -28,10 +30,12 @@ public class Controller {
     @FXML
     public void initialize() {
         airport = new Airport();
+
         if(runwaySelect != null) {
             runwaySelect.getItems().clear();
-            runwaySelect.getItems().addAll(airport.getObservableRunwayList().toString());
-            //runwaySelect.getSelectionModel().select("Runway 2");
+            for(Runway currentRunway : airport.getObservableRunwayList()) {
+                runwaySelect.getItems().add(currentRunway.toString());
+            }
         }
     }
 
