@@ -10,8 +10,9 @@ public class VirtualRunway {
     private RunwayParameters initialParameters;
     private RunwayParameters recalculatedParameters;
 
-    public VirtualRunway(String designator) {
+    public VirtualRunway(String designator, RunwayParameters initialParameters) {
         this.designator = designator;
+        this.initialParameters = initialParameters;
     }
 
     @Override

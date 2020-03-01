@@ -13,6 +13,8 @@ public class Airport {
 
     public Airport() {
         observableRunwayList = FXCollections.observableArrayList();
+        observableRunwayList.add(new Runway(new VirtualRunway("09R", new RunwayParameters(3660,3660,3660,3353)), new VirtualRunway("27L", new RunwayParameters(3660,3660,3660,3660))));
+        observableRunwayList.add(new Runway(new VirtualRunway("09L", new RunwayParameters(3902,3902,3902,3595)), new VirtualRunway("27R", new RunwayParameters(3884,3962,3884,3884))));
     }
 
     public ObservableList<Runway> getObservableRunwayList() {

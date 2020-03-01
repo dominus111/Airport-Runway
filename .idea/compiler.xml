@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="RunwayRedeclaration" />
         <module name="RunwayRedeclaration2020" />
         <module name="SEG2020Runway" />
+        <module name="RunwayRedeclaration" />
       </profile>
     </annotationProcessing>
   </component>

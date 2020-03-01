@@ -7,7 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import runway.Model.Airport;
-import javax.management.Notification;
+
 
 public class RunwayCreationController {
     @FXML
