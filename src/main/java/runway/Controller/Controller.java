@@ -8,8 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import runway.Model.Airport;
+import runway.Model.Runway;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +22,8 @@ public class Controller {
     @FXML
     private ComboBox<String> runwaySelect;
     private Airport airport;
+    @FXML
+    private AnchorPane jacobAnchorPane;
 
     @FXML
     public void initialize() {
@@ -68,7 +72,7 @@ public class Controller {
 
     }
     @FXML
-    void runwaySelectEvent(ContextMenuEvent event) {
+    void runwaySelectEvent(Event event) {
 
     }
 

@@ -35,7 +35,7 @@
           </Tab>
           <Tab onSelectionChanged="#sideOnTabEvent" text="Side On">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="jacobAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <effect>
                         <DropShadow />
                      </effect>
@@ -71,7 +71,7 @@
                   </Label>
                   <Button layoutX="11.0" layoutY="98.0" mnemonicParsing="false" onAction="#addRunwayButtonEvent" text="Add Runway" />
                   <Button layoutX="103.0" layoutY="98.0" mnemonicParsing="false" onAction="#removeRunwayButtonEvent" text="Remove Runway" />
-                  <ComboBox fx:id="runwaySelect" layoutX="11.0" layoutY="61.0" prefHeight="20.0" prefWidth="343.0" />
+                  <ComboBox fx:id="runwaySelect" layoutX="11.0" layoutY="61.0" onAction="#runwaySelectEvent" prefHeight="20.0" prefWidth="343.0" />
                </children>
             </Pane>
             <Pane prefHeight="120.0" prefWidth="369.0">
