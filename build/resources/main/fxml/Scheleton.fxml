@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="662.3333740234375" minWidth="10.0" prefWidth="617.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.5555419921875" minWidth="10.0" prefWidth="369.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="541.4444817437065" minHeight="10.0" prefHeight="527.2222527398003" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="306.33333672417535" minHeight="10.0" prefHeight="103.22219170464416" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab onSelectionChanged="#topDownTabEvent" text="Top Down">
+            <content>
+              <AnchorPane fx:id="topView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="image" fitHeight="479.0" fitWidth="620.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@runaway.png" />
+                           </image></ImageView>
+                        <Line fx:id="lineTODA" layoutX="150.0" layoutY="226.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textTODA" layoutX="50.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Line fx:id="lineASDA" endX="100.0" layoutX="150.0" layoutY="246.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textTORA" layoutX="50.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Line fx:id="lineTORA" endX="100.0" layoutX="150.0" layoutY="266.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textASDA" layoutX="50.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Line fx:id="lineLDA" endX="100.0" layoutX="150.0" layoutY="286.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textLDA" layoutX="50.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="designatorL" layoutX="100.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="designatorR" layoutX="495.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab onSelectionChanged="#sideOnTabEvent" text="Side On">
+            <content>
+              <AnchorPane fx:id="jacobAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+         <effect>
+            <DropShadow />
+         </effect>
+      </TabPane>
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+         <children>
+            <Pane prefHeight="136.0" prefWidth="369.0">
+               <opaqueInsets>
+                  <Insets bottom="1.0" />
+               </opaqueInsets>
+               <children>
+                  <Separator layoutY="28.0" prefHeight="7.0" prefWidth="388.0">
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Separator>
+                  <Label layoutX="9.0" layoutY="6.0" text="Runway Redeclaration Tools">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="42.0" text="Select Runway">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="11.0" layoutY="98.0" mnemonicParsing="false" onAction="#addRunwayButtonEvent" text="Add Runway" />
+                  <Button layoutX="103.0" layoutY="98.0" mnemonicParsing="false" onAction="#removeRunwayButtonEvent" text="Remove Runway" />
+                  <ComboBox fx:id="runwaySelect" layoutX="11.0" layoutY="61.0" onAction="#runwaySelectEvent" prefHeight="20.0" prefWidth="343.0" />
+               </children>
+            </Pane>
+            <Pane prefHeight="120.0" prefWidth="369.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="6.0" prefHeight="25.0" prefWidth="103.0" text="Objects ">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Button layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#addObjectToRunwayEvent" prefHeight="31.0" prefWidth="343.0" text="Add Object To Current Runway" />
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+   </children>
+</GridPane>
