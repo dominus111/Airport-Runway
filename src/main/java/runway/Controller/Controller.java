@@ -70,8 +70,12 @@ public class Controller {
         }
     }
 
-    public void setAirport(Airport airport) {
-        this.airport = airport;
+    public ComboBox<String> getRunwaySelect() {
+        return runwaySelect;
+    }
+
+    public Airport getAirport() {
+        return airport;
     }
 
     @FXML
@@ -91,20 +95,21 @@ public class Controller {
 
     // Opens up the Runway Creation Window
     @FXML
-    void addRunwayButtonEvent(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        Stage stage = new Stage();
-        URL url = new File("src/main/resources/fxml/RunwayCreation.fxml").toURI().toURL();
-        loader.setLocation(url);
-        RunwayCreationController controller = new RunwayCreationController();
-        controller.setAirport(airport);
-        loader.setController(controller);
+    void addRunwayButtonEvent(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/RunwayCreation.fxml"));
+            Parent root = loader.load();
+            RunwayCreationController ctrl = loader.getController();
 
-        Parent root = FXMLLoader.load(url);
-        stage.setTitle("Runway Creation");
-        stage.setResizable(false);
-        stage.setScene(new Scene(root, 295, 585));
-        stage.show();
+            ctrl.setParentController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Runway Creation");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root, 295, 585));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -162,13 +167,20 @@ public class Controller {
 
     // Opens up the Object window
     @FXML
-    void addObjectToRunwayEvent(ActionEvent event) throws IOException {
-        Stage stage = new Stage();
-        URL url = new File("src/main/resources/fxml/ObjectCreation.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        stage.setTitle("Object");
-        stage.setResizable(false);
-        stage.setScene(new Scene(root, 256, 556));
-        stage.show();
+    void addObjectToRunwayEvent(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
+            Parent root = loader.load();
+            ObjectCreationController ctrl = loader.getController();
+
+            ctrl.setParentController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Object");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root, 256, 556));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

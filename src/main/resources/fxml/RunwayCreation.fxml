@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="302.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.RunwayCreationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="585.0" prefWidth="295.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.RunwayCreationController">
    <children>
       <Pane prefHeight="612.0" prefWidth="389.0">
          <children>
@@ -25,7 +25,6 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="leftHeading" layoutX="128.0" layoutY="78.0" />
             <Text layoutX="16.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
@@ -55,7 +54,8 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <ComboBox fx:id="topRunwayComboBox" layoutX="127.0" layoutY="45.0" prefWidth="150.0" />
+            <ComboBox fx:id="topRDirComboBox" layoutX="127.0" layoutY="45.0" prefWidth="150.0" />
+            <ComboBox fx:id="topHDirComboBox" layoutX="127.0" layoutY="80.0" prefWidth="150.0" />
          </children>
       </Pane>
       <Pane prefHeight="697.0" prefWidth="302.0">
@@ -71,7 +71,6 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="leftHeading1" layoutX="128.0" layoutY="78.0" />
             <Text layoutX="16.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
@@ -82,8 +81,8 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Text>
-            <TextField fx:id="leftLDA1" layoutX="128.0" layoutY="113.0" />
-            <TextField fx:id="leftTODA1" layoutX="128.0" layoutY="148.0" />
+            <TextField fx:id="rightLDA" layoutX="128.0" layoutY="113.0" />
+            <TextField fx:id="rightTODA" layoutX="128.0" layoutY="148.0" />
             <Label layoutX="16.0" layoutY="187.0" text="ASDA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
@@ -94,16 +93,17 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="leftASDA1" layoutX="128.0" layoutY="182.0" />
-            <TextField fx:id="leftTORA1" layoutX="128.0" layoutY="217.0" />
+            <TextField fx:id="rightASDA" layoutX="128.0" layoutY="182.0" />
+            <TextField fx:id="rightTORA" layoutX="128.0" layoutY="217.0" />
             <Label layoutX="16.0" layoutY="84.0" text="Heading Direction">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <ComboBox fx:id="bottomRunwayComboBox" layoutX="127.0" layoutY="45.0" prefWidth="150.0" />
+            <ComboBox fx:id="bottomRDirComboBox" layoutX="127.0" layoutY="45.0" prefWidth="150.0" />
             <Button layoutX="104.0" layoutY="259.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Runway" />
             <Button fx:id="cancelButton" layoutX="123.0" layoutY="296.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
+            <ComboBox fx:id="bottomHDirComboBox" layoutX="127.0" layoutY="80.0" prefWidth="150.0" />
          </children>
       </Pane>
    </children>

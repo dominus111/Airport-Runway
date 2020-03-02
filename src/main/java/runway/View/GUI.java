@@ -19,6 +19,7 @@ public class GUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         FXMLLoader loader = new FXMLLoader();
         URL url = new File("src/main/resources/fxml/Scheleton.fxml").toURI().toURL();
         loader.setLocation(url);
