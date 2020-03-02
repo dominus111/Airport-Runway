@@ -24,6 +24,8 @@ public class VirtualRunway {
         return initialParameters;
     }
 
+    public String getDesignator() {return  designator; }
+
     public void setRecalculatedParameters(RunwayParameters recalculatedParameters) {
         this.recalculatedParameters = recalculatedParameters;
     }
