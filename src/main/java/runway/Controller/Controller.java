@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -27,6 +29,8 @@ public class Controller {
     private Airport airport;
     @FXML
     private AnchorPane jacobAnchorPane;
+    @FXML
+    private AnchorPane topView;
 
     @FXML
     public void initialize() {
@@ -55,6 +59,11 @@ public class Controller {
 
     @FXML
     void topDownTabEvent(Event event) {
+        Image image = new Image ("file:runaway.png");
+        ImageView view = new ImageView();
+        view.setImage(image);
+
+        topView.getChildren().add(view);
 
     }
 
