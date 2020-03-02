@@ -3,7 +3,9 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="629.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
@@ -20,7 +22,23 @@
         <tabs>
           <Tab onSelectionChanged="#topDownTabEvent" text="Top Down">
             <content>
-              <AnchorPane fx:id="topView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane fx:id="topView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="image" fitHeight="479.0" fitWidth="620.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@runaway.png" />
+                           </image></ImageView>
+                        <Line fx:id="lineTODA" layoutX="150.0" layoutY="226.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textTODA" layoutX="50.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Line fx:id="lineASDA" endX="100.0" layoutX="150.0" layoutY="246.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textTORA" layoutX="50.0" layoutY="279.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Line fx:id="lineTORA" endX="100.0" layoutX="150.0" layoutY="266.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textASDA" layoutX="50.0" layoutY="259.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Line fx:id="lineLDA" endX="100.0" layoutX="150.0" layoutY="286.0" startX="-100.0" stroke="TRANSPARENT" />
+                        <Text fx:id="textLDA" layoutX="50.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="designatorL" layoutX="100.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                        <Text fx:id="designatorR" layoutX="495.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab onSelectionChanged="#sideOnTabEvent" text="Side On">
