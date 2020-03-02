@@ -28,4 +28,13 @@ public class Airport {
     public void addRunway (Runway runway) {
         this.observableRunwayList.add(runway);
     }
+
+    public Runway getRunway(String runwayName){
+        for (Runway currentRunway : this.getObservableRunwayList()) {
+            if (runwayName.equals(currentRunway.toString())) {
+                return currentRunway;
+            }
+        }
+        return null;
+    }
 }
