@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class ObjectCreationController {
     @FXML
     private Button cancelButton;
+    private Controller parentController;
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
@@ -15,4 +16,7 @@ public class ObjectCreationController {
         stage.close();
     }
 
+    public void setParentController(Controller parentController) {
+        this.parentController = parentController;
+    }
 }
