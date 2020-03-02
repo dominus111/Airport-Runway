@@ -42,13 +42,24 @@
             </content>
           </Tab>
           <Tab onSelectionChanged="#sideOnTabEvent" text="Side On">
-            <content>
-              <AnchorPane fx:id="jacobAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <effect>
-                        <DropShadow />
-                     </effect>
+              <content>
+                  <AnchorPane fx:id="sideOnAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#77c25d" height="136.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" width="635.0" />
+                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6e727d" height="19.0" layoutY="366.0" stroke="BLACK" strokeType="INSIDE" width="635.0" />
+                          <Text fx:id="sideTORA" layoutX="241.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TORA" textAlignment="CENTER" wrappingWidth="153.30535888671875" />
+                          <Text fx:id="sideTODA" layoutX="240.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODA" textAlignment="CENTER" wrappingWidth="155.47467041015625" />
+                          <Text fx:id="sideLDA" layoutX="248.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA" textAlignment="CENTER" wrappingWidth="139.70538330078125" />
+                          <Text fx:id="sideASDA" layoutX="228.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ASDA" textAlignment="CENTER" wrappingWidth="179.70538330078125" />
+                          <RadioButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#leftSideButtonClick" selected="true" text="Left">
+                              <toggleGroup>
+                                  <ToggleGroup fx:id="LeftRightRunway" />
+                              </toggleGroup>
+                          </RadioButton>
+                          <RadioButton layoutX="14.0" layoutY="41.0" mnemonicParsing="false" onAction="#rightSideButtonClick" text="Right" toggleGroup="$LeftRightRunway" />
+                      </children>
                   </AnchorPane>
-            </content>
+              </content>
           </Tab>
         </tabs>
          <effect>

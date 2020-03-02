@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
@@ -14,6 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -33,7 +37,7 @@ public class Controller {
     private Airport airport;
     private Runway current;
     @FXML
-    private AnchorPane jacobAnchorPane;
+    private AnchorPane sideOnAnchorPane;
     @FXML
     private AnchorPane topView;
     @FXML
@@ -56,6 +60,17 @@ public class Controller {
     private Text designatorL;
     @FXML
     private Text designatorR;
+
+    private Boolean leftView = true;
+
+    @FXML
+    private Text sideTORA;
+    @FXML
+    private Text sideLDA;
+    @FXML
+    private Text sideTODA;
+    @FXML
+    private Text sideASDA;
 
 
     @FXML
@@ -80,7 +95,50 @@ public class Controller {
 
     @FXML
     void sideOnTabEvent(Event event) {
+        if(runwaySelect.getValue() != null){
+            sideOnAnchorPane.setVisible(true);
 
+            if(leftView){
+                leftRunwayUpdate();
+            }
+            else{
+                rightRunwayUpdate();
+            }
+
+            sideOnAnchorPane.setBackground(new Background(new BackgroundFill(Color.rgb(140,197,255),
+                    CornerRadii.EMPTY,
+                    Insets.EMPTY)));
+            System.out.println(runwaySelect.getValue());
+        }
+    }
+
+
+    public void leftSideButtonClick(ActionEvent actionEvent) {
+        if(runwaySelect.getValue() != null) {
+            leftRunwayUpdate();
+            leftView = true;
+        }
+    }
+
+    public void rightSideButtonClick(ActionEvent actionEvent) {
+        if(runwaySelect.getValue() != null) {
+            rightRunwayUpdate();
+            leftView = false;
+        }
+    }
+
+    public void leftRunwayUpdate(){
+        sideTORA.setText("TORA: " + current.getLeftRunway().getInitialParameters().getTora());
+        sideLDA.setText("LDA: " + current.getLeftRunway().getInitialParameters().getLda());
+        sideTODA.setText("TODA: " + current.getLeftRunway().getInitialParameters().getToda());
+        sideASDA.setText("ASDA: " + current.getLeftRunway().getInitialParameters().getAsda());
+    }
+
+    public void rightRunwayUpdate(){
+        sideTORA.setText("TORA: " + current.getRightRunway().getInitialParameters().getTora());
+        sideLDA.setText("LDA: " + current.getRightRunway().getInitialParameters().getLda());
+        sideTODA.setText("TODA: " + current.getRightRunway().getInitialParameters().getToda());
+        sideASDA.setText("ASDA: " + current.getRightRunway().getInitialParameters().getAsda());
     }
 
     @FXML
@@ -135,6 +193,7 @@ public class Controller {
     @FXML
     void runwaySelectEvent(Event event) {
         current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+        this.sideOnTabEvent(event);
 
         String value = runwaySelect.getValue();
         lineTODA.setStroke(Color.BLACK);
