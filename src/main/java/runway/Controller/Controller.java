@@ -91,6 +91,7 @@ public class Controller {
                 runwaySelect.getItems().add(currentRunway.toString());
             }
         }
+
     }
 
     public ComboBox<String> getRunwaySelect() {
