@@ -24,6 +24,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import runway.Model.Airport;
 import runway.Model.Runway;
+import runway.Model.VirtualRunway;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,13 +107,7 @@ public class Controller {
     void sideOnTabEvent(Event event) {
         if(runwaySelect.getValue() != null){
             sideOnAnchorPane.setVisible(true);
-
-            if(leftView){
-                leftRunwayUpdate();
-            }
-            else{
-                rightRunwayUpdate();
-            }
+            runwayUpdate();
 
             sideOnAnchorPane.setBackground(new Background(new BackgroundFill(Color.rgb(140,197,255),
                     CornerRadii.EMPTY,
@@ -124,66 +119,50 @@ public class Controller {
 
     public void leftSideButtonClick(ActionEvent actionEvent) {
         if(runwaySelect.getValue() != null) {
-            leftRunwayUpdate();
             leftView = true;
+            runwayUpdate();
         }
     }
 
     public void rightSideButtonClick(ActionEvent actionEvent) {
         if(runwaySelect.getValue() != null) {
-            rightRunwayUpdate();
             leftView = false;
+            runwayUpdate();
         }
     }
 
-    public void leftRunwayUpdate(){
-        double tora = current.getLeftRunway().getInitialParameters().getTora();
-        double lda = current.getLeftRunway().getInitialParameters().getLda();
-        double toda = current.getLeftRunway().getInitialParameters().getToda();
-        double asda = current.getLeftRunway().getInitialParameters().getAsda();
+    public void runwayUpdate(){
+        VirtualRunway v;
+        if(leftView){
+            v = current.getLeftRunway();
+        }
+        else{
+            v = current.getRightRunway();
+        }
+        Integer PIXEL_START = -317;
+        Integer PIXEL_TOTAL = 635;
+        double tora = v.getInitialParameters().getTora();
+        double lda = v.getInitialParameters().getLda();
+        double toda = v.getInitialParameters().getToda();
+        double asda = v.getInitialParameters().getAsda();
 
         double max = scale(tora,toda,lda,asda);
 
         sideTORA.setText("TORA: " + tora);
-        sideLineTORA.setStartX(-317);
-        sideLineTORA.setEndX(-317 + 635*(tora/max));
+        sideLineTORA.setStartX(PIXEL_START);
+        sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL*(tora/max));
 
         sideLDA.setText("LDA: " + lda);
-        sideLineLDA.setStartX(-317);
-        sideLineLDA.setEndX(-317 + 635*(lda/max));
+        sideLineLDA.setStartX(PIXEL_START);
+        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL*(lda/max));
 
         sideTODA.setText("TODA: " + toda);
-        sideLineTODA.setStartX(-317);
-        sideLineTODA.setEndX(-317 + 634*(toda/max));
+        sideLineTODA.setStartX(PIXEL_START);
+        sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL*(toda/max));
 
         sideASDA.setText("ASDA: " + asda);
-        sideLineASDA.setStartX(-317);
-        sideLineASDA.setEndX(-317 + 635*(asda/max));
-    }
-
-    public void rightRunwayUpdate(){
-        double tora = current.getRightRunway().getInitialParameters().getTora();
-        double lda = current.getRightRunway().getInitialParameters().getLda();
-        double toda = current.getRightRunway().getInitialParameters().getToda();
-        double asda = current.getRightRunway().getInitialParameters().getAsda();
-
-        double max = scale(tora,toda,lda,asda);
-
-        sideTORA.setText("TORA: " + tora);
-        sideLineTORA.setStartX(-317);
-        sideLineTORA.setEndX(-317 + 635*(tora/max));
-
-        sideLDA.setText("LDA: " + lda);
-        sideLineLDA.setStartX(-317);
-        sideLineLDA.setEndX(-317 + 635*(lda/max));
-
-        sideTODA.setText("TODA: " + toda);
-        sideLineTODA.setStartX(-317);
-        sideLineTODA.setEndX(-317 + 634*(toda/max));
-
-        sideASDA.setText("ASDA: " + asda);
-        sideLineASDA.setStartX(-317);
-        sideLineASDA.setEndX(-317 + 635*(asda/max));
+        sideLineASDA.setStartX(PIXEL_START);
+        sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL*(asda/max));
     }
 
     public double scale(double tora, double toda, double lda, double asda){
