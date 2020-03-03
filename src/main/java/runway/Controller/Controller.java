@@ -228,11 +228,11 @@ public class Controller {
 
     @FXML
     void topDownTabEvent(Event event) {
+        if (runwaySelect != null)
         if(runwaySelect.getValue() != null) {
             topView.setVisible(true);
             topRunwayUpdate();
         }
-
     }
 
     // Opens up the Runway Creation Window
@@ -317,7 +317,6 @@ public class Controller {
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
         try {
-            System.out.println(getClass().getResource(""));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
             Parent root = loader.load();
             ObjectCreationController ctrl = loader.getController();

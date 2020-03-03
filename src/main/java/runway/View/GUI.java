@@ -20,16 +20,19 @@ public class GUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        FXMLLoader loader = new FXMLLoader();
-        URL url = new File("src/main/resources/fxml/Scheleton.fxml").toURI().toURL();
-        loader.setLocation(url);
-        Controller controller = new Controller();
-        loader.setController(controller);
-
-        Parent root = FXMLLoader.load(url);
-        primaryStage.setTitle("Runway Redeclaration Tool");
-        primaryStage.setScene(new Scene(root, 1024, 740));
-        primaryStage.show();
-        controller.initialize();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scheleton.fxml"));
+            Parent root = loader.load();
+            Controller controller = new Controller();
+            loader.setController(controller);
+            ;
+            primaryStage.setTitle("Runway Redeclaration Tool");
+            primaryStage.setScene(new Scene(root, 1024, 740));
+            primaryStage.show();
+            primaryStage.setResizable(false);
+            controller.initialize();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
