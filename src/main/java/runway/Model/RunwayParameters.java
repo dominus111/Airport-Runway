@@ -2,13 +2,14 @@ package runway.Model;
 
 public class RunwayParameters {
 
-    private double tora, toda, asda, lda;
+    private double tora, toda, asda, lda, displacedThreshold;
 
-    public RunwayParameters(double tora, double toda, double asda, double lda) {
+    public RunwayParameters(double tora, double toda, double asda, double lda, double displacedThreshold) {
         this.tora = tora;
         this.toda = toda;
         this.asda = asda;
         this.lda = lda;
+        this.displacedThreshold = displacedThreshold;
     }
 
     public double getLda() {
@@ -42,4 +43,8 @@ public class RunwayParameters {
     public void setTora(double tora) {
         this.tora = tora;
     }
+
+    public double getDisplacedThreshold(){ return displacedThreshold; }
+
+    public void setDisplacedThreshold(double displacedThreshold){ this.displacedThreshold = displacedThreshold; }
 }

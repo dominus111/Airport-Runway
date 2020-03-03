@@ -83,10 +83,11 @@ public class RunwayCreationController {
             double bottomTORA = Double.parseDouble(rightTORA.getText());
 
             Airport airport = parentController.getAirport();
+            //TODO : add displaced threshold into selection box options
             if (topHValue > 18)
-                airport.addRunway(new Runway(new VirtualRunway(topHValue - 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA)), new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA))));
+                airport.addRunway(new Runway(new VirtualRunway(topHValue - 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA,  0)), new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, 0))));
             else
-                airport.addRunway(new Runway(new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA)), new VirtualRunway(topHValue + 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA))));
+                airport.addRunway(new Runway(new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, 0)), new VirtualRunway(topHValue + 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA, 0))));
 
             ComboBox<String> runwaySelect = parentController.getRunwaySelect();
             if(runwaySelect != null) {

@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -20,6 +21,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import runway.Model.Airport;
@@ -65,21 +67,13 @@ public class Controller {
     private Boolean leftView = true;
 
     @FXML
-    private Text sideTORA;
+    private Text sideTORA ,sideLDA, sideTODA ,sideASDA;
     @FXML
-    private Text sideLDA;
+    private RadioButton sideLeftButton, sideRightButton;
     @FXML
-    private Text sideTODA;
+    private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA;
     @FXML
-    private Text sideASDA;
-    @FXML
-    private Line sideLineTODA;
-    @FXML
-    private Line sideLineLDA;
-    @FXML
-    private Line sideLineTORA;
-    @FXML
-    private Line sideLineASDA;
+    private Rectangle rightStopway, rightClearway, sideDisplacedThreshold;
 
 
     @FXML
@@ -108,11 +102,6 @@ public class Controller {
         if(runwaySelect.getValue() != null){
             sideOnAnchorPane.setVisible(true);
             runwayUpdate();
-
-            sideOnAnchorPane.setBackground(new Background(new BackgroundFill(Color.rgb(140,197,255),
-                    CornerRadii.EMPTY,
-                    Insets.EMPTY)));
-            System.out.println(runwaySelect.getValue());
         }
     }
 
@@ -133,6 +122,9 @@ public class Controller {
 
     public void runwayUpdate(){
         VirtualRunway v;
+        sideLeftButton.setText(current.getLeftRunway().toString());
+        sideRightButton.setText(current.getRightRunway().toString());
+
         if(leftView){
             v = current.getLeftRunway();
         }
@@ -140,11 +132,12 @@ public class Controller {
             v = current.getRightRunway();
         }
         Integer PIXEL_START = -317;
-        Integer PIXEL_TOTAL = 635;
+        Integer PIXEL_TOTAL = 632 - 100;
         double tora = v.getInitialParameters().getTora();
         double lda = v.getInitialParameters().getLda();
         double toda = v.getInitialParameters().getToda();
         double asda = v.getInitialParameters().getAsda();
+        double displacedThreshold = v.getInitialParameters().getDisplacedThreshold();
 
         double max = scale(tora,toda,lda,asda);
 
@@ -152,17 +145,27 @@ public class Controller {
         sideLineTORA.setStartX(PIXEL_START);
         sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL*(tora/max));
 
+        rightClearway.setTranslateX(PIXEL_TOTAL*(tora/max));
+
+        rightStopway.setTranslateX(PIXEL_TOTAL*(tora/max));
+
         sideLDA.setText("LDA: " + lda);
-        sideLineLDA.setStartX(PIXEL_START);
-        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL*(lda/max));
+        sideLineLDA.setStartX(PIXEL_START + PIXEL_TOTAL*(displacedThreshold/max));
+        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL*((lda + displacedThreshold)/max));
+
+        sideDisplacedThreshold.setWidth(PIXEL_TOTAL*((tora - lda)/max));
 
         sideTODA.setText("TODA: " + toda);
         sideLineTODA.setStartX(PIXEL_START);
         sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL*(toda/max));
 
+        rightClearway.setWidth(PIXEL_TOTAL*((toda - tora)/max));
+
         sideASDA.setText("ASDA: " + asda);
         sideLineASDA.setStartX(PIXEL_START);
         sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL*(asda/max));
+
+        rightStopway.setWidth(PIXEL_TOTAL*((asda - tora)/max));
     }
 
     public double scale(double tora, double toda, double lda, double asda){

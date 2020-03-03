@@ -48,8 +48,8 @@ public class Calculator {
         if(slopeValue + distToTHR < RESA)
             slopeValue = RESA;
         double newLda = runwayParam.getLda() - slopeValue - distToTHR - stripEnd;
-
-        runway.setRecalculatedParameters(new RunwayParameters(newTora,newToda,newAsda,newLda));
+        //TODO add displaced threshold
+        runway.setRecalculatedParameters(new RunwayParameters(newTora,newToda,newAsda,newLda, 0));
     }
 
 
@@ -61,7 +61,8 @@ public class Calculator {
         double newTORA = distToTHR + displacedTHR - slopeValue - stripEnd;
         double newLDA = distToTHR - RESA - stripEnd;
 
-        runway.setRecalculatedParameters(new RunwayParameters(newTORA,newTORA,newTORA, newLDA));
+        //TODO add displaced threshold
+        runway.setRecalculatedParameters(new RunwayParameters(newTORA,newTORA,newTORA, newLDA, 0));
 
     }
 
