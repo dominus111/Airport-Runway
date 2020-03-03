@@ -71,6 +71,14 @@ public class Controller {
     private Text sideTODA;
     @FXML
     private Text sideASDA;
+    @FXML
+    private Line sideLineTODA;
+    @FXML
+    private Line sideLineLDA;
+    @FXML
+    private Line sideLineTORA;
+    @FXML
+    private Line sideLineASDA;
 
 
     @FXML
@@ -128,17 +136,64 @@ public class Controller {
     }
 
     public void leftRunwayUpdate(){
-        sideTORA.setText("TORA: " + current.getLeftRunway().getInitialParameters().getTora());
-        sideLDA.setText("LDA: " + current.getLeftRunway().getInitialParameters().getLda());
-        sideTODA.setText("TODA: " + current.getLeftRunway().getInitialParameters().getToda());
-        sideASDA.setText("ASDA: " + current.getLeftRunway().getInitialParameters().getAsda());
+        double tora = current.getLeftRunway().getInitialParameters().getTora();
+        double lda = current.getLeftRunway().getInitialParameters().getLda();
+        double toda = current.getLeftRunway().getInitialParameters().getToda();
+        double asda = current.getLeftRunway().getInitialParameters().getAsda();
+
+        double max = scale(tora,toda,lda,asda);
+
+        sideTORA.setText("TORA: " + tora);
+        sideLineTORA.setStartX(-317);
+        sideLineTORA.setEndX(-317 + 635*(tora/max));
+
+        sideLDA.setText("LDA: " + lda);
+        sideLineLDA.setStartX(-317);
+        sideLineLDA.setEndX(-317 + 635*(lda/max));
+
+        sideTODA.setText("TODA: " + toda);
+        sideLineTODA.setStartX(-317);
+        sideLineTODA.setEndX(-317 + 634*(toda/max));
+
+        sideASDA.setText("ASDA: " + asda);
+        sideLineASDA.setStartX(-317);
+        sideLineASDA.setEndX(-317 + 635*(asda/max));
     }
 
     public void rightRunwayUpdate(){
-        sideTORA.setText("TORA: " + current.getRightRunway().getInitialParameters().getTora());
-        sideLDA.setText("LDA: " + current.getRightRunway().getInitialParameters().getLda());
-        sideTODA.setText("TODA: " + current.getRightRunway().getInitialParameters().getToda());
-        sideASDA.setText("ASDA: " + current.getRightRunway().getInitialParameters().getAsda());
+        double tora = current.getRightRunway().getInitialParameters().getTora();
+        double lda = current.getRightRunway().getInitialParameters().getLda();
+        double toda = current.getRightRunway().getInitialParameters().getToda();
+        double asda = current.getRightRunway().getInitialParameters().getAsda();
+
+        double max = scale(tora,toda,lda,asda);
+
+        sideTORA.setText("TORA: " + tora);
+        sideLineTORA.setStartX(-317);
+        sideLineTORA.setEndX(-317 + 635*(tora/max));
+
+        sideLDA.setText("LDA: " + lda);
+        sideLineLDA.setStartX(-317);
+        sideLineLDA.setEndX(-317 + 635*(lda/max));
+
+        sideTODA.setText("TODA: " + toda);
+        sideLineTODA.setStartX(-317);
+        sideLineTODA.setEndX(-317 + 634*(toda/max));
+
+        sideASDA.setText("ASDA: " + asda);
+        sideLineASDA.setStartX(-317);
+        sideLineASDA.setEndX(-317 + 635*(asda/max));
+    }
+
+    public double scale(double tora, double toda, double lda, double asda){
+        double[] scalers = {tora,toda,lda,asda};
+        double max = 0;
+        for(double d : scalers){
+            if(d>max){
+                max = d;
+            }
+        }
+        return max;
     }
 
     @FXML
