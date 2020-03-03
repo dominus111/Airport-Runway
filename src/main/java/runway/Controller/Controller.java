@@ -283,6 +283,7 @@ public class Controller {
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
         try {
+            System.out.println(getClass().getResource(""));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
             Parent root = loader.load();
             ObjectCreationController ctrl = loader.getController();

@@ -18,7 +18,7 @@ public class RunwayCreationController {
     @FXML
     private TextField leftLDA,leftTODA,leftASDA,leftTORA, rightLDA, rightTODA, rightASDA, rightTORA;
     @FXML
-    private ComboBox<String> topRDirComboBox, bottomRDirComboBox, topHDirComboBox, bottomHDirComboBox;
+    private ComboBox<String> topRDirComboBox, topHDirComboBox;
 
     private Controller parentController;
 
@@ -32,14 +32,12 @@ public class RunwayCreationController {
             topRDirComboBox.getItems().clear();
             topRDirComboBox.getItems().addAll("Left", "Right", "Center", "None");
         }
-        bottomRDirComboBox.setDisable(true);
 
         if (topHDirComboBox != null) {
             topHDirComboBox.getItems().clear();
             for( int i = 1; i <= 36; i++)
             topHDirComboBox.getItems().add(String. valueOf(i));
         }
-        bottomHDirComboBox.setDisable(true);
 
         leftASDA.redo();
     }
