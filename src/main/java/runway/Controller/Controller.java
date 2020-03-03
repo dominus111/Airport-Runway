@@ -120,6 +120,56 @@ public class Controller {
         }
     }
 
+    public void topLeftButton(ActionEvent actionEvent) {
+        if(runwaySelect.getValue() != null) {
+            leftView = true;
+            topRunwayUpdate();
+        }
+    }
+
+    public void topRightButton(ActionEvent actionEvent) {
+        if(runwaySelect.getValue() != null) {
+            leftView = false;
+            topRunwayUpdate();
+        }
+    }
+
+    public void topRunwayUpdate() {
+        VirtualRunway v;
+        if (leftView) {
+            v = current.getLeftRunway();
+        } else {
+            v = current.getRightRunway();
+        }
+        Integer PIXEL_START = -317;
+        Integer PIXEL_TOTAL = 635;
+
+        lineTODA.setStroke(Color.BLACK);
+        lineASDA.setStroke(Color.BLACK);
+        lineTORA.setStroke(Color.BLACK);
+        lineLDA.setStroke(Color.BLACK);
+
+        double tora = v.getInitialParameters().getTora();
+        double lda = v.getInitialParameters().getLda();
+        double toda = v.getInitialParameters().getToda();
+        double asda = v.getInitialParameters().getAsda();
+
+        lineTODA.setEndX(430);
+        lineASDA.setEndX((int) asda* 430 / toda);
+        lineTORA.setEndX((int) tora* 430 / toda);
+        lineLDA.setEndX((int) lda* 430 / toda);
+
+        designatorL.setText(current.getLeftRunway().getDesignator());
+        designatorR.setText(current.getRightRunway().getDesignator());
+
+        textTORA.setText("TORA: " + tora);
+        textLDA.setText("LDA: " + lda);
+        textTODA.setText("TODA: " + toda);
+        textASDA.setText("ASDA: " + asda);
+    }
+
+
+
     public void runwayUpdate(){
         VirtualRunway v;
         sideLeftButton.setText(current.getLeftRunway().toString());
@@ -181,12 +231,11 @@ public class Controller {
 
     @FXML
     void topDownTabEvent(Event event) {
-        //Image image = new Image ("file:runaway.png");
-        //ImageView view = new ImageView();
-        //view.setImage(image);
-
-        //topView.getChildren().add(view);
-
+        if (runwaySelect != null)
+        if(runwaySelect.getValue() != null) {
+            topView.setVisible(true);
+            topRunwayUpdate();
+        }
     }
 
     // Opens up the Runway Creation Window
@@ -232,18 +281,20 @@ public class Controller {
     void runwaySelectEvent(Event event) {
         current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
         this.sideOnTabEvent(event);
-
+        this.topDownTabEvent(event);
+        /*
         String value = runwaySelect.getValue();
         lineTODA.setStroke(Color.BLACK);
         lineASDA.setStroke(Color.BLACK);
         lineTORA.setStroke(Color.BLACK);
         lineLDA.setStroke(Color.BLACK);
 
-        lineTODA.setEndX(430);
         int toda =  (int) current.getLeftRunway().getInitialParameters().getToda();
         int asda = (int) current.getLeftRunway().getInitialParameters().getAsda();
         int tora = (int) current.getLeftRunway().getInitialParameters().getTora();
         int lda = (int) current.getLeftRunway().getInitialParameters().getLda();
+
+        lineTODA.setEndX(430);
         lineASDA.setEndX((int) asda* 430 / toda);
         lineTORA.setEndX((int) tora* 430 / toda);
         lineLDA.setEndX((int) lda* 430 / toda);
@@ -259,14 +310,16 @@ public class Controller {
         textASDA.setText("ASDA: " + current.getLeftRunway().getInitialParameters().getAsda());
 
         //System.out.println(value);
+           */
 
     }
+
+
 
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
         try {
-            System.out.println(getClass().getResource(""));
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
             Parent root = loader.load();
             ObjectCreationController ctrl = loader.getController();
