@@ -58,7 +58,7 @@
           </Tab>
           <Tab onSelectionChanged="#sideOnTabEvent" text="Side On">
               <content>
-                  <AnchorPane fx:id="sideOnAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <AnchorPane fx:id="sideOnAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" visible="false">
                       <children>
                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#77c25d" height="136.0" layoutY="375.0" stroke="BLACK" strokeType="INSIDE" width="635.0" />
                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6e727d" height="19.0" layoutY="366.0" stroke="BLACK" strokeType="INSIDE" width="635.0" />
