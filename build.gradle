@@ -38,12 +38,15 @@ dependencies {
     compile 'org.openjfx:javafx-graphics:11'
     compile 'org.openjfx:javafx-fxml:11'
 
-//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:win"
-//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:linux"
-//    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:mac"
-//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:win"
-//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:linux"
-//    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:mac"
+    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:win"
+    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:linux"
+    runtimeOnly "org.openjfx:javafx-controls:$javafx.version:mac"
+    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:win"
+    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:linux"
+    runtimeOnly "org.openjfx:javafx-fxml:$javafx.version:mac"
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:win"
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:linux"
+    runtimeOnly "org.openjfx:javafx-graphics:$javafx.version:mac"
 }
 
 javafx {
@@ -68,11 +71,11 @@ jar {
         attributes 'Main-Class': 'runway.Main'
     }
     from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
-mainClassName = "$moduleName/runway.Main"
+//mainClassName = "$moduleName/runway.Main"
 
 task dist {
     dependsOn clean, jlinkZip
