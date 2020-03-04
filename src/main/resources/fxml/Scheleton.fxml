@@ -135,7 +135,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Button layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#addObjectToRunwayEvent" prefHeight="31.0" prefWidth="343.0" text="Add Object To Current Runway" />
+                  <Button disable="true" layoutX="14.0" layoutY="31.0" mnemonicParsing="false" onAction="#addObjectToRunwayEvent" prefHeight="31.0" prefWidth="343.0" text="Add Object To Current Runway" />
                </children>
             </Pane>
          </children>
