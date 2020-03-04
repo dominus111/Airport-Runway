@@ -29,4 +29,8 @@ public class VirtualRunway {
     public void setRecalculatedParameters(RunwayParameters recalculatedParameters) {
         this.recalculatedParameters = recalculatedParameters;
     }
+
+    public RunwayParameters getRecalculatedParameters() {
+        return recalculatedParameters;
+    }
 }
