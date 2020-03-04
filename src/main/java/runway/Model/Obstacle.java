@@ -4,6 +4,7 @@ public class Obstacle {
 
     private String name;
     private double height, length;
+    private ObstaclePositionParam oParam;
 
     public Obstacle(String name, double height, double length) {
         this.name = name;
@@ -20,8 +21,8 @@ public class Obstacle {
         return height;
     }
 
-    public double getLength() {
-        return length;
+    public void setoParam(ObstaclePositionParam oParam) {
+        this.oParam = oParam;
     }
 
     public void setName(String name) {
