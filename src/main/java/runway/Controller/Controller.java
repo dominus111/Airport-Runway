@@ -71,6 +71,8 @@ public class Controller {
     @FXML
     private RadioButton sideLeftButton, sideRightButton;
     @FXML
+    private RadioButton leftB, rightB;
+    @FXML
     private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA;
     @FXML
     private Rectangle rightStopway, rightClearway, sideDisplacedThreshold;
@@ -136,10 +138,17 @@ public class Controller {
 
     public void topRunwayUpdate() {
         VirtualRunway v;
+        leftB.setText(current.getLeftRunway().toString());
+        rightB.setText(current.getRightRunway().toString());
+
         if (leftView) {
             v = current.getLeftRunway();
+            designatorL.setText(current.getLeftRunway().getDesignator());
+            designatorR.setText(current.getRightRunway().getDesignator());
         } else {
             v = current.getRightRunway();
+            designatorR.setText(current.getLeftRunway().getDesignator());
+            designatorL.setText(current.getRightRunway().getDesignator());
         }
         Integer PIXEL_START = -317;
         Integer PIXEL_TOTAL = 635;
@@ -159,8 +168,6 @@ public class Controller {
         lineTORA.setEndX((int) tora* 430 / toda);
         lineLDA.setEndX((int) lda* 430 / toda);
 
-        designatorL.setText(current.getLeftRunway().getDesignator());
-        designatorR.setText(current.getRightRunway().getDesignator());
 
         textTORA.setText("TORA: " + tora);
         textLDA.setText("LDA: " + lda);

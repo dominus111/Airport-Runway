@@ -37,7 +37,7 @@
         <tabs>
           <Tab onSelectionChanged="#topDownTabEvent" text="Top Down">
             <content>
-              <AnchorPane fx:id="topView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" visible="false">
+              <AnchorPane fx:id="topView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <ImageView fx:id="image" fitHeight="479.0" fitWidth="620.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
                            <image>
