@@ -82,13 +82,9 @@ public class Controller {
     private Rectangle rightStopway, rightClearway, sideDisplacedThreshold;
 
     @FXML
-    private TableView<RunwayParameters> topLtableView, topRtableView, bottomLtableView, bottomRtableView;
+    private TableView<RunwayParameters> topLtableView, topRtableView;
     @FXML
     private TableColumn<RunwayParameters, Double> leftTora, leftToda, leftAsda, leftLda, rightTora, rightToda, rightAsda, rightLda;
-    /*@FXML
-    private TableColumn<RunwayParameters, Double> paramColLeft;
-    @FXML
-    private TableView<RunwayParameters> leftTableView;*/
     @FXML
     private Label leftRParamLabel, rightRParamLabel;
 
@@ -341,26 +337,22 @@ public class Controller {
         //clears table
         topLtableView.getItems().clear();
         topRtableView.getItems().clear();
-        bottomLtableView.getItems().clear();
-        bottomRtableView.getItems().clear();
 
         //checks to see if there is a runway selected
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
             Runway selectedRunway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
-            leftRParamLabel.setText("Runway parameters : Runway " + selectedRunway.getLeftRunway().toString());
-            rightRParamLabel.setText("Runway parameters : Runway " + selectedRunway.getRightRunway().toString());
+
+            leftRParamLabel.setText("Runway " + selectedRunway.getLeftRunway().toString());
+            rightRParamLabel.setText("Runway " + selectedRunway.getRightRunway().toString());
+
             topLtableView.getItems().add(selectedRunway.getLeftRunway().getInitialParameters());
             topRtableView.getItems().add(selectedRunway.getRightRunway().getInitialParameters());
-            bottomRtableView.getItems().add(selectedRunway.getRightRunway().getInitialParameters());
-            bottomLtableView.getItems().add(selectedRunway.getLeftRunway().getInitialParameters());
 
             // checks to see it has recalculated parameters
             if(selectedRunway.getLeftRunway().getRecalculatedParameters() != null) {
                 topLtableView.getItems().add(selectedRunway.getLeftRunway().getRecalculatedParameters());
                 topRtableView.getItems().add(selectedRunway.getRightRunway().getRecalculatedParameters());
-                bottomLtableView.getItems().add(selectedRunway.getLeftRunway().getRecalculatedParameters());
-                bottomRtableView.getItems().add(selectedRunway.getRightRunway().getRecalculatedParameters());
-            }
+             }
 
         }
 

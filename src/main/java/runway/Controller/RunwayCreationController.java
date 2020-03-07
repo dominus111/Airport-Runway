@@ -11,6 +11,8 @@ import runway.Model.Runway;
 import runway.Model.RunwayParameters;
 import runway.Model.VirtualRunway;
 
+import java.lang.reflect.InvocationTargetException;
+
 
 public class RunwayCreationController {
     @FXML
@@ -39,7 +41,14 @@ public class RunwayCreationController {
             topHDirComboBox.getItems().add(String. valueOf(i));
         }
 
-        leftASDA.redo();
+        leftASDA.clear();
+        leftTORA.clear();
+        leftLDA.clear();
+        leftTODA.clear();
+        rightTODA.clear();
+        rightTORA.clear();
+        rightASDA.clear();
+        rightLDA.clear();
     }
 
     @FXML
@@ -71,6 +80,8 @@ public class RunwayCreationController {
             }
 
             topRValue = String.valueOf(topRValue.charAt(0));
+            try {
+
             double topHValue = Double.parseDouble(topHDirComboBox.getSelectionModel().getSelectedItem());
             double topLDA = Double.parseDouble(leftLDA.getText());
             double topTODA = Double.parseDouble(leftTODA.getText());
@@ -83,7 +94,6 @@ public class RunwayCreationController {
             double bottomTORA = Double.parseDouble(rightTORA.getText());
 
             Airport airport = parentController.getAirport();
-            //TODO : add displaced threshold into selection box options
             if (topHValue > 18)
                 airport.addRunway(new Runway(new VirtualRunway(topHValue - 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA,  0)), new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, 0))));
             else
@@ -96,6 +106,12 @@ public class RunwayCreationController {
                     runwaySelect.getItems().add(currentRunway.toString());
                 }
             }
+
+            }  catch (NullPointerException | NumberFormatException ex)
+            {
+              System.out.println("Notification : Error. Only numbers allowed in the text fields.");
+            }
+
             this.initialize();
         }
     }

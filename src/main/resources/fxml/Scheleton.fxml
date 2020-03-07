@@ -27,7 +27,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="819.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
+<VBox prefHeight="768.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="928.0">
         <columnConstraints>
@@ -161,24 +161,28 @@
       </GridPane>
       <HBox prefHeight="270.0" prefWidth="923.0">
          <children>
-            <VBox prefHeight="270.0" prefWidth="528.0">
+            <VBox prefHeight="235.0" prefWidth="997.0">
                <children>
-                  <Label fx:id="leftRParamLabel" text="Runway Parameters">
-                     <padding>
-                        <Insets left="20.0" top="15.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Separator prefHeight="0.0" prefWidth="464.0" />
-                  <HBox prefHeight="183.0" prefWidth="464.0">
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Separator>
+                  <HBox prefHeight="216.0" prefWidth="793.0">
                      <children>
                         <VBox prefHeight="74.0" prefWidth="135.0">
                            <children>
+                              <Label fx:id="leftRParamLabel" text="Runway">
+                                 <padding>
+                                    <Insets left="30.0" top="20.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
                               <Label prefHeight="26.0" prefWidth="98.0" text="Initial Value (m)">
                                  <VBox.margin>
-                                    <Insets left="30.0" top="30.0" />
+                                    <Insets left="30.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font name="System Bold" size="13.0" />
@@ -189,15 +193,29 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets top="2.0" />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets left="3.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="rightRParamLabel" prefHeight="21.0" prefWidth="135.0" text="Runway">
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="28.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label prefHeight="0.0" prefWidth="134.0" text="Initial Value (m)">
+                              <Label prefHeight="28.0" prefWidth="134.0" text="Initial Value (m)">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                                  <padding>
-                                    <Insets left="30.0" top="49.0" />
+                                    <Insets left="30.0" />
                                  </padding>
                               </Label>
                               <Label text="Recalculated value (m)">
@@ -205,31 +223,38 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                                  <VBox.margin>
-                                    <Insets left="2.0" />
+                                    <Insets />
                                  </VBox.margin>
                                  <padding>
-                                    <Insets top="3.0" />
+                                    <Insets left="3.0" />
                                  </padding>
                               </Label>
                            </children></VBox>
-                        <VBox prefHeight="183.0" prefWidth="332.0">
+                        <VBox prefHeight="211.0" prefWidth="642.0">
                            <children>
-                              <TableView fx:id="topLtableView" prefHeight="92.0" prefWidth="324.0" scaleShape="false" stylesheets="@ScrollBar.css">
+                              <TableView fx:id="topLtableView" prefHeight="71.0" prefWidth="637.0" scaleShape="false" stylesheets="@ScrollBar.css">
                                 <columns>
-                                  <TableColumn fx:id="leftToda" prefWidth="162.2222391963005" text="TODA" />
-                                  <TableColumn fx:id="leftAsda" prefWidth="166.66664123535156" text="ASDA" />
+                                  <TableColumn fx:id="leftToda" prefWidth="157.0" text="TODA" />
+                                  <TableColumn fx:id="leftAsda" minWidth="8.4444580078125" prefWidth="157.0" text="ASDA" />
+                                  <TableColumn fx:id="leftTora" minWidth="0.0" prefWidth="157.0" text="TORA" />
+                                  <TableColumn fx:id="leftLda" prefWidth="164.4444478352865" text="LDA" />
                                 </columns>
                                  <VBox.margin>
-                                    <Insets right="5.0" top="5.0" />
+                                    <Insets bottom="5.0" right="5.0" top="10.0" />
                                  </VBox.margin>
                               </TableView>
-                              <TableView fx:id="bottomLtableView" prefHeight="90.0" prefWidth="329.0" scaleShape="false" stylesheets="@ScrollBar.css">
+                              <TableView fx:id="topRtableView" prefHeight="71.0" prefWidth="637.0" stylesheets="@ScrollBar.css">
                                 <columns>
-                                  <TableColumn fx:id="leftTora" prefWidth="163.1111552119255" text="TORA" />
-                                  <TableColumn fx:id="leftLda" prefWidth="165.3333282470703" text="LDA" />
+                                  <TableColumn fx:id="rightToda" prefWidth="158.0" text="TODA" />
+                                  <TableColumn fx:id="rightAsda" prefWidth="158.0" text="ASDA" />
+                                  <TableColumn fx:id="rightTora" prefWidth="158.0" text="TORA" />
+                                  <TableColumn fx:id="rightLda" minWidth="158.0" prefWidth="161.777821858724" text="LDA" />
                                 </columns>
+                                 <opaqueInsets>
+                                    <Insets top="5.0" />
+                                 </opaqueInsets>
                                  <VBox.margin>
-                                    <Insets right="5.0" />
+                                    <Insets bottom="5.0" right="5.0" top="15.0" />
                                  </VBox.margin>
                               </TableView>
                            </children>
@@ -239,94 +264,19 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" text="Show Calculations">
-                     <VBox.margin>
-                        <Insets left="240.0" top="10.0" />
-                     </VBox.margin>
-                  </Button>
                </children>
             </VBox>
-            <VBox prefHeight="270.0" prefWidth="528.0">
+            <VBox prefHeight="270.0" prefWidth="340.0">
                <children>
-                  <Label fx:id="rightRParamLabel" text="Runway Parameters">
-                     <padding>
-                        <Insets left="20.0" top="15.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Label>
-                  <Separator prefHeight="0.0" prefWidth="464.0" />
-                  <HBox prefHeight="183.0" prefWidth="464.0">
-                     <children>
-                        <VBox prefHeight="148.0" prefWidth="134.0">
-                           <children>
-                              <Label prefHeight="16.0" prefWidth="134.0" text="Initial Value (m)">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets top="30.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Recalculated value (m)">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label prefHeight="0.0" prefWidth="134.0" text="Initial Value (m)">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="30.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets top="50.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Recalculated value (m)">
-                                 <font>
-                                    <Font name="System Bold" size="12.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets top="3.0" />
-                                 </padding>
-                              </Label>
-                           </children></VBox>
-                        <VBox prefHeight="183.0" prefWidth="317.0">
-                           <children>
-                              <TableView fx:id="topRtableView" prefHeight="200.0" prefWidth="325.0" stylesheets="@ScrollBar.css">
-                                <columns>
-                                  <TableColumn fx:id="rightToda" prefWidth="158.6667412519455" text="TODA" />
-                                  <TableColumn fx:id="rightAsda" prefWidth="157.7777099609375" text="ASDA" />
-                                </columns>
-                                 <opaqueInsets>
-                                    <Insets top="5.0" />
-                                 </opaqueInsets>
-                                 <VBox.margin>
-                                    <Insets top="8.0" />
-                                 </VBox.margin>
-                              </TableView>
-                              <TableView fx:id="bottomRtableView" prefHeight="200.0" prefWidth="200.0" stylesheets="@ScrollBar.css">
-                                <columns>
-                                  <TableColumn fx:id="rightTora" prefWidth="160.8889092206955" text="TORA" />
-                                  <TableColumn fx:id="rightLda" prefWidth="155.5555419921875" text="LDA" />
-                                </columns>
-                              </TableView>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
+                  <Separator prefWidth="200.0" />
                   <Button mnemonicParsing="false" text="Show Calculations">
                      <VBox.margin>
-                        <Insets left="240.0" top="10.0" />
+                        <Insets top="45.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Show Calculations">
+                     <VBox.margin>
+                        <Insets top="65.0" />
                      </VBox.margin>
                   </Button>
                </children>
