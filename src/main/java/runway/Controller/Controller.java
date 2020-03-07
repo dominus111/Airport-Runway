@@ -1,5 +1,6 @@
 package runway.Controller;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,8 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -24,13 +25,16 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import runway.Model.Airport;
 import runway.Model.Runway;
+import runway.Model.RunwayParameters;
 import runway.Model.VirtualRunway;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ListIterator;
 
 public class Controller {
@@ -77,6 +81,16 @@ public class Controller {
     @FXML
     private Rectangle rightStopway, rightClearway, sideDisplacedThreshold;
 
+    @FXML
+    private TableView<RunwayParameters> topLtableView, topRtableView, bottomLtableView, bottomRtableView;
+    @FXML
+    private TableColumn<RunwayParameters, Double> leftTora, leftToda, leftAsda, leftLda, rightTora, rightToda, rightAsda, rightLda;
+    /*@FXML
+    private TableColumn<RunwayParameters, Double> paramColLeft;
+    @FXML
+    private TableView<RunwayParameters> leftTableView;*/
+    @FXML
+    private Label leftRParamLabel, rightRParamLabel;
 
     @FXML
     public void initialize() {
@@ -194,7 +208,7 @@ public class Controller {
         double lda = v.getInitialParameters().getLda();
         double toda = v.getInitialParameters().getToda();
         double asda = v.getInitialParameters().getAsda();
-        double displacedThreshold = v.getInitialParameters().getDisplacedThreshold();
+        double displacedThreshold = v.getInitialParameters().getdispTHR();
 
         double max = scale(tora,toda,lda,asda);
 
@@ -262,6 +276,7 @@ public class Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        updateTables();
     }
 
     @FXML
@@ -282,13 +297,17 @@ public class Controller {
 
             airport.setObservableRunwayList(observableNewList);
         }
+        updateTables();
     }
 
     @FXML
     void runwaySelectEvent(Event event) {
-        current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
-        this.sideOnTabEvent(event);
-        this.topDownTabEvent(event);
+        if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            this.sideOnTabEvent(event);
+            this.topDownTabEvent(event);
+            this.updateTables();
+        }
         /*
         String value = runwaySelect.getValue();
         lineTODA.setStroke(Color.BLACK);
@@ -309,8 +328,6 @@ public class Controller {
         designatorL.setText(current.getLeftRunway().getDesignator());
         designatorR.setText(current.getRightRunway().getDesignator());
 
-
-
         textTORA.setText("TORA: " + current.getLeftRunway().getInitialParameters().getTora());
         textLDA.setText("LDA: " + current.getLeftRunway().getInitialParameters().getLda());
         textTODA.setText("TODA: " + current.getLeftRunway().getInitialParameters().getToda());
@@ -320,7 +337,45 @@ public class Controller {
            */
 
     }
+    public void updateTables () {
+        //clears table
+        topLtableView.getItems().clear();
+        topRtableView.getItems().clear();
+        bottomLtableView.getItems().clear();
+        bottomRtableView.getItems().clear();
 
+        //checks to see if there is a runway selected
+        if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            Runway selectedRunway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            leftRParamLabel.setText("Runway parameters : Runway " + selectedRunway.getLeftRunway().toString());
+            rightRParamLabel.setText("Runway parameters : Runway " + selectedRunway.getRightRunway().toString());
+            topLtableView.getItems().add(selectedRunway.getLeftRunway().getInitialParameters());
+            topRtableView.getItems().add(selectedRunway.getRightRunway().getInitialParameters());
+            bottomRtableView.getItems().add(selectedRunway.getRightRunway().getInitialParameters());
+            bottomLtableView.getItems().add(selectedRunway.getLeftRunway().getInitialParameters());
+
+            // checks to see it has recalculated parameters
+            if(selectedRunway.getLeftRunway().getRecalculatedParameters() != null) {
+                topLtableView.getItems().add(selectedRunway.getLeftRunway().getRecalculatedParameters());
+                topRtableView.getItems().add(selectedRunway.getRightRunway().getRecalculatedParameters());
+                bottomLtableView.getItems().add(selectedRunway.getLeftRunway().getRecalculatedParameters());
+                bottomRtableView.getItems().add(selectedRunway.getRightRunway().getRecalculatedParameters());
+            }
+
+        }
+
+        // Puts data
+        leftToda.setCellValueFactory(cellData -> cellData.getValue().todaProperty().asObject());
+        leftAsda.setCellValueFactory(cellData -> cellData.getValue().asdaProperty().asObject());
+        leftTora.setCellValueFactory(cellData -> cellData.getValue().toraProperty().asObject());
+        leftLda.setCellValueFactory(cellData -> cellData.getValue().ldaProperty().asObject());
+
+        rightToda.setCellValueFactory(cellData -> cellData.getValue().todaProperty().asObject());
+        rightAsda.setCellValueFactory(cellData -> cellData.getValue().asdaProperty().asObject());
+        rightTora.setCellValueFactory(cellData -> cellData.getValue().toraProperty().asObject());
+        rightLda.setCellValueFactory(cellData -> cellData.getValue().ldaProperty().asObject());
+
+    }
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {

@@ -1,50 +1,73 @@
 package runway.Model;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+
 public class RunwayParameters {
 
-    private double tora, toda, asda, lda, displacedThreshold;
+    private DoubleProperty tora, toda, asda, lda, displacedThreshold;
 
     public RunwayParameters(double tora, double toda, double asda, double lda, double displacedThreshold) {
-        this.tora = tora;
-        this.toda = toda;
-        this.asda = asda;
-        this.lda = lda;
-        this.displacedThreshold = displacedThreshold;
+        this.tora = new SimpleDoubleProperty(tora);
+        this.toda = new SimpleDoubleProperty(toda);
+        this.asda = new SimpleDoubleProperty(asda);
+        this.lda = new SimpleDoubleProperty(lda);
+        this.displacedThreshold = new SimpleDoubleProperty(displacedThreshold);
     }
 
-    public double getLda() {
+    public DoubleProperty ldaProperty() {
         return lda;
     }
 
+    public double getLda() {
+        return ldaProperty().get();
+    }
+
     public void setLda(double lda) {
-        this.lda = lda;
+        ldaProperty().set(lda);
     }
-
-    public double getAsda() {
-        return asda;
-    }
-
-    public void setAsda(double asda) {
-        this.asda = asda;
-    }
-
-    public double getToda() {
+    public DoubleProperty todaProperty() {
         return toda;
     }
 
-    public void setToda(double toda) {
-        this.toda = toda;
+    public double getToda() {
+        return todaProperty().get();
     }
 
-    public double getTora() {
+    public void setToda(double toda) {
+        todaProperty().set(toda);
+    }
+    public DoubleProperty asdaProperty() {
+        return asda;
+    }
+
+    public double getAsda() {
+        return asdaProperty().get();
+    }
+
+    public void setAsda(double asda) {
+        asdaProperty().set(asda);
+    }
+    public DoubleProperty toraProperty() {
         return tora;
     }
 
-    public void setTora(double tora) {
-        this.tora = tora;
+    public double getTora() {
+        return toraProperty().get();
     }
 
-    public double getDisplacedThreshold(){ return displacedThreshold; }
+    public void setTora(double tora) {
+        todaProperty().set(tora);
+    }
+    public DoubleProperty dispTHRProperty() {
+        return displacedThreshold;
+    }
 
-    public void setDisplacedThreshold(double displacedThreshold){ this.displacedThreshold = displacedThreshold; }
+    public double getdispTHR() {
+        return dispTHRProperty().get();
+    }
+
+    public void setLDA(double displacedTHR) {
+        dispTHRProperty().set(displacedTHR);
+    }
 }
