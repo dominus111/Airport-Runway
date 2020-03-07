@@ -19,16 +19,15 @@ public class GUI extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scheleton.fxml"));
             Parent root = loader.load();
             Controller controller = new Controller();
             loader.setController(controller);
-            ;
             primaryStage.setTitle("Runway Redeclaration Tool");
-            primaryStage.setScene(new Scene(root, 1024, 740));
+            primaryStage.setScene(new Scene(root));
             primaryStage.show();
             primaryStage.setResizable(false);
             controller.initialize();

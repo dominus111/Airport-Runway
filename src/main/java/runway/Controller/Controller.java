@@ -257,7 +257,7 @@ public class Controller {
             Stage stage = new Stage();
             stage.setTitle("Runway Creation");
             stage.setResizable(false);
-            stage.setScene(new Scene(root, 295, 585));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,8 +321,6 @@ public class Controller {
 
     }
 
-
-
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
@@ -335,7 +333,7 @@ public class Controller {
             Stage stage = new Stage();
             stage.setTitle("Object");
             stage.setResizable(false);
-            stage.setScene(new Scene(root, 256, 556));
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
