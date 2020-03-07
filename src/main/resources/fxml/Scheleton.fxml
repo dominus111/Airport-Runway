@@ -174,8 +174,8 @@
                   <TableView prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn prefWidth="149.33330196142197" text="Parameters" />
-                      <TableColumn prefWidth="186.66668701171875" text="Initial Values (m)" />
-                        <TableColumn prefWidth="143.55554538302954" text="Redeclared Values (m)" />
+                      <TableColumn minWidth="0.0" prefWidth="144.00001525878906" text="Initial Values (m)" />
+                        <TableColumn prefWidth="140.0" text="Redeclared Values (m)" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" left="15.0" right="15.0" top="2.0" />
@@ -201,8 +201,8 @@
                   <TableView prefHeight="200.0" prefWidth="200.0">
                     <columns>
                       <TableColumn prefWidth="149.0" text="Parameters" />
-                      <TableColumn prefWidth="186.0" text="Initial Values (m)" />
-                        <TableColumn prefWidth="143.0" text="Redeclared Values (m)" />
+                      <TableColumn prefWidth="158.22235107421875" text="Initial Values (m)" />
+                        <TableColumn prefWidth="140.4443359375" text="Redeclared Values (m)" />
                     </columns>
                      <VBox.margin>
                         <Insets bottom="5.0" right="15.0" top="2.0" />
