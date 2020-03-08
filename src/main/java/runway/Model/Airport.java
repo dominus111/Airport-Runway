@@ -16,7 +16,7 @@ public class Airport {
         observableRunwayList = FXCollections.observableArrayList();
         Runway mock = new Runway(new VirtualRunway("09R", new RunwayParameters(3660,4000,3800,3353, 307)), new VirtualRunway("27L", new RunwayParameters(3660,3660,3660,3660, 0)));
 
-        Obstacle obstacle = new Obstacle("mock",25 ,0 );
+        Obstacle obstacle = new Obstacle("mock",25);
         ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, 2853,500,20);
 
         Calculator calculator = new Calculator();

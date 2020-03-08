@@ -14,7 +14,7 @@ public class Test {
     }
 
     public void heathRow1 () {
-        Obstacle obstacle = new Obstacle("mock",12 ,0 );
+        Obstacle obstacle = new Obstacle("mock",12);
         ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, -50,3646,0);
         Calculator calculator = new Calculator();
 
@@ -45,7 +45,7 @@ public class Test {
     }
 
     public void heathRow2 () {
-        Obstacle obstacle = new Obstacle("mock",25 ,0 );
+        Obstacle obstacle = new Obstacle("mock",25 );
         ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, 2853,500,20);
         Calculator calculator = new Calculator();
 
@@ -77,7 +77,7 @@ public class Test {
 
 
     public void heathRow3 () {
-        Obstacle obstacle = new Obstacle("mock",15 ,0 );
+        Obstacle obstacle = new Obstacle("mock",15);
         ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, 150,3203,60);
         Calculator calculator = new Calculator();
 

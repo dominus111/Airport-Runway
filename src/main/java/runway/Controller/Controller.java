@@ -369,19 +369,40 @@ public class Controller {
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
-            Parent root = loader.load();
-            ObjectCreationController ctrl = loader.getController();
+        if(runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
+                Parent root = loader.load();
+                ObjectCreationController ctrl = loader.getController();
 
-            ctrl.setParentController(this);
-            Stage stage = new Stage();
-            stage.setTitle("Object");
-            stage.setResizable(false);
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+                ctrl.getTopRadioButton().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
+                ctrl.getBottomRadioButton().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
+
+                ctrl.setParentController(this);
+                Stage stage = new Stage();
+                stage.setTitle("Object");
+                stage.setResizable(false);
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else  {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setFullScreen(false);
+            dialog.setResizable(false);
+            dialog.setTitle("Add Object");
+            dialog.setIconified(false);
+            VBox dialogVbox = new VBox(20);
+            Text text = new Text("No runway has been selected.\nPlease select a runway and try again.");
+
+
+            Scene dialogScene = new Scene(dialogVbox, 250, 80);
+            dialog.setScene(dialogScene);
+            dialogVbox.setPadding(new Insets(20,20,20,20));
+            dialogVbox.getChildren().add(text);
+            dialog.show();
         }
     }
 
@@ -417,11 +438,13 @@ public class Controller {
             else
                 text.setText(virtualRunway.getRecalculatedParameters().getCalculationBrkdwn());
         }
-        Scene dialogScene = new Scene(dialogVbox, 500, 300);
+        Scene dialogScene = new Scene(dialogVbox, 600, 300);
         dialog.setScene(dialogScene);
 
         dialogVbox.setPadding(new Insets(20,20,20,20));
         dialogVbox.getChildren().add(text);
+        dialog.setFullScreen(false);
+        dialog.setResizable(false);
         dialog.show();
     }
 }

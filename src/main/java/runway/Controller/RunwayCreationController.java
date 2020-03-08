@@ -106,13 +106,12 @@ public class RunwayCreationController {
                     runwaySelect.getItems().add(currentRunway.toString());
                 }
             }
-
+            runwayCancelButtonEvent(event);
             }  catch (NullPointerException | NumberFormatException ex)
             {
               System.out.println("Notification : Error. Only numbers allowed in the text fields.");
             }
 
-            this.initialize();
         }
     }
 }

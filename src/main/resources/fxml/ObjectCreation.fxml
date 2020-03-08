@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="257.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.ObjectCreationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="257.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.ObjectCreationController">
    <children>
-      <Pane prefHeight="521.0" prefWidth="225.0">
+      <Pane prefHeight="508.0" prefWidth="257.0">
          <children>
             <Label alignment="CENTER" layoutX="51.0" layoutY="23.0" text="Select predefined object">
                <font>
@@ -26,51 +26,45 @@
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="48.0" layoutY="93.0" />
+            <TextField fx:id="nameTextField" layoutX="48.0" layoutY="93.0" />
             <Label layoutX="51.0" layoutY="119.0" text="Height (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="48.0" layoutY="136.0" />
-            <Label layoutX="51.0" layoutY="166.0" text="Length (m)">
+            <TextField fx:id="heightTextField" layoutX="48.0" layoutY="136.0" />
+            <Label layoutX="51.0" layoutY="235.0" text="Select Runway">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="48.0" layoutY="186.0" />
-            <Label layoutX="51.0" layoutY="282.0" text="Select Runway">
-               <font>
-                  <Font name="Calibri Bold" size="13.0" />
-               </font>
-            </Label>
-            <RadioButton layoutX="68.0" layoutY="303.0" mnemonicParsing="false" text="RadioButton">
+            <RadioButton fx:id="topRadioButton" layoutX="68.0" layoutY="256.0" mnemonicParsing="false" text="RadioButton">
                <toggleGroup>
                   <ToggleGroup fx:id="runwaySelect" />
                </toggleGroup></RadioButton>
-            <RadioButton layoutX="68.0" layoutY="327.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$runwaySelect" />
-            <Separator layoutX="-2.0" layoutY="218.0" prefHeight="11.0" prefWidth="258.0" />
-            <Label layoutX="51.0" layoutY="231.0" text="Distance to centerline (m)">
+            <RadioButton fx:id="bottomRadioButton" layoutX="68.0" layoutY="280.0" mnemonicParsing="false" text="RadioButton" toggleGroup="$runwaySelect" />
+            <Separator layoutX="-2.0" layoutY="168.0" prefHeight="11.0" prefWidth="258.0" />
+            <Label layoutX="51.0" layoutY="184.0" text="Distance to centerline (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="48.0" layoutY="251.0" />
-            <Label layoutX="51.0" layoutY="348.0" text="Distance to threshold  (m)">
+            <TextField fx:id="distToCLTextField" layoutX="48.0" layoutY="204.0" />
+            <Label layoutX="51.0" layoutY="301.0" text="Distance to threshold  (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="48.0" layoutY="368.0" />
-            <Button layoutX="70.0" layoutY="478.0" mnemonicParsing="false" text="Assign To Runway" />
-            <Separator layoutX="-2.0" layoutY="452.0" prefHeight="11.0" prefWidth="258.0" />
-            <Button fx:id="cancelButton" layoutX="97.0" layoutY="512.0" mnemonicParsing="false" onAction="#objectCancelButtonEvent" text="Cancel" />
-            <Label layoutX="51.0" layoutY="401.0" text="Distance to the other threshold  (m)">
+            <TextField fx:id="distToThrTextField" layoutX="48.0" layoutY="321.0" />
+            <Button layoutX="70.0" layoutY="432.0" mnemonicParsing="false" onAction="#assignButtonEvent" text="Assign To Runway" />
+            <Separator layoutX="-2.0" layoutY="413.0" prefHeight="11.0" prefWidth="258.0" />
+            <Button fx:id="cancelButton" layoutX="97.0" layoutY="471.0" mnemonicParsing="false" onAction="#objectCancelButtonEvent" text="Cancel" />
+            <Label layoutX="51.0" layoutY="354.0" text="Distance to the other threshold  (m)">
                <font>
                   <Font name="Calibri Bold" size="13.0" />
                </font>
             </Label>
-            <TextField layoutX="48.0" layoutY="422.0" />
+            <TextField fx:id="bottomDistToThrTextF" layoutX="48.0" layoutY="375.0" />
          </children>
       </Pane>
       <Pane prefHeight="0.0" prefWidth="209.0" />

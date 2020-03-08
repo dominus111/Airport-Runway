@@ -60,13 +60,13 @@ public class Calculator {
 
         if(((50 * height + stripEnd) > BLAST_ALLOWENCE)) {
             newLda = runwayParam.getLda() - distToTHR - ((50 * height + stripEnd));
-            calculationBrkdwn+="LDA = INITIAL LDA - DIST FROM LEFT THRESHOLD - SLOPE ANGLE * OBSTACLE HEIGHT + STRIP END\n"+
+            calculationBrkdwn+="LDA = Initial LDA - Distance from Threshold - Slope Angle * Obstacle Height + Strip End\n"+
                     "LDA = "+runwayParam.getLda()+" - "+distToTHR+" - "+((50 * height))+" + "+stripEnd +
                     "LDA = "+newLda+ "\n \n";
 
         } else {
             newLda = runwayParam.getLda() -distToTHR - BLAST_ALLOWENCE;
-            calculationBrkdwn+="LDA = INITIAL LDA - DIST FROM LEFT THRESHOLD - BLAST PROTECTION\n"+
+            calculationBrkdwn+="LDA = Initial LDA - Distance from Threshold - Blast Protection\n"+
                     "LDA = "+runwayParam.getLda()+" - "+distToTHR+" - "+BLAST_ALLOWENCE +
                     "LDA = "+newLda+ "\n \n";
         }

@@ -3,13 +3,12 @@ package runway.Model;
 public class Obstacle {
 
     private String name;
-    private double height, length;
+    private double height;
     private ObstaclePositionParam oParam;
 
-    public Obstacle(String name, double height, double length) {
+    public Obstacle(String name, double height) {
         this.name = name;
         this.height = height;
-        this.length = length;
     }
 
     // Getter and setters for instance variables
@@ -33,7 +32,4 @@ public class Obstacle {
         this.height = height;
     }
 
-    public void setLength(double length) {
-        this.length = length;
-    }
 }
