@@ -3,6 +3,7 @@ package runway.Model;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.css.converter.PaintConverter;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -13,8 +14,17 @@ public class Airport {
 
     public Airport() {
         observableRunwayList = FXCollections.observableArrayList();
-        observableRunwayList.add(new Runway(new VirtualRunway("09R", new RunwayParameters(3660,4000,3800,3353, 307)), new VirtualRunway("27L", new RunwayParameters(3660,3660,3660,3660, 0))));
+        Runway mock = new Runway(new VirtualRunway("09R", new RunwayParameters(3660,4000,3800,3353, 307)), new VirtualRunway("27L", new RunwayParameters(3660,3660,3660,3660, 0)));
+
+        Obstacle obstacle = new Obstacle("mock",25 ,0 );
+        ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, 2853,500,20);
+
+        Calculator calculator = new Calculator();
+        calculator.calculate(oParam, mock);
+
+        //observableRunwayList.add(new Runway(new VirtualRunway("09R", new RunwayParameters(3660,4000,3800,3353, 307)), new VirtualRunway("27L", new RunwayParameters(3660,3660,3660,3660, 0))));
         observableRunwayList.add(new Runway(new VirtualRunway("09L", new RunwayParameters(3902,4100,4000,3595, 306)), new VirtualRunway("27R", new RunwayParameters(3884,3962,3884,3884, 0))));
+        observableRunwayList.add(mock);
     }
 
     public ObservableList<Runway> getObservableRunwayList() {

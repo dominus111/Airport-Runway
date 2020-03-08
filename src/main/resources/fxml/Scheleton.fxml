@@ -269,12 +269,12 @@
             <VBox prefHeight="270.0" prefWidth="340.0">
                <children>
                   <Separator prefWidth="200.0" />
-                  <Button mnemonicParsing="false" text="Show Calculations">
+                  <Button mnemonicParsing="false" onAction="#topShowCalculationButtonEvent" text="Show Calculations">
                      <VBox.margin>
                         <Insets top="45.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Show Calculations">
+                  <Button mnemonicParsing="false" onAction="#BottomShowCalculationButtonEvent" text="Show Calculations">
                      <VBox.margin>
                         <Insets top="65.0" />
                      </VBox.margin>

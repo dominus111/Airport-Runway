@@ -15,15 +15,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
 
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import runway.Model.Airport;
@@ -385,5 +383,45 @@ public class Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void topShowCalculationButtonEvent(ActionEvent event) {
+        ShowCalculations("Top Button");
+    }
+
+    @FXML
+    void BottomShowCalculationButtonEvent(ActionEvent event) {
+        ShowCalculations("Bottom Button");
+    }
+
+    public void ShowCalculations(String button) {
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        VBox dialogVbox = new VBox(20);
+        Text text = new Text();
+
+        if(runwaySelect.getSelectionModel().getSelectedItem() == null) {
+            text.setText("No Runway Selected");
+            text.setLayoutX(20);
+        } else {
+            VirtualRunway virtualRunway;
+            Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            if(button.equals("Top Button"))
+                virtualRunway = runway.getLeftRunway();
+            else
+                virtualRunway = runway.getRightRunway();
+
+            if(virtualRunway.getRecalculatedParameters() == null)
+                text.setText("There are no calculations to show.");
+            else
+                text.setText(virtualRunway.getRecalculatedParameters().getCalculationBrkdwn());
+        }
+        Scene dialogScene = new Scene(dialogVbox, 500, 300);
+        dialog.setScene(dialogScene);
+
+        dialogVbox.setPadding(new Insets(20,20,20,20));
+        dialogVbox.getChildren().add(text);
+        dialog.show();
     }
 }

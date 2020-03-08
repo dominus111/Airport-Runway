@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleDoubleProperty;
 public class RunwayParameters {
 
     private DoubleProperty tora, toda, asda, lda, displacedThreshold;
+    private String calculationBrkdwn;
 
     public RunwayParameters(double tora, double toda, double asda, double lda, double displacedThreshold) {
         this.tora = new SimpleDoubleProperty(tora);
@@ -13,6 +14,14 @@ public class RunwayParameters {
         this.asda = new SimpleDoubleProperty(asda);
         this.lda = new SimpleDoubleProperty(lda);
         this.displacedThreshold = new SimpleDoubleProperty(displacedThreshold);
+    }
+
+    public String getCalculationBrkdwn() {
+        return calculationBrkdwn;
+    }
+
+    public void setCalculationBrkdwn(String calculationBrkdwn) {
+        this.calculationBrkdwn = calculationBrkdwn;
     }
 
     public DoubleProperty ldaProperty() {
