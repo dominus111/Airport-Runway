@@ -22,11 +22,11 @@ public class Test {
         System.out.println("Data for Heathrow Scenario 1");
 
         System.out.println("Data for left runway");
-        if(runway09L27R.getLeftRunway().getRecalculatedParameters().getTora() + 1 == 3346 )
+        if(runway09L27R.getLeftRunway().getRecalculatedParameters().getTora() == 3346 )
             System.out.println("Recalculated TORA is ok.");
-        if(runway09L27R.getLeftRunway().getRecalculatedParameters().getAsda() + 1 == 3346 )
+        if(runway09L27R.getLeftRunway().getRecalculatedParameters().getAsda() == 3346 )
             System.out.println("Recalculated ASDA is ok.");
-        if(runway09L27R.getLeftRunway().getRecalculatedParameters().getToda() + 1 == 3346 )
+        if(runway09L27R.getLeftRunway().getRecalculatedParameters().getToda() == 3346 )
             System.out.println("Recalculated TODA is ok.");
         if(runway09L27R.getLeftRunway().getRecalculatedParameters().getLda() == 2985 )
             System.out.println("Recalculated LDA is ok.");

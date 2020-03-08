@@ -22,8 +22,8 @@ public class Calculator {
 
     public void pickRecalculationCase (ObstaclePositionParam oParam, Runway runway) {
 
-        double lDisplacemnet = runway.getLeftRunway().getInitialParameters().getTora() - runway.getLeftRunway().getInitialParameters().getLda();
-        double rDisplacement = runway.getRightRunway().getInitialParameters().getTora() - runway.getRightRunway().getInitialParameters().getLda();
+        double lDisplacemnet = runway.getLeftRunway().getInitialParameters().getdispTHR();
+        double rDisplacement = runway.getRightRunway().getInitialParameters().getdispTHR();
         double objHeight = oParam.getObstacle().getHeight();
 
         // Decide which runway is used for takes off/landing towards/away from the obstacle
@@ -41,7 +41,7 @@ public class Calculator {
         RunwayParameters runwayParam = runway.getInitialParameters();
         double stopway = runwayParam.getAsda() - runwayParam.getTora();
         double clearway = runwayParam.getToda() - runwayParam.getTora();
-        double displacedTHR = runwayParam.getTora() - runwayParam.getLda();
+        double displacedTHR = runwayParam.getdispTHR();
         String calculationBrkdwn = "";
 
         double newTora, newLda;

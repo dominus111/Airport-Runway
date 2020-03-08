@@ -56,6 +56,12 @@
             </Label>
             <ComboBox fx:id="topRDirComboBox" layoutX="127.0" layoutY="45.0" prefWidth="150.0" />
             <ComboBox fx:id="topHDirComboBox" layoutX="127.0" layoutY="80.0" prefWidth="150.0" />
+            <Label layoutX="8.0" layoutY="257.0" text="Displaced Threashold ">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="leftDispThr" layoutX="128.0" layoutY="251.0" />
          </children>
       </Pane>
       <Pane prefHeight="697.0" prefWidth="288.0">
@@ -90,8 +96,14 @@
             </Label>
             <TextField fx:id="rightASDA" layoutX="128.0" layoutY="118.0" />
             <TextField fx:id="rightTORA" layoutX="128.0" layoutY="153.0" />
-            <Button layoutX="76.0" layoutY="225.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Physical  Runway" />
-            <Button fx:id="cancelButton" layoutX="123.0" layoutY="262.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
+            <Button layoutX="76.0" layoutY="232.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Physical  Runway" />
+            <Button fx:id="cancelButton" layoutX="123.0" layoutY="266.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
+            <Label layoutX="8.0" layoutY="191.0" text="Displaced Threashold ">
+               <font>
+                  <Font name="Calibri" size="13.0" />
+               </font>
+            </Label>
+            <TextField fx:id="rightDispThr" layoutX="128.0" layoutY="187.0" />
          </children>
       </Pane>
    </children>
