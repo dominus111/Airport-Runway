@@ -4,14 +4,12 @@ public class ObstaclePositionParam {
 
     private Obstacle obstacle;
     private double distToLTHR, distToRTHR, distToCenterL;
-    private VirtualRunway virtualRunway;
 
-    public ObstaclePositionParam(Obstacle obstacle, double distToLTHR, double distToRTHR, double distToCenterL, VirtualRunway virtualRunway) {
+    public ObstaclePositionParam(Obstacle obstacle, double distToLTHR, double distToRTHR, double distToCenterL) {
         this.obstacle = obstacle;
         this.distToLTHR = distToLTHR;
         this.distToRTHR = distToRTHR;
         this.distToCenterL = distToCenterL;
-        this.virtualRunway = virtualRunway;
     }
 
     public Obstacle getObstacle() {
@@ -30,7 +28,4 @@ public class ObstaclePositionParam {
         return distToCenterL;
     }
 
-    public VirtualRunway getVirtualRunway() {
-        return virtualRunway;
-    }
 }

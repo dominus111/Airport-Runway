@@ -9,12 +9,13 @@ public class Test {
 
     public Test() {
         heathRow1();
+        heathRow2();
         heathRow3();
     }
 
     public void heathRow1 () {
         Obstacle obstacle = new Obstacle("mock",12 ,0 );
-        ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, -50,3646,0, runway09L27R.getLeftRunway());
+        ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, -50,3646,0);
         Calculator calculator = new Calculator();
 
         calculator.calculate(oParam, runway09L27R);
@@ -43,9 +44,41 @@ public class Test {
 
     }
 
+    public void heathRow2 () {
+        Obstacle obstacle = new Obstacle("mock",25 ,0 );
+        ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, 2853,500,20);
+        Calculator calculator = new Calculator();
+
+        calculator.calculate(oParam, runway09R27L);
+        System.out.println("Data for Heathrow Scenario 3");
+
+        System.out.println("Data for left runway");
+        if(runway09R27L.getLeftRunway().getRecalculatedParameters().getTora() == 1850 )
+            System.out.println("Recalculated TORA is ok.");
+        if(runway09R27L.getLeftRunway().getRecalculatedParameters().getAsda() == 1850 )
+            System.out.println("Recalculated ASDA is ok.");
+        if(runway09R27L.getLeftRunway().getRecalculatedParameters().getToda() == 1850 )
+            System.out.println("Recalculated TODA is ok.");
+        if(runway09R27L.getLeftRunway().getRecalculatedParameters().getLda() == 2553 )
+            System.out.println("Recalculated LDA is ok.");
+
+
+        System.out.println("Data for right runway");
+        if(runway09R27L.getRightRunway().getRecalculatedParameters().getTora() == 2860 )
+            System.out.println("Recalculated TORA is ok.");
+        if(runway09R27L.getRightRunway().getRecalculatedParameters().getAsda() == 2860 )
+            System.out.println("Recalculated ASDA is ok.");
+        if(runway09R27L.getRightRunway().getRecalculatedParameters().getToda() == 2860 )
+            System.out.println("Recalculated TODA is ok.");
+        if(runway09R27L.getRightRunway().getRecalculatedParameters().getLda() ==  1850 )
+            System.out.println("Recalculated LDA is ok.");
+
+    }
+
+
     public void heathRow3 () {
         Obstacle obstacle = new Obstacle("mock",15 ,0 );
-        ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, 150,3203,60, runway09R27L.getLeftRunway());
+        ObstaclePositionParam oParam = new ObstaclePositionParam(obstacle, 150,3203,60);
         Calculator calculator = new Calculator();
 
         calculator.calculate(oParam, runway09R27L);
