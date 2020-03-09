@@ -111,6 +111,8 @@ public class Controller {
     void sideOnTabEvent(Event event) {
         if(runwaySelect.getValue() != null){
             sideOnAnchorPane.setVisible(true);
+            sideLeftButton.setDisable(false);
+            sideRightButton.setDisable(false);
             runwayUpdate();
         }
     }
@@ -196,7 +198,7 @@ public class Controller {
         else{
             v = current.getRightRunway();
         }
-        Integer PIXEL_START = -317;
+        Integer PIXEL_START = -302;
         Integer PIXEL_TOTAL = 632 - 100;
         double tora = v.getInitialParameters().getTora();
         double lda = v.getInitialParameters().getLda();
@@ -210,15 +212,17 @@ public class Controller {
         sideLineTORA.setStartX(PIXEL_START);
         sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL*(tora/max));
 
-        rightClearway.setTranslateX(PIXEL_TOTAL*(tora/max));
+        rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL*(tora/max));
 
-        rightStopway.setTranslateX(PIXEL_TOTAL*(tora/max));
+        rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL*(tora/max));
 
         sideLDA.setText("LDA: " + lda);
         sideLineLDA.setStartX(PIXEL_START + PIXEL_TOTAL*(displacedThreshold/max));
         sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL*((lda + displacedThreshold)/max));
 
-        sideDisplacedThreshold.setWidth(PIXEL_TOTAL*((tora - lda)/max));
+        //any setTranslateX using PIXEL_START must take into account the actual pixel start of -317
+        sideDisplacedThreshold.setTranslateX(PIXEL_START + 317);
+        sideDisplacedThreshold.setWidth(PIXEL_TOTAL*(displacedThreshold/max));
 
         sideTODA.setText("TODA: " + toda);
         sideLineTODA.setStartX(PIXEL_START);
