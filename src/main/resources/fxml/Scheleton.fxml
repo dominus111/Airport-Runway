@@ -89,16 +89,16 @@
                                 <Text fx:id="sideTODA" layoutX="240.0" layoutY="460.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TODA" textAlignment="CENTER" wrappingWidth="155.47467041015625" />
                                 <Text fx:id="sideLDA" layoutX="248.0" layoutY="434.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA" textAlignment="CENTER" wrappingWidth="139.70538330078125" />
                                 <Text fx:id="sideASDA" layoutX="228.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ASDA" textAlignment="CENTER" wrappingWidth="179.70538330078125" />
-                                <RadioButton fx:id="sideLeftButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#leftSideButtonClick" selected="true" text="Left">
+                                <RadioButton fx:id="sideLeftButton" disable="true" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#leftSideButtonClick" selected="true" text="Left">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="LeftRightRunway" />
                                     </toggleGroup>
                                 </RadioButton>
-                                <RadioButton fx:id="sideRightButton" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" onAction="#rightSideButtonClick" text="Right" toggleGroup="$LeftRightRunway" />
-                              <Rectangle fx:id="rightClearway" fill="#c40034" height="19.0" layoutX="2.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="510.0" width="65.0" />
-                              <Rectangle fx:id="rightStopway" fill="#da891e" height="15.0" layoutX="2.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" translateX="510.0" width="10.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000026" height="10.0" layoutX="-5.0" layoutY="375.0" stroke="TRANSPARENT" strokeType="INSIDE" width="643.0" />
+                                <RadioButton fx:id="sideRightButton" disable="true" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" onAction="#rightSideButtonClick" text="Right" toggleGroup="$LeftRightRunway" />
+                              <Rectangle fx:id="rightClearway" fill="#c40034" height="19.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" width="65.0" />
                               <Rectangle fx:id="sideDisplacedThreshold" fill="#e8e81e" height="19.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" width="65.0" />
+                              <Rectangle fx:id="rightStopway" fill="#da891e" height="15.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" width="10.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000026" height="10.0" layoutX="-5.0" layoutY="375.0" stroke="TRANSPARENT" strokeType="INSIDE" width="643.0" />
                               <Label layoutX="73.0" layoutY="26.0" text="Direction" />
                               <Line endX="-67.66664123535156" layoutX="228.0" layoutY="36.0" startX="-100.0" />
                               <Polygon fill="DODGERBLUE" layoutX="171.0" layoutY="94.0" points="-9.666641235351562, -49.44444274902344, 10.222213745117188, -57.888885498046875, -9.666641235351562, -65.88888549804688" stroke="BLACK" strokeType="INSIDE" />
