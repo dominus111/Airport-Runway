@@ -376,23 +376,46 @@ public class Controller {
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
+
         if(runwaySelect.getSelectionModel().getSelectedItem() != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
-                Parent root = loader.load();
-                ObjectCreationController ctrl = loader.getController();
+            Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            if (runway.getLeftRunway().getRecalculatedParameters() == null && runway.getRightRunway().getRecalculatedParameters() == null) {
 
-                ctrl.getLeftThrLabel().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
-                ctrl.getRightThrLabel().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ObjectCreation.fxml"));
+                    Parent root = loader.load();
+                    ObjectCreationController ctrl = loader.getController();
 
-                ctrl.setParentController(this);
-                Stage stage = new Stage();
-                stage.setTitle("Object");
-                stage.setResizable(false);
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (Exception e) {
-                e.printStackTrace();
+                    ctrl.getLeftThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
+                    ctrl.getRightThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
+
+                    ctrl.setParentController(this);
+                    Stage stage = new Stage();
+                    stage.setTitle("Object");
+                    stage.setResizable(false);
+                    stage.setScene(new Scene(root));
+                    stage.show();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.setFullScreen(false);
+                dialog.setResizable(false);
+                dialog.setTitle("Add Object");
+                dialog.setIconified(false);
+                VBox dialogVbox = new VBox(20);
+
+                Text text = new Text("There already is an object on the runway."+"\n"+"Please remove it and try again");
+
+
+                Scene dialogScene = new Scene(dialogVbox, 250, 80);
+                dialog.setScene(dialogScene);
+                dialogVbox.setPadding(new Insets(20,20,20,20));
+                dialogVbox.getChildren().add(text);
+                dialog.show();
             }
         } else  {
             final Stage dialog = new Stage();
@@ -402,6 +425,7 @@ public class Controller {
             dialog.setTitle("Add Object");
             dialog.setIconified(false);
             VBox dialogVbox = new VBox(20);
+
             Text text = new Text("No runway has been selected.\nPlease select a runway and try again.");
 
 
@@ -413,6 +437,15 @@ public class Controller {
         }
     }
 
+    @FXML
+    void removeObjButtonEvent (ActionEvent event) {
+        if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            runway.getLeftRunway().setRecalculatedParameters(null);
+            runway.getRightRunway().setRecalculatedParameters(null);
+            updateTables();
+        }
+    }
     @FXML
     void topShowCalculationButtonEvent(ActionEvent event) {
         ShowCalculations("Top Button");
