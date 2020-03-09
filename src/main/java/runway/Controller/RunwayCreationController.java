@@ -18,7 +18,7 @@ public class RunwayCreationController {
     @FXML
     private Button cancelButton;
     @FXML
-    private TextField leftLDA,leftTODA,leftASDA,leftTORA,leftDistThr, rightDistThr, rightLDA, rightTODA, rightASDA, rightTORA;
+    private TextField leftLDA,leftTODA,leftASDA,leftTORA,leftDispThr, rightDispThr, rightLDA, rightTODA, rightASDA, rightTORA;
     @FXML
     private ComboBox<String> topRDirComboBox, topHDirComboBox;
 
@@ -59,7 +59,7 @@ public class RunwayCreationController {
 
     @FXML
     void createRunwayButtonEvent(ActionEvent event) {
-        if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDistThr.getText() != null || rightDistThr != null || leftLDA.getText() == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightLDA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null)
+        if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDispThr.getText() == null || rightDispThr == null || leftLDA.getText() == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightLDA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null)
            System.out.println("Error message. Empty fields");
         else {
             String topRValue = topRDirComboBox.getSelectionModel().getSelectedItem();
@@ -87,13 +87,13 @@ public class RunwayCreationController {
             double topTODA = Double.parseDouble(leftTODA.getText());
             double topASDA = Double.parseDouble(leftASDA.getText());
             double topTORA = Double.parseDouble(leftTORA.getText());
-            double topDistThr = Double.parseDouble(leftDistThr.getText());
+            double topDistThr = Double.parseDouble(leftDispThr.getText());
 
             double bottomLDA = Double.parseDouble(rightLDA.getText());
             double bottomTODA = Double.parseDouble(rightTODA.getText());
             double bottomASDA = Double.parseDouble(rightASDA.getText());
             double bottomTORA = Double.parseDouble(rightTORA.getText());
-            double bottomDistThr = Double.parseDouble(rightDistThr.getText());
+            double bottomDistThr = Double.parseDouble(rightDispThr.getText());
 
             Airport airport = parentController.getAirport();
             if (topHValue > 18)

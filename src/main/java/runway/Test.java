@@ -50,7 +50,7 @@ public class Test {
         Calculator calculator = new Calculator();
 
         calculator.calculate(oParam, runway09R27L);
-        System.out.println("Data for Heathrow Scenario 3");
+        System.out.println("Data for Heathrow Scenario 2");
 
         System.out.println("Data for left runway");
         if(runway09R27L.getLeftRunway().getRecalculatedParameters().getTora() == 1850 )

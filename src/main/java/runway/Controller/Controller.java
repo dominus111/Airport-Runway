@@ -288,9 +288,9 @@ public class Controller {
                     runwaySelect.getItems().add(currentRunway.toString());
                 }
             }
-
             airport.setObservableRunwayList(observableNewList);
         }
+
         updateTables();
     }
 
@@ -352,6 +352,9 @@ public class Controller {
                 topRtableView.getItems().add(selectedRunway.getRightRunway().getRecalculatedParameters());
              }
 
+        } else {
+            leftRParamLabel.setText("Runway");
+            rightRParamLabel.setText("Runway");
         }
 
         // Puts data
@@ -375,8 +378,8 @@ public class Controller {
                 Parent root = loader.load();
                 ObjectCreationController ctrl = loader.getController();
 
-                ctrl.getTopRadioButton().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
-                ctrl.getBottomRadioButton().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
+                ctrl.getLeftThrLabel().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
+                ctrl.getRightThrLabel().setText("Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
 
                 ctrl.setParentController(this);
                 Stage stage = new Stage();

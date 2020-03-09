@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -28,13 +25,7 @@ public class ObjectCreationController {
     private TextField heightTextField;
 
     @FXML
-    private RadioButton topRadioButton;
-
-    @FXML
-    private ToggleGroup runwaySelect;
-
-    @FXML
-    private RadioButton bottomRadioButton;
+    private Label rightThrLabel, leftThrLabel;
 
     @FXML
     private TextField distToCLTextField;
@@ -51,12 +42,12 @@ public class ObjectCreationController {
         stage.close();
     }
 
-    public RadioButton getTopRadioButton() {
-        return topRadioButton;
+    public Label getRightThrLabel() {
+        return rightThrLabel;
     }
 
-    public RadioButton getBottomRadioButton() {
-        return bottomRadioButton;
+    public Label getLeftThrLabel() {
+        return leftThrLabel;
     }
 
     public void setParentController(Controller parentController) {
@@ -72,8 +63,6 @@ public class ObjectCreationController {
             Runway runway = parentController.getAirport().getRunway(parentController.getRunwaySelect().getSelectionModel().getSelectedItem());
             if(nameTextField.getText() == null || heightTextField.getText() == null || distToCLTextField.getText() == null || distToThrTextField == null || bottomDistToThrTextF == null)
                 errorWindow("Please complete all fields");
-            if (!runwaySelect.getSelectedToggle().isSelected())
-                errorWindow("No runway is selected.\nPlease select one and try again.");
 
             try {
                 String name = nameTextField.getText();
@@ -84,10 +73,8 @@ public class ObjectCreationController {
 
                 Obstacle obstacle = new Obstacle(name,height);
                 ObstaclePositionParam oParam;
-                if(topRadioButton.isSelected())
-                    oParam = new ObstaclePositionParam(obstacle, distToThr, distToOtherThr, distToCenterL);
-                else
-                    oParam = new ObstaclePositionParam(obstacle, distToOtherThr,distToThr, distToCenterL);
+                oParam = new ObstaclePositionParam(obstacle, distToThr, distToOtherThr, distToCenterL);
+
                 Calculator calculator = new Calculator();
                 calculator.calculate(oParam, runway);
                 parentController.updateTables();
