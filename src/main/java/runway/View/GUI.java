@@ -29,7 +29,7 @@ public class GUI extends Application {
             primaryStage.setTitle("Runway Redeclaration Tool");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
-            primaryStage.setResizable(false);
+            primaryStage.setResizable(true);
             controller.initialize();
             Test test = new Test();
 
