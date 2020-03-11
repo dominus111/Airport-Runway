@@ -19,6 +19,7 @@ import javafx.scene.layout.*;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
@@ -41,32 +42,24 @@ public class Controller {
     private ComboBox<String> runwaySelect;
     private Airport airport;
     private Runway current;
+
+    private Color colour = Color.WHITE;
+    private Boolean leftView = true;
+
     @FXML
     private AnchorPane sideOnAnchorPane;
     @FXML
     private AnchorPane topView;
     @FXML
-    private Line lineTODA;
+    private Line lineTODA, lineASDA, lineTORA, lineLDA;
     @FXML
-    private Line lineASDA;
+    private Text textTODA, textASDA, textTORA, textLDA;
     @FXML
-    private Line lineTORA;
+    private Text designatorL, designatorR;
     @FXML
-    private Line lineLDA;
+    private Polygon topLeftArrow, topRightArrow;
     @FXML
-    private Text textTODA;
-    @FXML
-    private Text textASDA;
-    @FXML
-    private Text textTORA;
-    @FXML
-    private Text textLDA;
-    @FXML
-    private Text designatorL;
-    @FXML
-    private Text designatorR;
-
-    private Boolean leftView = true;
+    private Rectangle topYellow, topRed, topOrange;
 
     @FXML
     private Text sideTORA ,sideLDA, sideTODA ,sideASDA;
@@ -147,42 +140,114 @@ public class Controller {
     }
 
     public void topRunwayUpdate() {
+        int LTODA = -140;
+        int LASDA = -70;
+        int LTORA = -30;
+        int RTORA = 360;
+        int RASDA = 400;
+        int RTODA = 470;
+        int TTORA = 390;
+        int LCOLOR = 115;
+        int RCOLOR = 510;
+        int COLOR_DIST = 395;
+
+
         VirtualRunway v;
         leftB.setText(current.getLeftRunway().toString());
         rightB.setText(current.getRightRunway().toString());
 
+        lineTODA.setStroke(colour);
+        lineASDA.setStroke(colour);
+        lineTORA.setStroke(colour);
+        lineLDA.setStroke(colour);
+
+        designatorL.setText(current.getLeftRunway().getDesignator());
+        designatorR.setText(current.getRightRunway().getDesignator());
+
+
         if (leftView) {
             v = current.getLeftRunway();
-            designatorL.setText(current.getLeftRunway().getDesignator());
-            designatorR.setText(current.getRightRunway().getDesignator());
+            topRightArrow.setVisible(true);
+            topLeftArrow.setVisible(false);
+
+            topRed.setVisible(true);
+            topYellow.setVisible(true);
+            topOrange.setVisible(true);
+
+            double tora = v.getInitialParameters().getTora();
+            double lda = v.getInitialParameters().getLda();
+            double toda = v.getInitialParameters().getToda();
+            double asda = v.getInitialParameters().getAsda();
+
+            double ldaoffset = LTORA + (TTORA - (TTORA * lda / toda));
+            double asdaoffset = (TTORA * asda / toda) + LTORA;
+            double toraoffset = (TTORA * tora / toda) + LTORA;
+
+            double toraoffset2 = (TTORA * tora / toda);
+
+            double yellowoffset = (TTORA - (TTORA * lda / toda));
+            double redoffset = (COLOR_DIST*toraoffset2/390) + LCOLOR;
+            double orangeoffset = (COLOR_DIST*toraoffset2/390) + LCOLOR;
+
+            topYellow.setLayoutX(LCOLOR);
+            topYellow.setWidth(yellowoffset);
+
+            topRed.setLayoutX(redoffset);
+            topRed.setWidth(RTORA - toraoffset);
+
+            topOrange.setLayoutX(redoffset);
+            topOrange.setWidth(asdaoffset - toraoffset);
+
+            lineTODA.setStartX(LTORA);
+            lineASDA.setStartX(LTORA);
+            lineTORA.setStartX(LTORA);
+            lineLDA.setStartX(ldaoffset);
+
+            lineTODA.setEndX(RTORA);
+            lineASDA.setEndX(asdaoffset);
+            lineTORA.setEndX(toraoffset);
+            lineLDA.setEndX(RTORA);
+
+            textTORA.setText("TORA: " + tora);
+            textLDA.setText("LDA: " + lda);
+            textTODA.setText("TODA: " + toda);
+            textASDA.setText("ASDA: " + asda);
+
         } else {
             v = current.getRightRunway();
-            designatorR.setText(current.getLeftRunway().getDesignator());
-            designatorL.setText(current.getRightRunway().getDesignator());
+            topLeftArrow.setVisible(true);
+            topRightArrow.setVisible(false);
+
+            topRed.setVisible(false);
+            topYellow.setVisible(false);
+            topOrange.setVisible(false);
+
+            double tora = v.getInitialParameters().getTora();
+            double lda = v.getInitialParameters().getLda();
+            double toda = v.getInitialParameters().getToda();
+            double asda = v.getInitialParameters().getAsda();
+
+            double asdaoffset = LTORA + (TTORA - (TTORA * asda / toda));
+            double toraoffset = LTORA + (TTORA - (TTORA * tora / toda));
+            double ldaoffset = RTORA - (TTORA - (TTORA * lda / toda));
+
+            lineTODA.setStartX(LTORA);
+            lineASDA.setStartX(asdaoffset);
+            lineTORA.setStartX(toraoffset);
+            lineLDA.setStartX(LTORA);
+
+            lineTODA.setEndX(RTORA);
+            lineASDA.setEndX(RTORA);
+            lineTORA.setEndX(RTORA);
+            lineLDA.setEndX(ldaoffset);
+
+            textTORA.setText("TORA: " + tora);
+            textLDA.setText("LDA: " + lda);
+            textTODA.setText("TODA: " + toda);
+            textASDA.setText("ASDA: " + asda);
+
         }
-        Integer PIXEL_START = -317;
-        Integer PIXEL_TOTAL = 635;
 
-        lineTODA.setStroke(Color.BLACK);
-        lineASDA.setStroke(Color.BLACK);
-        lineTORA.setStroke(Color.BLACK);
-        lineLDA.setStroke(Color.BLACK);
-
-        double tora = v.getInitialParameters().getTora();
-        double lda = v.getInitialParameters().getLda();
-        double toda = v.getInitialParameters().getToda();
-        double asda = v.getInitialParameters().getAsda();
-
-        lineTODA.setEndX(430);
-        lineASDA.setEndX((int) asda* 430 / toda);
-        lineTORA.setEndX((int) tora* 430 / toda);
-        lineLDA.setEndX((int) lda* 430 / toda);
-
-
-        textTORA.setText("TORA: " + tora);
-        textLDA.setText("LDA: " + lda);
-        textTODA.setText("TODA: " + toda);
-        textASDA.setText("ASDA: " + asda);
     }
 
 
