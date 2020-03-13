@@ -327,7 +327,7 @@ public class Controller {
 
         double max = scale(tora,toda,lda,asda);
 
-        sideTORA.setText("TORA: " + tora);
+        sideTORA.setText("TORA: " + Math.round(tora) + "m");
         sideLineTORA.setStartX(PIXEL_START);
         sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL*(tora/max));
 
@@ -335,7 +335,7 @@ public class Controller {
 
         rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL*(tora/max));
 
-        sideLDA.setText("LDA: " + lda);
+        sideLDA.setText("LDA: " + Math.round(lda) + "m");
         sideLineLDA.setStartX(PIXEL_START + PIXEL_TOTAL*(displacedThreshold/max));
         sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL*((lda + displacedThreshold)/max));
 
@@ -343,13 +343,13 @@ public class Controller {
         sideDisplacedThreshold.setTranslateX(PIXEL_START + 317);
         sideDisplacedThreshold.setWidth(PIXEL_TOTAL*(displacedThreshold/max));
 
-        sideTODA.setText("TODA: " + toda);
+        sideTODA.setText("TODA: " + Math.round(toda) + "m");
         sideLineTODA.setStartX(PIXEL_START);
         sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL*(toda/max));
 
         rightClearway.setWidth(PIXEL_TOTAL*((toda - tora)/max));
 
-        sideASDA.setText("ASDA: " + asda);
+        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
         sideLineASDA.setStartX(PIXEL_START);
         sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL*(asda/max));
 
