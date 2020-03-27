@@ -43,24 +43,30 @@
                               <Polygon fx:id="topRightArrow" fill="DODGERBLUE" layoutX="335.0" layoutY="98.0" points="-9.666641235351562, -49.44444274902344, 10.222213745117188, -57.888885498046875, -9.666641235351562, -65.88888549804688" stroke="BLACK" strokeType="INSIDE" />
                                <Polygon fx:id="topLeftArrow" fill="DODGERBLUE" layoutX="276.0" layoutY="97.0" points="-9.666641235351562, -49.44444274902344, 10.222213745117188, -57.888885498046875, -9.666641235351562, -65.88888549804688" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
                               <Rectangle fx:id="topRunaway" arcHeight="5.0" arcWidth="5.0" fill="#8d8d8d" height="70.0" layoutX="45.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" width="550.0" />
-                              <AnchorPane fx:id="topRunawayPane" layoutX="-2.0" layoutY="120.0" prefHeight="306.0" prefWidth="632.0">
+                              <AnchorPane fx:id="topRunawayPane" layoutY="79.0" prefHeight="353.0" prefWidth="632.0">
                                  <children>
-                                    <Line fx:id="centerLine" endX="404.0" endY="1.0" layoutX="121.0" layoutY="70.0" stroke="WHITE" strokeWidth="3.0" />
-                                    <Line fx:id="leftStart" endX="55.0" layoutX="92.0" layoutY="71.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
-                                     <Line fx:id="rightStart" endX="55.0" layoutX="500.0" layoutY="71.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
-                                    <Rectangle fx:id="topYellow" arcHeight="5.0" arcWidth="5.0" fill="#ebde6fa3" height="70.0" layoutX="47.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-                                    <Rectangle fx:id="topRed" arcHeight="5.0" arcWidth="5.0" fill="#b20f0fb2" height="70.0" layoutX="159.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-                                    <Rectangle fx:id="topOrange" arcHeight="5.0" arcWidth="5.0" fill="#e8700eb5" height="60.0" layoutX="245.0" layoutY="35.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-                                    <Line fx:id="lineTODA" endX="100.0" layoutX="266.0" layoutY="110.0" stroke="WHITE" strokeWidth="3.0" />
-                                     <Text fx:id="textTODA" layoutX="302.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                                     <Line fx:id="lineASDA" endX="100.0" layoutX="266.0" layoutY="130.0" stroke="WHITE" strokeWidth="3.0" />
-                                     <Text fx:id="textTORA" layoutX="303.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                                     <Line fx:id="lineTORA" endX="100.0" layoutX="266.0" layoutY="150.0" stroke="WHITE" strokeWidth="3.0" />
-                                     <Text fx:id="textASDA" layoutX="303.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                                     <Line fx:id="lineLDA" endX="100.0" layoutX="266.0" layoutY="170.0" stroke="WHITE" strokeWidth="3.0" />
-                                     <Text fx:id="textLDA" layoutX="303.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                    <Line fx:id="centerLine" endX="404.0" layoutX="125.0" layoutY="111.0" stroke="WHITE" strokeWidth="3.0" />
+                                    <Line fx:id="leftStart" endX="55.0" layoutX="94.0" layoutY="111.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
+                                     <Line fx:id="rightStart" endX="55.0" layoutX="504.0" layoutY="111.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
+                                    <Rectangle fx:id="topYellow" arcHeight="5.0" arcWidth="5.0" fill="#ebde6fa3" height="70.0" layoutX="45.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                                    <Rectangle fx:id="topRed" arcHeight="5.0" arcWidth="5.0" fill="#b20f0fb2" height="70.0" layoutX="159.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                                    <Rectangle fx:id="topOrange" arcHeight="5.0" arcWidth="5.0" fill="#e8700eb5" height="60.0" layoutX="225.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                                    <Line fx:id="lineTODA" endX="100.0" layoutX="266.0" layoutY="150.0" stroke="WHITE" strokeWidth="3.0" />
+                                     <Text fx:id="textTODA" fill="WHITE" layoutX="302.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                     <Line fx:id="lineASDA" endX="100.0" layoutX="266.0" layoutY="170.0" stroke="WHITE" strokeWidth="3.0" />
+                                     <Text fx:id="textTORA" fill="WHITE" layoutX="302.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                     <Line fx:id="lineTORA" endX="100.0" layoutX="266.0" layoutY="190.0" stroke="WHITE" strokeWidth="3.0" />
+                                     <Text fx:id="textASDA" fill="WHITE" layoutX="302.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                     <Line fx:id="lineLDA" endX="100.0" layoutX="266.0" layoutY="210.0" stroke="WHITE" strokeWidth="3.0" />
+                                     <Text fx:id="textLDA" fill="WHITE" layoutX="302.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                    <Circle fx:id="obstacle" fill="#e521ffb7" layoutX="93.0" layoutY="97.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
                                  </children>
                               </AnchorPane>
+                              <RadioButton layoutX="529.0" layoutY="14.0" mnemonicParsing="false" onAction="#topTakingoffButton" selected="true" text="Taking off">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="topViewGroup" />
+                                 </toggleGroup></RadioButton>
+                              <RadioButton layoutX="529.0" layoutY="41.0" mnemonicParsing="false" onAction="#topLandingButton" text="Landing" toggleGroup="$topViewGroup" />
                            </children>
                         </AnchorPane>
                   </content>

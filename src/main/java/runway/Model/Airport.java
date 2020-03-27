@@ -4,16 +4,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.css.converter.PaintConverter;
+import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 
 import java.util.ArrayList;
 import java.util.Set;
 
 public class Airport {
 
+
     private ObservableList<Runway> observableRunwayList;
 
     public Airport() {
         observableRunwayList = FXCollections.observableArrayList();
+        //Runway mock = new Runway(new VirtualRunway("09R", new RunwayParameters(4000,4000,4000,3500, 307)), new VirtualRunway("27L", new RunwayParameters(4000,4000,4000,4000, 0)));
+
         Runway mock = new Runway(new VirtualRunway("09R", new RunwayParameters(3660,4000,3800,3353, 307)), new VirtualRunway("27L", new RunwayParameters(3660,3660,3660,3660, 0)));
 
         Obstacle obstacle = new Obstacle("mock",25);

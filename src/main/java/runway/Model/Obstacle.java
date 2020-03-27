@@ -2,6 +2,7 @@ package runway.Model;
 
 public class Obstacle {
 
+
     private String name;
     private double height;
     private ObstaclePositionParam oParam;
@@ -9,6 +10,7 @@ public class Obstacle {
     public Obstacle(String name, double height) {
         this.name = name;
         this.height = height;
+
     }
 
     // Getter and setters for instance variables
@@ -18,6 +20,10 @@ public class Obstacle {
 
     public double getHeight() {
         return height;
+    }
+
+    public ObstaclePositionParam getoParam() {
+        return oParam;
     }
 
     public void setoParam(ObstaclePositionParam oParam) {
