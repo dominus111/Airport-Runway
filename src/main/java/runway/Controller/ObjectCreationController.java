@@ -36,6 +36,7 @@ public class ObjectCreationController {
     @FXML
     private TextField bottomDistToThrTextF;
 
+
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
@@ -56,12 +57,12 @@ public class ObjectCreationController {
 
     @FXML
     void assignButtonEvent(ActionEvent event) {
-        if(parentController.getRunwaySelect().getSelectionModel().getSelectedItem() == null) {
+        if (parentController.getRunwaySelect().getSelectionModel().getSelectedItem() == null) {
             errorWindow("No runway is selected.\nPlease select one and try again.");
 
-        } else  {
+        } else {
             Runway runway = parentController.getAirport().getRunway(parentController.getRunwaySelect().getSelectionModel().getSelectedItem());
-            if(nameTextField.getText() == null || heightTextField.getText() == null || distToCLTextField.getText() == null || distToThrTextField == null || bottomDistToThrTextF == null)
+            if (nameTextField.getText() == null || heightTextField.getText() == null || distToCLTextField.getText() == null || distToThrTextField == null || bottomDistToThrTextF == null)
                 errorWindow("Please complete all fields");
 
             try {
@@ -71,7 +72,7 @@ public class ObjectCreationController {
                 double distToThr = Double.parseDouble(distToThrTextField.getText());
                 double distToOtherThr = Double.parseDouble(bottomDistToThrTextF.getText());
 
-                Obstacle obstacle = new Obstacle(name,height);
+                Obstacle obstacle = new Obstacle(name, height);
                 ObstaclePositionParam oParam;
                 oParam = new ObstaclePositionParam(obstacle, distToThr, distToOtherThr, distToCenterL);
 
@@ -80,14 +81,13 @@ public class ObjectCreationController {
                 parentController.updateTables();
                 objectCancelButtonEvent(event);
 
-            } catch (NullPointerException | NumberFormatException ex)
-            {
+            } catch (NullPointerException | NumberFormatException ex) {
                 errorWindow("Text field for numbers contains letters.");
             }
         }
     }
 
-    public void errorWindow (String errorMsg) {
+    public void errorWindow(String errorMsg) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setFullScreen(false);
@@ -100,7 +100,7 @@ public class ObjectCreationController {
 
         Scene dialogScene = new Scene(dialogVbox, 250, 80);
         dialog.setScene(dialogScene);
-        dialogVbox.setPadding(new Insets(20,20,20,20));
+        dialogVbox.setPadding(new Insets(20, 20, 20, 20));
         dialogVbox.getChildren().add(text);
         dialog.show();
     }
