@@ -23,6 +23,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -45,6 +46,8 @@ public class Controller {
     private Boolean leftView = true;
     private Boolean topTakingoff = true;
 
+    @FXML
+    private TextFlow notificationBox;
     @FXML
     private AnchorPane sideOnAnchorPane;
     @FXML
@@ -96,6 +99,8 @@ public class Controller {
             }
         }
 
+
+
     }
 
 
@@ -105,6 +110,25 @@ public class Controller {
 
     public Airport getAirport() {
         return airport;
+    }
+
+    @FXML
+    void notificationPopOutAction(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Notification.fxml"));
+            Parent root = loader.load();
+            NotificationController ctrl = loader.getController();
+
+            ctrl.setParentController(this);
+            Stage stage = new Stage();
+            stage.setTitle("Notifications");
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        updateTables();
     }
 
     @FXML
