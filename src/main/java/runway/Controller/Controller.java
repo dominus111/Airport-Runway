@@ -47,7 +47,7 @@ public class Controller {
     private Boolean topTakingoff = true;
 
     @FXML
-    private TextFlow notificationBox;
+    private AnchorPane notificationBox;
     @FXML
     private AnchorPane sideOnAnchorPane;
     @FXML
@@ -88,6 +88,12 @@ public class Controller {
     private Label leftRParamLabel, rightRParamLabel;
 
     @FXML
+    private Label notification1, notification2, notification3;
+
+    private NotificationController notificationController;
+    private int notificationCount = 0;
+
+    @FXML
     public void initialize() {
         airport = new Airport();
         getInitialTopDown();
@@ -98,7 +104,6 @@ public class Controller {
                 runwaySelect.getItems().add(currentRunway.toString());
             }
         }
-
 
 
     }
@@ -117,9 +122,9 @@ public class Controller {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Notification.fxml"));
             Parent root = loader.load();
-            NotificationController ctrl = loader.getController();
+            NotificationController notificationController = loader.getController();
 
-            ctrl.setParentController(this);
+            notificationController.setParentController(this);
             Stage stage = new Stage();
             stage.setTitle("Notifications");
             stage.setResizable(false);
@@ -129,6 +134,37 @@ public class Controller {
             e.printStackTrace();
         }
         updateTables();
+    }
+
+    void notify(String sourceType, String runway){
+        String text = sourceType + " added to " + runway;
+        Text textBox = new Text(text);
+        System.out.println(textBox.getLayoutX());
+        int boxWidth = 38;
+        if(text.length() > boxWidth){
+            text = text.substring(0, boxWidth) + "...";
+        }
+
+        notificationCount++;
+        switch(notificationCount){
+            case 1:
+                notification1.setText(text);
+                notification1.setTextFill(new Color(0,0,0,1));
+                break;
+            case 2:
+                notification2.setText(notification1.getText());
+                notification1.setText(text);
+                notification2.setTextFill(new Color(0.35,0.35,0.35,1));
+                notification3.setTextFill(new Color(0.65,0.65,0.65,1));
+                break;
+            default:
+                notification3.setText("(" + (notificationCount - 2) + " more)");
+                notification2.setText(notification1.getText());
+                notification1.setText(sourceType + " added to " + runway);
+                break;
+        }
+
+
     }
 
     @FXML
@@ -773,7 +809,9 @@ public class Controller {
     void removeRunwayButtonEvent(ActionEvent event) {
 
         // Removes the runway that is selected
+        String runwayName;
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            runwayName = runwaySelect.getSelectionModel().getSelectedItem();
             ObservableList<Runway> observableNewList = FXCollections.observableArrayList();
             String runwaySelected = runwaySelect.getSelectionModel().getSelectedItem();
             runwaySelect.getItems().clear();
@@ -785,6 +823,7 @@ public class Controller {
                 }
             }
             airport.setObservableRunwayList(observableNewList);
+            notify("RemoveRunwayEvent", runwayName);
         }
 
         updateTables();
