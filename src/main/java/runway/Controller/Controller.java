@@ -92,6 +92,7 @@ public class Controller {
 
     private NotificationController notificationController;
     private int notificationCount = 0;
+    private ArrayList<String> notifications = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -122,7 +123,7 @@ public class Controller {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Notification.fxml"));
             Parent root = loader.load();
-            NotificationController notificationController = loader.getController();
+            notificationController = loader.getController();
 
             notificationController.setParentController(this);
             Stage stage = new Stage();
@@ -130,20 +131,24 @@ public class Controller {
             stage.setResizable(false);
             stage.setScene(new Scene(root));
             stage.show();
+            notificationController.update();
         } catch (Exception e) {
             e.printStackTrace();
         }
         updateTables();
     }
 
-    void notify(String sourceType, String runway){
-        String text = sourceType + " added to " + runway;
-        Text textBox = new Text(text);
-        System.out.println(textBox.getLayoutX());
-        int boxWidth = 38;
-        if(text.length() > boxWidth){
-            text = text.substring(0, boxWidth) + "...";
+    ArrayList<String> getNotifications(){
+        return notifications;
+    }
+
+    void notify(String message){
+        String text = message;
+        notifications.add(message);
+        try {
+            notificationController.update();
         }
+        catch(Exception e){}
 
         notificationCount++;
         switch(notificationCount){
@@ -160,7 +165,7 @@ public class Controller {
             default:
                 notification3.setText("(" + (notificationCount - 2) + " more)");
                 notification2.setText(notification1.getText());
-                notification1.setText(sourceType + " added to " + runway);
+                notification1.setText(text);
                 break;
         }
 
@@ -823,7 +828,7 @@ public class Controller {
                 }
             }
             airport.setObservableRunwayList(observableNewList);
-            notify("RemoveRunwayEvent", runwayName);
+            notify("RemoveRunwayEvent on " + runwayName);
         }
 
         updateTables();
@@ -942,6 +947,7 @@ public class Controller {
                 VBox dialogVbox = new VBox(20);
 
                 Text text = new Text("There already is an object on the runway." + "\n" + "Please remove it and try again");
+                notify("Object creation error: There already is an object on the runway. Please remove it and try again");
 
 
                 Scene dialogScene = new Scene(dialogVbox, 250, 80);
@@ -960,6 +966,7 @@ public class Controller {
             VBox dialogVbox = new VBox(20);
 
             Text text = new Text("No runway has been selected.\nPlease select a runway and try again.");
+            notify("Object creation error: No runway has been selected. Please select a runway and try again.");
 
 
             Scene dialogScene = new Scene(dialogVbox, 250, 80);
@@ -977,6 +984,7 @@ public class Controller {
             runway.getLeftRunway().setRecalculatedParameters(null);
             runway.getRightRunway().setRecalculatedParameters(null);
             updateTables();
+            notify("Object removed from runway " + runway);
         }
     }
 

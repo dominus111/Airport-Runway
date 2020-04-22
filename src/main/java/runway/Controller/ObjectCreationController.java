@@ -60,6 +60,7 @@ public class ObjectCreationController {
         if (parentController.getRunwaySelect().getSelectionModel().getSelectedItem() == null) {
             errorWindow("No runway is selected.\nPlease select one and try again.");
 
+
         } else {
             Runway runway = parentController.getAirport().getRunway(parentController.getRunwaySelect().getSelectionModel().getSelectedItem());
             if (nameTextField.getText() == null || heightTextField.getText() == null || distToCLTextField.getText() == null || distToThrTextField == null || bottomDistToThrTextF == null)
@@ -79,6 +80,7 @@ public class ObjectCreationController {
                 Calculator calculator = new Calculator();
                 calculator.calculate(oParam, runway);
                 parentController.updateTables();
+                parentController.notify("Object " + name + " added to " + runway);
                 objectCancelButtonEvent(event);
 
             } catch (NullPointerException | NumberFormatException ex) {
@@ -103,5 +105,6 @@ public class ObjectCreationController {
         dialogVbox.setPadding(new Insets(20, 20, 20, 20));
         dialogVbox.getChildren().add(text);
         dialog.show();
+        parentController.notify("Object creation error: " + errorMsg);
     }
 }

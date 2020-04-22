@@ -59,8 +59,10 @@ public class RunwayCreationController {
 
     @FXML
     void createRunwayButtonEvent(ActionEvent event) {
-        if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDispThr.getText() == null || rightDispThr == null || leftLDA.getText() == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightLDA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null)
-           System.out.println("Error message. Empty fields");
+        if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDispThr.getText() == null || rightDispThr == null || leftLDA.getText() == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightLDA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null) {
+            System.out.println("Error message. Empty fields");
+            parentController.notify("Runway creation error: empty fields");
+        }
         else {
             String topRValue = topRDirComboBox.getSelectionModel().getSelectedItem();
             String bottomRValue;
@@ -96,11 +98,15 @@ public class RunwayCreationController {
             double bottomDistThr = Double.parseDouble(rightDispThr.getText());
 
             Airport airport = parentController.getAirport();
-            if (topHValue > 18)
-                airport.addRunway(new Runway(new VirtualRunway(topHValue - 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA,  bottomDistThr)), new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr))));
-            else
-                airport.addRunway(new Runway(new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr)), new VirtualRunway(topHValue + 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA, bottomDistThr))));
-
+            Runway runway;
+            if (topHValue > 18){
+                runway = new Runway(new VirtualRunway(topHValue - 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA,  bottomDistThr)), new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr)));
+                airport.addRunway(runway);
+            }
+            else{
+                    runway = new Runway(new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr)), new VirtualRunway(topHValue + 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA, bottomDistThr)));
+                    airport.addRunway(runway);
+            }
             ComboBox<String> runwaySelect = parentController.getRunwaySelect();
             if(runwaySelect != null) {
                 runwaySelect.getItems().clear();
@@ -108,10 +114,12 @@ public class RunwayCreationController {
                     runwaySelect.getItems().add(currentRunway.toString());
                 }
             }
+            parentController.notify("Runway " + runway + " added to airport");
             runwayCancelButtonEvent(event);
             }  catch (NullPointerException | NumberFormatException ex)
             {
               System.out.println("Notification : Error. Only doubles allowed in the text fields.");
+              parentController.notify("Runway creation error: only doubles allowed in the text fields.");
             }
 
         }
