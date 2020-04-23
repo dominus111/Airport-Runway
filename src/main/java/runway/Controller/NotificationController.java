@@ -10,7 +10,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class NotificationController {
     Controller parent;
@@ -34,7 +36,7 @@ public class NotificationController {
         int scaler = parent.getNotifications().size() - 1;
         content.setPrefHeight((scaler + 2)*notificationSize);
         for(String s : parent.getNotifications()){
-            Label notification = new Label(s);
+            Label notification = new Label(s + "  -  " + new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(new Date()));
             notification.setBackground(new Background(new BackgroundFill(new Color(1,1,1,1.0), CornerRadii.EMPTY, Insets.EMPTY)));
             notification.setTranslateY(notificationSize*scaler);
             content.getChildren().add(notification);
