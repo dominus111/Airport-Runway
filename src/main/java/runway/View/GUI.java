@@ -31,7 +31,6 @@ public class GUI extends Application {
             primaryStage.show();
             primaryStage.setResizable(true);
             controller.initialize();
-            Test test = new Test();
 
         } catch (Exception e) {
             e.printStackTrace();
