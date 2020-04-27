@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="768.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
+<VBox prefHeight="768.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
    <children>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="928.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1000.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="711.4444783528646" minWidth="10.0" prefWidth="634.6666327582466" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.5555419921875" minWidth="10.0" prefWidth="297.3333672417534" />
@@ -73,7 +93,7 @@
                 </Tab>
                 <Tab onSelectionChanged="#sideOnTabEvent" text="Side On">
                     <content>
-                        <AnchorPane fx:id="sideOnAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <AnchorPane fx:id="sideOnAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" translateX="10.0">
                             <children>
                               <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8cc5ff" height="377.0" layoutX="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#77c25d" height="136.0" layoutY="375.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />

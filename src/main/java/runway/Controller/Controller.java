@@ -35,12 +35,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ListIterator;
 
 public class Controller {
 
     @FXML
     private ComboBox<String> runwaySelect;
+    private List<Airport> airportList;
     private Airport airport;
     private Runway current;
 
@@ -109,9 +111,17 @@ public class Controller {
     @FXML
     private ComboBox<String> xmlCombo;
 
+    XMLImport xmlImporter = new XMLImport();
+    XMLExport xmlExporter = new XMLExport();
+
 
     @FXML
     public void initialize() {
+        //TODO fix double airports
+        airportList =xmlImporter.getAirports();
+        for(Airport a : airportList){
+            System.out.println(a);
+        }
         airport = new Airport();
         getInitialTopDown();
 
@@ -147,7 +157,6 @@ public class Controller {
 
             Stage stage = new Stage();
             stage.setTitle("Notifications");
-            stage.setResizable(false);
             stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
                 public void handle(WindowEvent event) {
