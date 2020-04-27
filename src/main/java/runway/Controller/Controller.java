@@ -41,8 +41,10 @@ import java.util.ListIterator;
 public class Controller {
 
     @FXML
+    ComboBox<Airport> airportList;
+
+    @FXML
     private ComboBox<String> runwaySelect;
-    private List<Airport> airportList;
     private Airport airport;
     private Runway current;
 
@@ -118,9 +120,8 @@ public class Controller {
     @FXML
     public void initialize() {
         //TODO fix double airports
-        airportList =xmlImporter.getAirports();
-        for(Airport a : airportList){
-            System.out.println(a);
+        for(Airport a : xmlImporter.getAirports()){
+            airportList = null;
         }
         airport = new Airport();
         getInitialTopDown();
