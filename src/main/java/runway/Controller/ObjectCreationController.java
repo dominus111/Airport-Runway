@@ -91,7 +91,15 @@ public class ObjectCreationController {
         }
     }
 
-    public void errorWindow(String errorMsg) {
+    @FXML
+    void objectSelectionEvent(ActionEvent event) {
+        if (objectComboBox.getSelectionModel()!=null) {
+            nameTextField.setText(objectComboBox.getSelectionModel().getSelectedItem().getName());
+            heightTextField.setText(String.valueOf(objectComboBox.getSelectionModel().getSelectedItem().getHeight()));
+        }
+    }
+
+        public void errorWindow(String errorMsg) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setFullScreen(false);
