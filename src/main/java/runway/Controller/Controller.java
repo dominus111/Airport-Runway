@@ -963,6 +963,9 @@ public class Controller {
                     ctrl.getLeftThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
                     ctrl.getRightThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
 
+                    XMLImport importXmL = new XMLImport();
+                    List<Obstacle> obstaclesList = importXmL.getObstacles();
+                    ctrl.objectComboBox.setItems( FXCollections.observableArrayList(obstaclesList));
                     ctrl.setParentController(this);
                     Stage stage = new Stage();
                     stage.setTitle("Object");

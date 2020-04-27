@@ -36,6 +36,9 @@ public class ObjectCreationController {
     @FXML
     private TextField bottomDistToThrTextF;
 
+    @FXML
+    public ComboBox<Obstacle> objectComboBox;
+
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
@@ -59,7 +62,6 @@ public class ObjectCreationController {
     void assignButtonEvent(ActionEvent event) {
         if (parentController.getRunwaySelect().getSelectionModel().getSelectedItem() == null) {
             errorWindow("No runway is selected.\nPlease select one and try again.");
-
 
         } else {
             Runway runway = parentController.getAirport().getRunway(parentController.getRunwaySelect().getSelectionModel().getSelectedItem());
