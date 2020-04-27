@@ -47,6 +47,17 @@ public class XMLImport {
         return airport;
     }
 
+    public Obstacle parseObstacleFile(Path path) throws Exception {
+        var is = Files.newInputStream(path);
+        var doc = db.parse(is);
+        doc.normalize();
+        var name = xp.compile("//Name").evaluate(doc);
+        var height = Double.parseDouble(xp.compile("//Height").evaluate(doc));
+        var obstacle = new Obstacle(name, height);
+
+        return obstacle;
+    }
+
     Runway parseRunway(Node node) throws Exception{
         var leftRunway = (Element) xp.compile("(.//LeftRunway[1]/VirtualRunway[1])").evaluate(node, XPathConstants.NODE);
         var rightRunway = (Element) xp.compile("(.//RightRunway[1]/VirtualRunway[1])").evaluate(node, XPathConstants.NODE);
@@ -65,7 +76,7 @@ public class XMLImport {
         return new VirtualRunway(designator, new RunwayParameters(tora, toda, asda, lda, dispTHR));
     }
 
-    public void test (Path path) {
+    public void readFile (Path path) {
         try {
             System.out.println(path);
             System.out.println(new String(Files.readAllBytes(path)));
@@ -74,7 +85,6 @@ public class XMLImport {
             e.printStackTrace();
         }
     }
-
 
     public List<Airport> getAirports() {
         try {
@@ -103,6 +113,40 @@ public class XMLImport {
             }
 
             return airports;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<Obstacle> getObstacles() {
+        try {
+            URI uri = getClass().getResource("/obstacles/").toURI();
+            Path myPath;
+            FileSystem fileSystem = null;
+            List<Obstacle> obstacles;
+            if (uri.getScheme().equals("jar")) {
+                fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
+                myPath = fileSystem.getPath("/obstacles/");
+            } else {
+                myPath = Paths.get(uri);
+            }
+
+            obstacles = Files.list(myPath).map(file -> {
+                try {
+                    return parseObstacleFile(file);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }).collect(Collectors.toList());
+
+            if (uri.getScheme().equals("jar")) {
+                fileSystem.close();
+            }
+
+            return obstacles;
         }
         catch (Exception e) {
             e.printStackTrace();

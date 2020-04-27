@@ -38,4 +38,11 @@ public class Obstacle {
         this.height = height;
     }
 
+    @Override
+    public String toString() {
+        return "Obstacle{" +
+                "name='" + name + '\'' +
+                ", height=" + height +
+                '}';
+    }
 }

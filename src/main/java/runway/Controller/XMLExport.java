@@ -40,7 +40,16 @@ public class XMLExport {
         for (var runway : airport.getObservableRunwayList()) {
             runways.appendChild(getRunway(doc, runway));
         }
+        return doc;
+    }
 
+    public Document exportObstacle(Obstacle obstacle) {
+        var doc = db.newDocument();
+        Element root = doc.createElement("Obstacle");
+        doc.appendChild(root);
+
+        root.appendChild(getElement(doc, root, "Name", obstacle.getName()));
+        root.appendChild(getElement(doc, root, "Height", obstacle.getHeight()));
         return doc;
     }
 
