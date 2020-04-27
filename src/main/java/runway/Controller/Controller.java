@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -26,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import runway.Model.*;
 
@@ -87,12 +89,26 @@ public class Controller {
     @FXML
     private Label leftRParamLabel, rightRParamLabel;
 
+    /**
+     * NOTIFICATIONS
+     */
+
     @FXML
     private Label notification1, notification2, notification3;
 
     private NotificationController notificationController;
     private int notificationCount = 0;
     private ArrayList<String> notifications = new ArrayList<>();
+    private Boolean notificationsVisible = false;
+
+    /**
+     * XML
+     */
+    @FXML
+    private Button xmlLoad, xmlImport, xmlExport;
+    @FXML
+    private ComboBox<String> xmlCombo;
+
 
     @FXML
     public void initialize() {
@@ -120,17 +136,27 @@ public class Controller {
 
     @FXML
     void notificationPopOutAction(){
+        if(notificationsVisible){
+            return;
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Notification.fxml"));
             Parent root = loader.load();
             notificationController = loader.getController();
-
             notificationController.setParentController(this);
+
             Stage stage = new Stage();
             stage.setTitle("Notifications");
             stage.setResizable(false);
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent event) {
+                    notificationsVisible = false;
+                }
+            });
             stage.setScene(new Scene(root));
             stage.show();
+            notificationsVisible = true;
             notificationController.update();
         } catch (Exception e) {
             e.printStackTrace();

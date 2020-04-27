@@ -9,6 +9,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Date;
 
 public class NotificationController {
     Controller parent;
+    Stage stage;
     ArrayList<String> notifications = new ArrayList<>();
     int notificationSize = 20;
 
