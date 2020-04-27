@@ -125,15 +125,12 @@ public class Controller {
         }
         airport = new Airport();
         getInitialTopDown();
-
         if (runwaySelect != null) {
             runwaySelect.getItems().clear();
             for (Runway currentRunway : airport.getObservableRunwayList()) {
                 runwaySelect.getItems().add(currentRunway.toString());
             }
         }
-
-
     }
 
 
@@ -947,6 +944,12 @@ public class Controller {
 
     }
 
+    @FXML
+    void airportSelectionEvent(ActionEvent event) {
+        airportList.setItems( FXCollections.observableArrayList(xmlImporter.getAirports()));
+    }
+
+
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
@@ -963,8 +966,7 @@ public class Controller {
                     ctrl.getLeftThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
                     ctrl.getRightThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
 
-                    XMLImport importXmL = new XMLImport();
-                    List<Obstacle> obstaclesList = importXmL.getObstacles();
+                    List<Obstacle> obstaclesList = xmlImporter.getObstacles();
                     ctrl.objectComboBox.setItems( FXCollections.observableArrayList(obstaclesList));
                     ctrl.setParentController(this);
                     Stage stage = new Stage();

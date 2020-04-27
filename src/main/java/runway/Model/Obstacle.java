@@ -40,9 +40,10 @@ public class Obstacle {
 
     @Override
     public String toString() {
-        return "Obstacle{" +
+        return name;
+      /*  return "Obstacle{" +
                 "name='" + name + '\'' +
                 ", height=" + height +
-                '}';
+                '}';*/
     }
 }
