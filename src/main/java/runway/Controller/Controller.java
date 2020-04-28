@@ -1042,13 +1042,20 @@ public class Controller {
 
     @FXML
     void removeObjButtonEvent(ActionEvent event) {
-        if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+        if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() != null) {
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            runway.setObstacle(null);
             runway.getLeftRunway().setRecalculatedParameters(null);
             runway.getRightRunway().setRecalculatedParameters(null);
             updateTables();
             notify("Object removed from runway " + runway);
+        } else if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() == null) {
+            Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            notify("No object on runway " + runway);
+        } else {
+            notify("No runway has been selected ");
         }
+
     }
 
     @FXML

@@ -83,6 +83,7 @@ public class ObjectCreationController {
                 Obstacle obstacle = new Obstacle(name, height);
                 ObstaclePositionParam oParam;
                 oParam = new ObstaclePositionParam(obstacle, distToThr, distToOtherThr, distToCenterL);
+                runway.setObstacle(obstacle);
 
                 Calculator calculator = new Calculator();
                 calculator.calculate(oParam, runway);
