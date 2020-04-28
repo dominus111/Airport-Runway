@@ -1,14 +1,7 @@
 package runway.Model;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.css.converter.PaintConverter;
-import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-
-import java.util.ArrayList;
-import java.util.Set;
 
 public class Airport {
 
@@ -69,4 +62,6 @@ public class Airport {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String toString(){ return name; }
 }
