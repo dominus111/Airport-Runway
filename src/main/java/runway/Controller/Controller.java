@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import runway.Model.*;
@@ -51,6 +52,9 @@ public class Controller {
     private Color colour = Color.WHITE;
     private Boolean leftView = true;
     private Boolean topTakingoff = true;
+
+    @FXML
+    protected Button addObjButton;
 
     @FXML
     private AnchorPane notificationBox;
@@ -962,6 +966,8 @@ public class Controller {
     void addObjectToRunwayEvent(ActionEvent event) {
 
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            addObjButton.setDisable(true);
+            runwaySelect.setDisable(true);
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             if (runway.getLeftRunway().getRecalculatedParameters() == null && runway.getRightRunway().getRecalculatedParameters() == null) {
 
@@ -977,6 +983,10 @@ public class Controller {
                     ctrl.objectComboBox.setItems( FXCollections.observableArrayList(obstaclesList));
                     ctrl.setParentController(this);
                     Stage stage = new Stage();
+                    stage.setOnCloseRequest(e -> {
+                        runwaySelect.setDisable(false);
+                        addObjButton.setDisable(false);
+                    });
                     stage.setTitle("Object");
                     stage.setResizable(false);
                     stage.setScene(new Scene(root));
@@ -1003,6 +1013,8 @@ public class Controller {
                 dialogVbox.setPadding(new Insets(20, 20, 20, 20));
                 dialogVbox.getChildren().add(text);
                 dialog.show();
+                addObjButton.setDisable(false);
+                runwaySelect.setDisable(false);
             }
         } else {
             final Stage dialog = new Stage();
@@ -1022,7 +1034,10 @@ public class Controller {
             dialogVbox.setPadding(new Insets(20, 20, 20, 20));
             dialogVbox.getChildren().add(text);
             dialog.show();
+            addObjButton.setDisable(false);
+            runwaySelect.setDisable(false);
         }
+
     }
 
     @FXML

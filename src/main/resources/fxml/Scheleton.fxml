@@ -154,7 +154,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#addObjectToRunwayEvent" prefHeight="25.0" prefWidth="265.0" text="Add Object To Current Runway" />
+                        <Button fx:id="addObjButton" layoutX="14.0" layoutY="25.0" mnemonicParsing="false" onAction="#addObjectToRunwayEvent" prefHeight="25.0" prefWidth="265.0" text="Add Object To Current Runway" />
                         <Button layoutX="14.0" layoutY="60.0" mnemonicParsing="false" onAction="#removeObjButtonEvent" prefHeight="25.0" prefWidth="265.0" text="Remove Object From Current Runway" />
                      </children>
                   </Pane>

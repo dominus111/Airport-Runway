@@ -42,6 +42,8 @@ public class ObjectCreationController {
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
+        parentController.addObjButton.setDisable(false);
+        parentController.getRunwaySelect().setDisable(false);
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
@@ -60,6 +62,9 @@ public class ObjectCreationController {
 
     @FXML
     void assignButtonEvent(ActionEvent event) {
+
+        Boolean disable = false;
+
         if (parentController.getRunwaySelect().getSelectionModel().getSelectedItem() == null) {
             errorWindow("No runway is selected.\nPlease select one and try again.");
 
@@ -86,10 +91,15 @@ public class ObjectCreationController {
                 objectCancelButtonEvent(event);
 
             } catch (NullPointerException | NumberFormatException ex) {
-                errorWindow("Text field for numbers contains letters.");
+                errorWindow("Text field for numbers contains letters or is empty.");
+                disable = true;
             }
         }
-    }
+        if (!disable) {
+            parentController.addObjButton.setDisable(false);
+            parentController.getRunwaySelect().setDisable(false);
+        }
+     }
 
     @FXML
     void objectSelectionEvent(ActionEvent event) {
@@ -106,7 +116,7 @@ public class ObjectCreationController {
         dialog.setResizable(false);
         dialog.setTitle("Add Object");
         dialog.setIconified(false);
-        VBox dialogVbox = new VBox(20);
+        VBox dialogVbox = new VBox(40);
         Text text = new Text(errorMsg);
 
 
