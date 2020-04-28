@@ -84,10 +84,13 @@ public class ObjectCreationController {
                 ObstaclePositionParam oParam;
                 oParam = new ObstaclePositionParam(obstacle, distToThr, distToOtherThr, distToCenterL);
 
+                obstacle.setoParam(oParam);
                 Calculator calculator = new Calculator();
                 calculator.calculate(oParam, runway);
                 parentController.updateTables();
                 parentController.notify("Object " + name + " added to " + runway);
+                runway.setObstacle(obstacle);
+                parentController.runwayUpdate();
                 objectCancelButtonEvent(event);
 
             } catch (NullPointerException | NumberFormatException ex) {

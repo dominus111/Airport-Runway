@@ -12,6 +12,7 @@ public class Runway {
     public Runway(VirtualRunway leftRunway, VirtualRunway rightRunway) {
         this.leftRunway = leftRunway;
         this.rightRunway = rightRunway;
+        obstacle = null;
     }
 
     public String toString () {
