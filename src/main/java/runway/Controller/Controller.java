@@ -124,11 +124,18 @@ public class Controller {
     @FXML
     public void initialize() {
         //TODO fix double airports
-        for(Airport a : xmlImporter.getAirports()){
-            airportList = null;
+        ObservableList<Airport> options = FXCollections.observableArrayList(xmlImporter.getAirports());
+        if(airportList!=null) {
+            airportList.setItems(options);
+            System.out.println(options.size());
         }
-        airport = new Airport();
-        getInitialTopDown();
+
+        if(options.isEmpty()){
+            airport = new Airport();
+        }
+        else{
+            airport = options.get(0);
+        }
         if (runwaySelect != null) {
             runwaySelect.getItems().clear();
             for (Runway currentRunway : airport.getObservableRunwayList()) {
