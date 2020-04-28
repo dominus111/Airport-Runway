@@ -19,7 +19,10 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
@@ -75,8 +78,7 @@ public class Controller {
     /**
      * SIDE VIEW
      */
-    @FXML
-    private Rectangle sideObstacle;
+
     @FXML
     private Text sideTORA, sideLDA, sideTODA, sideASDA;
     @FXML
@@ -86,7 +88,7 @@ public class Controller {
     @FXML
     private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA;
     @FXML
-    private Rectangle rightStopway, rightClearway, sideDisplacedThreshold, topRunaway;
+    private Rectangle rightStopway, rightClearway, sideDisplacedThreshold, topRunaway, sideObstacle;
 
     @FXML
     private TableView<RunwayParameters> topLtableView, topRtableView;
@@ -795,10 +797,7 @@ public class Controller {
         sideLineLDA.setStartX(PIXEL_START + PIXEL_TOTAL * (displacedThreshold / max));
         sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * ((lda + displacedThreshold) / max));
 
-        /**
-           any setTranslateX using PIXEL_START must take into account the actual pixel start of -317
-          */
-
+        //any setTranslateX using PIXEL_START must take into account the actual pixel start of -317
         sideDisplacedThreshold.setTranslateX(PIXEL_START + 317);
         sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max));
 
@@ -816,23 +815,18 @@ public class Controller {
 
         if( current.getObstacle() != null){
             sideObstacle.setVisible(true);
-            try{
-                if(leftView) {
-                    sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max));
-                }
-                else{
-                    sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max));
-                }
-                sideObstacle.setTranslateY(10 - current.getObstacle().getHeight());
-                sideObstacle.setHeight(current.getObstacle().getHeight());
-            }catch(Exception e){
-
+            if(leftView) {
+                sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max));
             }
+            else{
+                sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max));
+            }
+            sideObstacle.setTranslateY(10 - current.getObstacle().getHeight());
+            sideObstacle.setHeight(current.getObstacle().getHeight());
         }
         else{
             sideObstacle.setVisible(false);
         }
-
     }
 
     public double scale(double tora, double toda, double lda, double asda) {
@@ -1063,15 +1057,21 @@ public class Controller {
 
     @FXML
     void removeObjButtonEvent(ActionEvent event) {
-        if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
+        if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() != null) {
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             runway.setObstacle(null);
             runway.getLeftRunway().setRecalculatedParameters(null);
             runway.getRightRunway().setRecalculatedParameters(null);
             updateTables();
-            notify("Object removed from runway " + runway);
             runwayUpdate();
+            notify("Object removed from runway " + runway);
+        } else if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() == null) {
+            Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            notify("No object on runway " + runway);
+        } else {
+            notify("No runway has been selected ");
         }
+
     }
 
     @FXML
