@@ -35,6 +35,7 @@ public class RunwayParameters {
     public void setLda(double lda) {
         ldaProperty().set(lda);
     }
+
     public DoubleProperty todaProperty() {
         return toda;
     }

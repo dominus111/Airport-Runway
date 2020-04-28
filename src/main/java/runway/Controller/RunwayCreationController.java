@@ -100,11 +100,11 @@ public class RunwayCreationController {
             Airport airport = parentController.getAirport();
             Runway runway;
             if (topHValue > 18){
-                runway = new Runway(new VirtualRunway(topHValue - 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA,  bottomDistThr)), new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr)));
+                runway = new Runway(new VirtualRunway(Math.round(topHValue)  - 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA,  bottomDistThr)), new VirtualRunway(Math.round(topHValue) + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr)));
                 airport.addRunway(runway);
             }
             else{
-                    runway = new Runway(new VirtualRunway(topHValue + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr)), new VirtualRunway(topHValue + 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA, bottomDistThr)));
+                    runway = new Runway(new VirtualRunway(Math.round(topHValue) + topRValue, new RunwayParameters(topTORA, topTODA, topASDA, topLDA, topDistThr)), new VirtualRunway(Math.round(topHValue) + 18 + bottomRValue, new RunwayParameters(bottomTORA, bottomTODA, bottomASDA, bottomLDA, bottomDistThr)));
                     airport.addRunway(runway);
             }
             ComboBox<String> runwaySelect = parentController.getRunwaySelect();
