@@ -7,6 +7,7 @@ public class Runway {
 
     private VirtualRunway leftRunway;
     private VirtualRunway rightRunway;
+    private Obstacle obstacle;
 
     public Runway(VirtualRunway leftRunway, VirtualRunway rightRunway) {
         this.leftRunway = leftRunway;
@@ -23,5 +24,13 @@ public class Runway {
 
     public VirtualRunway getRightRunway() {
         return rightRunway;
+    }
+
+    public void setObstacle(Obstacle obstacle){
+        this.obstacle = obstacle;
+    }
+
+    public Obstacle getObstacle(){
+        return obstacle;
     }
 }
