@@ -91,6 +91,7 @@ public class ObjectCreationController {
                 parentController.notify("Object " + name + " added to " + runway);
                 runway.setObstacle(obstacle);
                 parentController.runwayUpdate();
+                parentController.topRunwayUpdate();
                 objectCancelButtonEvent(event);
 
             } catch (NullPointerException | NumberFormatException ex) {
