@@ -81,4 +81,13 @@ public class RunwayParameters {
     public void setLDA(double displacedTHR) {
         dispTHRProperty().set(displacedTHR);
     }
+
+    public boolean isSame(RunwayParameters obj) {
+        if (!tora.getValue().equals(obj.tora.getValue())) return false;
+        if (!toda.getValue().equals(obj.toda.getValue())) return false;
+        if (!asda.getValue().equals(obj.asda.getValue())) return false;
+        if (!lda.getValue().equals(obj.lda.getValue())) return false;
+        if (!displacedThreshold.getValue().equals(obj.displacedThreshold.getValue())) return false;
+        return true;
+    }
 }

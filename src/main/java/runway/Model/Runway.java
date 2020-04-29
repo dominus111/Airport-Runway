@@ -34,4 +34,17 @@ public class Runway {
     public Obstacle getObstacle(){
         return obstacle;
     }
+
+    public String getRunway() {
+        return "Runway{" +
+                "leftRunway=" + leftRunway.getVirtualRunway() +
+                ", rightRunway=" + rightRunway.getVirtualRunway() +
+                '}';
+    }
+
+    public boolean isSame(Runway obj) {
+        if (!leftRunway.isSame(obj.leftRunway)) return false;
+        if (!rightRunway.isSame(obj.rightRunway)) return false;
+        return true;
+    }
 }

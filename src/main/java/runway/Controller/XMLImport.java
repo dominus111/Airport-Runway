@@ -30,6 +30,21 @@ public class XMLImport {
         }
     }
 
+    public Airport parseAirport(Document doc) throws Exception {
+        doc.normalize();
+        var name = xp.compile("(/Airport/Name)[1]").evaluate(doc);
+
+        var airport = new Airport(name);
+
+        var runways = (NodeList) xp.compile("/Airport/Runways/Runway").evaluate(doc, XPathConstants.NODESET);
+
+        for (var i=0; i < runways.getLength(); i++) {
+            var runway = parseRunway(runways.item(i));
+            airport.addRunway(runway);
+        }
+        return airport;
+    }
+
     public Airport parseAirportFile(Path path) throws Exception{
         var is = Files.newInputStream(path);
         var doc = db.parse(is);

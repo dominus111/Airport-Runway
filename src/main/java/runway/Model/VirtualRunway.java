@@ -33,4 +33,17 @@ public class VirtualRunway {
     public RunwayParameters getRecalculatedParameters() {
         return recalculatedParameters;
     }
+
+    public String getVirtualRunway() {
+        return "VirtualRunway{" +
+                "designator='" + designator + '\'' +
+                ", initialParameters=" + initialParameters +
+                '}';
+    }
+
+    public boolean isSame(VirtualRunway obj) {
+        if (!designator.equals(obj.designator)) return false;
+        if (!initialParameters.isSame(obj.initialParameters)) return false;
+        return true;
+    }
 }
