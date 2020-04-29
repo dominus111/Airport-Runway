@@ -793,66 +793,114 @@ public class Controller {
 
     public void runwayUpdate() {
         VirtualRunway v;
+        boolean updated;
         sideLeftButton.setText(current.getLeftRunway().toString());
         sideRightButton.setText(current.getRightRunway().toString());
 
         if (leftView) {
             v = current.getLeftRunway();
+            updated = (current.getLeftRunway().getRecalculatedParameters() != null);
         } else {
             v = current.getRightRunway();
+            updated = (current.getRightRunway().getRecalculatedParameters() != null);
         }
         Integer PIXEL_START = -302;
         Integer PIXEL_TOTAL = 632 - 100;
-        double tora = v.getInitialParameters().getTora();
-        double lda = v.getInitialParameters().getLda();
-        double toda = v.getInitialParameters().getToda();
-        double asda = v.getInitialParameters().getAsda();
-        double displacedThreshold = v.getInitialParameters().getdispTHR();
+        Integer PIXEL_END = 316;
+
+        double tora, lda, toda, asda, displacedThreshold;
+        if(updated) {
+            tora = v.getRecalculatedParameters().getTora();
+            lda = v.getRecalculatedParameters().getLda();
+            toda = v.getRecalculatedParameters().getToda();
+            asda = v.getRecalculatedParameters().getAsda();
+            displacedThreshold = v.getRecalculatedParameters().getdispTHR();
+        }
+        else{
+            tora = v.getInitialParameters().getTora();
+            lda = v.getInitialParameters().getLda();
+            toda = v.getInitialParameters().getToda();
+            asda = v.getInitialParameters().getAsda();
+            displacedThreshold = v.getInitialParameters().getdispTHR();
+        }
 
         double max = scale(tora, toda, lda, asda);
 
-        sideTORA.setText("TORA: " + Math.round(tora) + "m");
-        sideLineTORA.setStartX(PIXEL_START);
-        sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
-
-        rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
-
-        rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
-
-        sideLDA.setText("LDA: " + Math.round(lda) + "m");
-        sideLineLDA.setStartX(PIXEL_START + PIXEL_TOTAL * (displacedThreshold / max));
-        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * ((lda + displacedThreshold) / max));
-
-        //any setTranslateX using PIXEL_START must take into account the actual pixel start of -317
-        sideDisplacedThreshold.setTranslateX(PIXEL_START + 317);
-        sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max));
-
-        sideTODA.setText("TODA: " + Math.round(toda) + "m");
-        sideLineTODA.setStartX(PIXEL_START);
-        sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL * (toda / max));
-
-        rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max));
-
-        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
-        sideLineASDA.setStartX(PIXEL_START);
-        sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL * (asda / max));
-
-        rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max));
+        double translate = 0;
 
         if( current.getObstacle() != null){
             sideObstacle.setVisible(true);
             if(leftView) {
-                sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max));
+                translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max);
             }
             else{
-                sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max));
+                translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max);
             }
+            sideObstacle.setTranslateX(PIXEL_START + 317 + translate);
+            translate += sideObstacle.getWidth();
             sideObstacle.setTranslateY(10 - current.getObstacle().getHeight());
             sideObstacle.setHeight(current.getObstacle().getHeight());
         }
         else{
             sideObstacle.setVisible(false);
         }
+
+
+        sideTORA.setText("TORA: " + Math.round(tora) + "m");
+        sideLineTORA.setStartX(PIXEL_START);
+        sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
+
+        rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
+
+        rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
+
+        sideLDA.setText("LDA: " + Math.round(lda) + "m");
+        sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
+        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
+
+        //any setTranslateX using PIXEL_START must take into account the actual pixel start of -317
+        sideDisplacedThreshold.setTranslateX( PIXEL_START + 317 );
+        sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max));
+
+        sideTODA.setText("TODA: " + Math.round(toda) + "m");
+        sideLineTODA.setStartX(PIXEL_START);
+        sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL * (toda / max));
+
+        rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max) - translate);
+
+        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
+        sideLineASDA.setStartX(PIXEL_START);
+        sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL * (asda / max));
+
+        rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max) - translate);
+
+        if(sideLineLDA.getStartX() < PIXEL_START){
+            sideLineLDA.setStartX(PIXEL_START);
+        }
+        if(sideLineASDA.getStartX() < PIXEL_START){
+            sideLineASDA.setStartX(PIXEL_START);
+        }
+        if(sideLineTODA.getStartX() < PIXEL_START){
+            sideLineTODA.setStartX(PIXEL_START);
+        }
+        if(sideLineTORA.getStartX() < PIXEL_START){
+            sideLineTORA.setStartX(PIXEL_START);
+        }
+        if(sideLineTORA.getEndX() > PIXEL_END){
+            sideLineTORA.setEndX(PIXEL_END);
+        }
+        if(sideLineTODA.getEndX() > PIXEL_END){
+            sideLineTODA.setEndX(PIXEL_END);
+        }
+        if(sideLineLDA.getEndX() > PIXEL_END){
+            sideLineLDA.setEndX(PIXEL_END);
+        }
+        if(sideLineASDA.getEndX() > PIXEL_END){
+            sideLineASDA.setEndX(PIXEL_END);
+        }
+
+
+
     }
 
     public double scale(double tora, double toda, double lda, double asda) {

@@ -96,7 +96,7 @@
                               <Rectangle fx:id="rightClearway" fill="#c40034" height="19.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" width="65.0" />
                               <Rectangle fx:id="sideDisplacedThreshold" fill="#e8e81e" height="19.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" width="65.0" />
                               <Rectangle fx:id="rightStopway" fill="#da891e" height="15.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" width="10.0" />
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000026" height="10.0" layoutX="-5.0" layoutY="375.0" stroke="TRANSPARENT" strokeType="INSIDE" width="643.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00000026" height="10.0" layoutY="375.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />
                               <Label layoutX="73.0" layoutY="26.0" text="Direction" />
                               <Line endX="-67.66664123535156" layoutX="228.0" layoutY="36.0" startX="-100.0" />
                               <Polygon fill="DODGERBLUE" layoutX="171.0" layoutY="94.0" points="-9.666641235351562, -49.44444274902344, 10.222213745117188, -57.888885498046875, -9.666641235351562, -65.88888549804688" stroke="BLACK" strokeType="INSIDE" />
@@ -166,8 +166,8 @@
                            </font>
                         </Label>
                         <ComboBox layoutX="14.0" layoutY="31.0" onAction="#airportSelectionEvent" prefHeight="25.0" prefWidth="198.0" fx:id="xmlCombo" />
-                        <Button layoutX="16.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Import" fx:id="xmlImport" onAction="#importEvent"/>
-                        <Button layoutX="151.0" layoutY="73.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="119.0" text="Export" fx:id="xmlExport" onAction="#exportEvent"/>
+                        <Button layoutX="16.0" layoutY="73.0" mnemonicParsing="false" onAction="#importEvent" prefHeight="25.0" prefWidth="119.0" text="Import" fx:id="xmlImport" />
+                        <Button layoutX="151.0" layoutY="73.0" mnemonicParsing="false" onAction="#exportEvent" prefHeight="25.0" prefWidth="119.0" text="Export" fx:id="xmlExport" />
                         <Button layoutX="219.0" layoutY="31.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="51.0" text="Load" fx:id="xmlLoad" />
                      </children>
                   </Pane>
