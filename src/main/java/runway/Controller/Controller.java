@@ -61,7 +61,7 @@ public class Controller {
     @FXML
     private AnchorPane sideOnAnchorPane;
     @FXML
-    private AnchorPane topView;
+    private AnchorPane topView, topRunawayPane;
     @FXML
     private Line lineTODA, lineASDA, lineTORA, lineLDA, centerLine, leftStart, rightStart;
     @FXML
@@ -300,15 +300,33 @@ public class Controller {
         /**
          * Create an obstacle and its parameters and put it in the choice box
          */
-        Obstacle plane1 = new Obstacle("Plane1", 10.0);
-        ObstaclePositionParam plane1Parm = new ObstaclePositionParam(plane1, 500, 500, 0);
-        plane1.setoParam(plane1Parm);
+        //Obstacle plane1 = new Obstacle("Plane1", 10.0);
+        //ObstaclePositionParam plane1Parm = new ObstaclePositionParam(plane1, 500, 500, 0);
+        //plane1.setoParam(plane1Parm);
 
-        int obstHight = (int) plane1.getHeight();
-        int obstLTHR = (int) plane1.getoParam().getDistToLTHR();
-        int obstRTHR = (int) plane1.getoParam().getDistToRTHR();
-        int obstCLine = (int) plane1.getoParam().getDistToCenterL();
-        boolean boolObstacle = true;
+        int obstHight = 0;
+        int obstLTHR = 0;
+        int obstRTHR = 0;
+        int obstCLine = 0;
+        double obstDisp = 0;
+        double obstOffDisp = 0;
+        boolean boolObstacle = false;
+
+
+        if( current.getObstacle() != null){
+            obstacle.setVisible(true);
+            obstHight = (int) current.getObstacle().getHeight();
+            obstLTHR = (int) current.getObstacle().getoParam().getDistToLTHR();
+            obstRTHR = (int) current.getObstacle().getoParam().getDistToRTHR();
+            obstCLine = (int) current.getObstacle().getoParam().getDistToCenterL();
+            obstDisp = obstHight * slope + RESA + stripEnd;
+            obstOffDisp = obstLTHR - (RESA + stripEnd);
+            boolObstacle = true;
+        }
+        else{
+            obstacle.setVisible(false);
+            boolObstacle = false;
+        }
 
         /**
          *
@@ -318,10 +336,17 @@ public class Controller {
         leftB.setText(current.getLeftRunway().toString());
         rightB.setText(current.getRightRunway().toString());
 
+        if (runwaySelect.getValue() == null) {
+            topRed.setVisible(false);
+            topYellow.setVisible(false);
+            topOrange.setVisible(false);
+        }
+
         lineTODA.setStroke(colour);
         lineASDA.setStroke(colour);
         lineTORA.setStroke(colour);
         lineLDA.setStroke(colour);
+
 
         designatorL.setText(current.getLeftRunway().getDesignator());
         designatorR.setText(current.getRightRunway().getDesignator());
@@ -352,8 +377,6 @@ public class Controller {
             double lda = v.getInitialParameters().getLda();
             double toda = v.getInitialParameters().getToda();
             double asda = v.getInitialParameters().getAsda();
-            double obstDisp = obstHight * slope + RESA + stripEnd;
-            double obstOffDisp = obstLTHR - (RESA + stripEnd);
 
             if (boolObstacle) {
                 double obstoffset = (TTODA * obstLTHR / toda);
@@ -556,8 +579,7 @@ public class Controller {
             double lda = v.getInitialParameters().getLda();
             double toda = v.getInitialParameters().getToda();
             double asda = v.getInitialParameters().getAsda();
-            double obstDisp = obstHight * slope + RESA + stripEnd;
-            double obstOffDisp = (tora-obstRTHR) - (RESA + stripEnd);
+
 
             if (boolObstacle) {
                 double obstoffset = (TTODA * (tora-obstRTHR) / toda);
@@ -879,6 +901,7 @@ public class Controller {
             ObservableList<Runway> observableNewList = FXCollections.observableArrayList();
             String runwaySelected = runwaySelect.getSelectionModel().getSelectedItem();
             runwaySelect.getItems().clear();
+            topRunawayPane.setVisible(false);
 
             for (Runway currentRunway : airport.getObservableRunwayList()) {
                 if (!runwaySelected.equals(currentRunway.toString())) {
@@ -899,6 +922,7 @@ public class Controller {
             current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             this.sideOnTabEvent(event);
             this.topDownTabEvent(event);
+            topRunawayPane.setVisible(true);
             this.updateTables();
         }
         /*
@@ -1064,6 +1088,7 @@ public class Controller {
             runway.getRightRunway().setRecalculatedParameters(null);
             updateTables();
             runwayUpdate();
+            topRunwayUpdate();
             notify("Object removed from runway " + runway);
         } else if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() == null) {
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());

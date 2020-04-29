@@ -20,8 +20,8 @@
                     <designator>27R</designator>
                     <RunwayParameters>
                         <tora>3000.0</tora>
-                        <toda>3000.0</toda>
-                        <asda>3700.0</asda>
+                        <toda>3700.0</toda>
+                        <asda>3000.0</asda>
                         <lda>2500.0</lda>
                         <displacedThreshold>0.0</displacedThreshold>
                     </RunwayParameters>

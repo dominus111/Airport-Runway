@@ -48,9 +48,9 @@
                                     <Line fx:id="centerLine" endX="404.0" layoutX="125.0" layoutY="111.0" stroke="WHITE" strokeWidth="3.0" />
                                     <Line fx:id="leftStart" endX="55.0" layoutX="94.0" layoutY="111.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
                                      <Line fx:id="rightStart" endX="55.0" layoutX="504.0" layoutY="111.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
-                                    <Rectangle fx:id="topYellow" arcHeight="5.0" arcWidth="5.0" fill="#ebde6fa3" height="70.0" layoutX="45.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-                                    <Rectangle fx:id="topRed" arcHeight="5.0" arcWidth="5.0" fill="#b20f0fb2" height="70.0" layoutX="159.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
-                                    <Rectangle fx:id="topOrange" arcHeight="5.0" arcWidth="5.0" fill="#e8700eb5" height="60.0" layoutX="225.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" width="40.0" />
+                                    <Rectangle fx:id="topYellow" arcHeight="5.0" arcWidth="5.0" fill="#ebde6fa3" height="70.0" layoutX="45.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="40.0" />
+                                    <Rectangle fx:id="topRed" arcHeight="5.0" arcWidth="5.0" fill="#b20f0fb2" height="70.0" layoutX="159.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="40.0" />
+                                    <Rectangle fx:id="topOrange" arcHeight="5.0" arcWidth="5.0" fill="#e8700eb5" height="60.0" layoutX="225.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="40.0" />
                                     <Line fx:id="lineTODA" endX="100.0" layoutX="266.0" layoutY="150.0" stroke="WHITE" strokeWidth="3.0" />
                                      <Text fx:id="textTODA" fill="WHITE" layoutX="302.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
                                      <Line fx:id="lineASDA" endX="100.0" layoutX="266.0" layoutY="170.0" stroke="WHITE" strokeWidth="3.0" />
@@ -59,7 +59,7 @@
                                      <Text fx:id="textASDA" fill="WHITE" layoutX="302.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
                                      <Line fx:id="lineLDA" endX="100.0" layoutX="266.0" layoutY="210.0" stroke="WHITE" strokeWidth="3.0" />
                                      <Text fx:id="textLDA" fill="WHITE" layoutX="302.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                                    <Circle fx:id="obstacle" fill="#e521ffb7" layoutX="93.0" layoutY="97.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" />
+                                    <Circle fx:id="obstacle" fill="#e521ffb7" layoutX="93.0" layoutY="97.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                                  </children>
                               </AnchorPane>
                               <RadioButton layoutX="529.0" layoutY="14.0" mnemonicParsing="false" onAction="#topTakingoffButton" selected="true" text="Taking off">
