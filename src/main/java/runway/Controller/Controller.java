@@ -25,14 +25,17 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
+import javafx.stage.*;
 import javafx.util.Callback;
 import runway.Model.*;
 
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -120,11 +123,12 @@ public class Controller {
     XMLImport xmlImporter = new XMLImport();
     XMLExport xmlExporter = new XMLExport();
 
+    ObservableList<Airport> options;
 
     @FXML
     public void initialize() {
         //TODO fix double airports
-        ObservableList<Airport> options = FXCollections.observableArrayList(xmlImporter.getAirports());
+        options = FXCollections.observableArrayList(xmlImporter.getAirports());
         if(airportList!=null) {
             airportList.setItems(options);
             System.out.println(options.size());
@@ -1139,5 +1143,59 @@ public class Controller {
         dialog.setFullScreen(false);
         dialog.setResizable(false);
         dialog.show();
+    }
+
+    @FXML
+    public void importEvent(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        fileChooser.setTitle("Load");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+
+        try {
+            File file = fileChooser.showOpenDialog(dialog);
+
+            if (file != null) {
+                Airport a = xmlImporter.parseAirportFile(file.toPath());
+                options.add(a);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void exportEvent(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        fileChooser.setTitle("Save");
+        fileChooser.setInitialFileName("airport.xml");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+
+        try {
+            File file = fileChooser.showSaveDialog(dialog);
+
+            if (file != null) {
+                var airportDoc = xmlExporter.exportXML(airport);
+                TransformerFactory tf = TransformerFactory.newDefaultInstance();
+                Transformer t = tf.newTransformer();
+                t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+                t.setOutputProperty(OutputKeys.INDENT, "yes");
+                t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+                DOMSource src = new DOMSource(airportDoc);
+                FileWriter fw = new FileWriter(file);
+                StreamResult res = new StreamResult(fw);
+                t.transform(src, res);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void xmlSelectionEvent(ActionEvent actionEvent) {
     }
 }
