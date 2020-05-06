@@ -92,6 +92,8 @@ public class ObjectCreationController {
                 parentController.runwayUpdate();
                 parentController.topRunwayUpdate();
                 objectCancelButtonEvent(event);
+                parentController.removeObjButton.setDisable(false);
+                parentController.removeObjButton.setText("Remove Object " + name);
 
             } catch (NullPointerException | NumberFormatException ex) {
                 errorWindow("Text field for numbers contains letters or is empty.");

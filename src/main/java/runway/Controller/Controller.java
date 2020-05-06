@@ -147,12 +147,13 @@ public class Controller {
             for (Runway currentRunway : airport.getObservableRunwayList()) {
                 runwaySelect.getItems().add(currentRunway.toString());
             }
+            removeObjButton.setDisable(true);
+            removeRunwayButton.setDisable(true);
         }
     }
     void setAllButtonsDisable(Boolean value) {
         airportList.setDisable(value);
         addObjButton.setDisable(value);
-        removeObjButton.setDisable(value);
         addRunwayButton.setDisable(value);
         removeRunwayButton.setDisable(value);
         addRunwayButton.setDisable(value);
@@ -981,6 +982,10 @@ public class Controller {
             }
             airport.setObservableRunwayList(observableNewList);
             notify("RemoveRunwayEvent on " + runwayName);
+            removeRunwayButton.setDisable(true);
+            removeObjButton.setDisable(true);
+            removeObjButton.setText("No object on Runway");
+
         } else {
             notify("Nothing to remove. No runway has been selected.");
         }
@@ -992,6 +997,14 @@ public class Controller {
     void runwaySelectEvent(Event event) {
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
             current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            removeRunwayButton.setDisable(false);
+            if(current.getObstacle() != null) {
+                removeObjButton.setDisable(false);
+                removeObjButton.setText("Remove Object " + current.getObstacle().getName());
+            } else {
+                removeObjButton.setDisable(true);
+                removeObjButton.setText("No object on Runway");
+            }
             this.sideOnTabEvent(event);
             this.topDownTabEvent(event);
             topRunawayPane.setVisible(true);
@@ -1144,6 +1157,16 @@ public class Controller {
             setAllButtonsDisable(false);
         }
 
+        if(runwaySelect.getSelectionModel().getSelectedItem() != null) {
+            Runway current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            if(current.getObstacle() != null) {
+                removeObjButton.setDisable(false);
+                removeObjButton.setText("Remove Object " + current.getObstacle().getName());
+            } else {
+                removeObjButton.setDisable(true);
+                removeObjButton.setText("No object on Runway");
+            }
+        }
     }
 
     @FXML
@@ -1157,6 +1180,8 @@ public class Controller {
             runwayUpdate();
             topRunwayUpdate();
             notify("Object removed from runway " + runway + ".");
+            removeObjButton.setDisable(true);
+            removeObjButton.setText("No object on Runway");
         } else if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() == null) {
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             notify("No object on runway " + runway + ".");
