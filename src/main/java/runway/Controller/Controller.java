@@ -57,7 +57,9 @@ public class Controller {
     private Boolean topTakingoff = true;
 
     @FXML
-    protected Button addObjButton;
+    protected Button addObjButton, addRunwayButton, removeRunwayButton, removeObjButton, popOutButton;
+    @FXML
+    protected Button topShowCalcButton, bottomShowCalcButton;
 
     @FXML
     private AnchorPane notificationBox;
@@ -147,7 +149,20 @@ public class Controller {
             }
         }
     }
-
+    void setAllButtonsDisable(Boolean value) {
+        airportList.setDisable(value);
+        addObjButton.setDisable(value);
+        removeObjButton.setDisable(value);
+        addRunwayButton.setDisable(value);
+        removeRunwayButton.setDisable(value);
+        addRunwayButton.setDisable(value);
+        topShowCalcButton.setDisable(value);
+        bottomShowCalcButton.setDisable(value);
+        popOutButton.setDisable(value);
+        xmlImport.setDisable(value);
+        xmlExport.setDisable(value);
+        runwaySelect.setDisable(value);
+    }
 
     public ComboBox<String> getRunwaySelect() {
         return runwaySelect;
@@ -936,7 +951,10 @@ public class Controller {
             stage.setTitle("Runway Creation");
             stage.setResizable(false);
             stage.setScene(new Scene(root));
+            stage.setOnCloseRequest(e -> setAllButtonsDisable(false));
             stage.show();
+
+            setAllButtonsDisable(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -963,6 +981,8 @@ public class Controller {
             }
             airport.setObservableRunwayList(observableNewList);
             notify("RemoveRunwayEvent on " + runwayName);
+        } else {
+            notify("Nothing to remove. No runway has been selected.");
         }
 
         updateTables();
@@ -1051,14 +1071,12 @@ public class Controller {
         airportList.setItems( FXCollections.observableArrayList(xmlImporter.getAirports()));
     }
 
-
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {
 
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
-            addObjButton.setDisable(true);
-            runwaySelect.setDisable(true);
+            setAllButtonsDisable(true);
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             if (runway.getLeftRunway().getRecalculatedParameters() == null && runway.getRightRunway().getRecalculatedParameters() == null) {
 
@@ -1075,8 +1093,7 @@ public class Controller {
                     ctrl.setParentController(this);
                     Stage stage = new Stage();
                     stage.setOnCloseRequest(e -> {
-                        runwaySelect.setDisable(false);
-                        addObjButton.setDisable(false);
+                        setAllButtonsDisable(false);
                     });
                     stage.setTitle("Object");
                     stage.setResizable(false);
@@ -1096,7 +1113,7 @@ public class Controller {
                 VBox dialogVbox = new VBox(20);
 
                 Text text = new Text("There already is an object on the runway." + "\n" + "Please remove it and try again");
-                notify("Object creation error: There already is an object on the runway. Please remove it and try again");
+                notify("There already is an object on the runway. Please remove it and try again");
 
 
                 Scene dialogScene = new Scene(dialogVbox, 250, 80);
@@ -1104,8 +1121,7 @@ public class Controller {
                 dialogVbox.setPadding(new Insets(20, 20, 20, 20));
                 dialogVbox.getChildren().add(text);
                 dialog.show();
-                addObjButton.setDisable(false);
-                runwaySelect.setDisable(false);
+                setAllButtonsDisable(false);
             }
         } else {
             final Stage dialog = new Stage();
@@ -1117,7 +1133,7 @@ public class Controller {
             VBox dialogVbox = new VBox(20);
 
             Text text = new Text("No runway has been selected.\nPlease select a runway and try again.");
-            notify("Object creation error: No runway has been selected. Please select a runway and try again.");
+            notify("No runway has been selected. Please select a runway and try again.");
 
 
             Scene dialogScene = new Scene(dialogVbox, 250, 80);
@@ -1125,8 +1141,7 @@ public class Controller {
             dialogVbox.setPadding(new Insets(20, 20, 20, 20));
             dialogVbox.getChildren().add(text);
             dialog.show();
-            addObjButton.setDisable(false);
-            runwaySelect.setDisable(false);
+            setAllButtonsDisable(false);
         }
 
     }
@@ -1141,12 +1156,12 @@ public class Controller {
             updateTables();
             runwayUpdate();
             topRunwayUpdate();
-            notify("Object removed from runway " + runway);
+            notify("Object removed from runway " + runway + ".");
         } else if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() == null) {
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
-            notify("No object on runway " + runway);
+            notify("No object on runway " + runway + ".");
         } else {
-            notify("No runway has been selected ");
+            notify("No object to remove. No runway has been selected.");
         }
 
     }
@@ -1195,23 +1210,27 @@ public class Controller {
 
     @FXML
     public void importEvent(ActionEvent actionEvent) {
+        setAllButtonsDisable(true);
         FileChooser fileChooser = new FileChooser();
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         fileChooser.setTitle("Load");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+        dialog.setOnCloseRequest(e -> setAllButtonsDisable(false));
 
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
         try {
             File file = fileChooser.showOpenDialog(dialog);
 
             if (file != null) {
                 Airport a = xmlImporter.parseAirportFile(file.toPath());
                 options.add(a);
+                setAllButtonsDisable(false);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        setAllButtonsDisable(false);
     }
 
     @FXML
@@ -1219,10 +1238,12 @@ public class Controller {
         FileChooser fileChooser = new FileChooser();
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setOnCloseRequest(e -> setAllButtonsDisable(false));
+
         fileChooser.setTitle("Save");
         fileChooser.setInitialFileName("airport.xml");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
-
+        setAllButtonsDisable(true);
         try {
             File file = fileChooser.showSaveDialog(dialog);
 
@@ -1241,7 +1262,7 @@ public class Controller {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        setAllButtonsDisable(false);
     }
 
     public void xmlSelectionEvent(ActionEvent actionEvent) {

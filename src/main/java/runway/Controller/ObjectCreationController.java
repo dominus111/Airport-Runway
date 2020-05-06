@@ -42,8 +42,7 @@ public class ObjectCreationController {
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
-        parentController.addObjButton.setDisable(false);
-        parentController.getRunwaySelect().setDisable(false);
+        parentController.setAllButtonsDisable(false);
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
@@ -100,8 +99,7 @@ public class ObjectCreationController {
             }
         }
         if (!disable) {
-            parentController.addObjButton.setDisable(false);
-            parentController.getRunwaySelect().setDisable(false);
+            parentController.setAllButtonsDisable(false);
         }
      }
 
