@@ -149,13 +149,13 @@ public class Controller {
             }
             removeObjButton.setDisable(true);
             removeRunwayButton.setDisable(true);
+            addObjButton.setDisable(true);
         }
     }
     void setAllButtonsDisable(Boolean value) {
         airportList.setDisable(value);
         addObjButton.setDisable(value);
         addRunwayButton.setDisable(value);
-        removeRunwayButton.setDisable(value);
         addRunwayButton.setDisable(value);
         topShowCalcButton.setDisable(value);
         bottomShowCalcButton.setDisable(value);
@@ -163,6 +163,14 @@ public class Controller {
         xmlImport.setDisable(value);
         xmlExport.setDisable(value);
         runwaySelect.setDisable(value);
+
+        if(runwaySelect.getSelectionModel().getSelectedItem() == null) {
+            removeRunwayButton.setDisable(true);
+            addObjButton.setDisable(true);
+        } else {
+            removeRunwayButton.setDisable(false);
+            addObjButton.setDisable(false);
+        }
     }
 
     public ComboBox<String> getRunwaySelect() {
@@ -956,6 +964,8 @@ public class Controller {
             stage.show();
 
             setAllButtonsDisable(true);
+            removeRunwayButton.setDisable(true);
+            addObjButton.setDisable(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -985,6 +995,7 @@ public class Controller {
             removeRunwayButton.setDisable(true);
             removeObjButton.setDisable(true);
             removeObjButton.setText("No object on Runway");
+            addObjButton.setDisable(true);
 
         } else {
             notify("Nothing to remove. No runway has been selected.");
@@ -998,6 +1009,7 @@ public class Controller {
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
             current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             removeRunwayButton.setDisable(false);
+            addObjButton.setDisable(false);
             if(current.getObstacle() != null) {
                 removeObjButton.setDisable(false);
                 removeObjButton.setText("Remove Object " + current.getObstacle().getName());
@@ -1090,6 +1102,8 @@ public class Controller {
 
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
             setAllButtonsDisable(true);
+            removeRunwayButton.setDisable(true);
+            addObjButton.setDisable(true);
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             if (runway.getLeftRunway().getRecalculatedParameters() == null && runway.getRightRunway().getRecalculatedParameters() == null) {
 
@@ -1236,6 +1250,8 @@ public class Controller {
     @FXML
     public void importEvent(ActionEvent actionEvent) {
         setAllButtonsDisable(true);
+        removeRunwayButton.setDisable(true);
+        addObjButton.setDisable(true);
         FileChooser fileChooser = new FileChooser();
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -1269,6 +1285,8 @@ public class Controller {
         fileChooser.setInitialFileName("airport.xml");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
         setAllButtonsDisable(true);
+        removeRunwayButton.setDisable(true);
+        addObjButton.setDisable(true);
         try {
             File file = fileChooser.showSaveDialog(dialog);
 

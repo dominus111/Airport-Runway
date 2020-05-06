@@ -63,6 +63,7 @@ public class RunwayCreationController {
         if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDispThr.getText() == null || rightDispThr == null || leftLDA.getText() == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightLDA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null) {
             parentController.setAllButtonsDisable(false);
             parentController.notify("Runway creation error: empty fields");
+            runwayCancelButtonEvent(new ActionEvent());
         }
         else {
             String topRValue = topRDirComboBox.getSelectionModel().getSelectedItem();
