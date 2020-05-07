@@ -150,6 +150,8 @@ public class Controller {
             removeObjButton.setDisable(true);
             removeRunwayButton.setDisable(true);
             addObjButton.setDisable(true);
+            addRunwayButton.setDisable(true);
+            runwaySelect.setDisable(true);
         }
     }
     void setAllButtonsDisable(Boolean value) {
@@ -171,8 +173,21 @@ public class Controller {
             removeRunwayButton.setDisable(false);
             addObjButton.setDisable(false);
         }
-    }
 
+        if(airportList.getSelectionModel().getSelectedItem() == null) {
+            runwaySelect.setDisable(true);
+            addRunwayButton.setDisable(true);
+        } else {
+            runwaySelect.setDisable(false);
+            addRunwayButton.setDisable(false);
+        }
+    }
+    void disableButtons() {
+        runwaySelect.setDisable(true);
+        addRunwayButton.setDisable(true);
+        addObjButton.setDisable(true);
+        removeRunwayButton.setDisable(true);
+    }
     public ComboBox<String> getRunwaySelect() {
         return runwaySelect;
     }
@@ -964,8 +979,7 @@ public class Controller {
             stage.show();
 
             setAllButtonsDisable(true);
-            removeRunwayButton.setDisable(true);
-            addObjButton.setDisable(true);
+            disableButtons();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -996,7 +1010,6 @@ public class Controller {
             removeObjButton.setDisable(true);
             removeObjButton.setText("No object on Runway");
             addObjButton.setDisable(true);
-
         } else {
             notify("Nothing to remove. No runway has been selected.");
         }
@@ -1098,15 +1111,16 @@ public class Controller {
 
     @FXML
     void airportSelectEvent(ActionEvent event) {
-        Airport current = airportList.getSelectionModel().getSelectedItem();
-        if (runwaySelect != null) {
-            runwaySelect.getItems().clear();
-            for (Runway currentRunway : current.getObservableRunwayList()) {
-                runwaySelect.getItems().add(currentRunway.toString());
+        if(airportList.getSelectionModel().getSelectedItem() != null) {
+            Airport current = airportList.getSelectionModel().getSelectedItem();
+            if (runwaySelect != null) {
+                runwaySelect.getItems().clear();
+                for (Runway currentRunway : current.getObservableRunwayList()) {
+                    runwaySelect.getItems().add(currentRunway.toString());
+                }
             }
-            removeObjButton.setDisable(true);
-            removeRunwayButton.setDisable(true);
-            addObjButton.setDisable(true);
+            addRunwayButton.setDisable(false);
+            runwaySelect.setDisable(false);
         }
 
     }
@@ -1116,8 +1130,7 @@ public class Controller {
 
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
             setAllButtonsDisable(true);
-            removeRunwayButton.setDisable(true);
-            addObjButton.setDisable(true);
+            disableButtons();
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             if (runway.getLeftRunway().getRecalculatedParameters() == null && runway.getRightRunway().getRecalculatedParameters() == null) {
 
@@ -1264,8 +1277,7 @@ public class Controller {
     @FXML
     public void importEvent(ActionEvent actionEvent) {
         setAllButtonsDisable(true);
-        removeRunwayButton.setDisable(true);
-        addObjButton.setDisable(true);
+        disableButtons();
         FileChooser fileChooser = new FileChooser();
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -1299,8 +1311,7 @@ public class Controller {
         fileChooser.setInitialFileName("airport.xml");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
         setAllButtonsDisable(true);
-        removeRunwayButton.setDisable(true);
-        addObjButton.setDisable(true);
+        disableButtons();
         try {
             File file = fileChooser.showSaveDialog(dialog);
 
