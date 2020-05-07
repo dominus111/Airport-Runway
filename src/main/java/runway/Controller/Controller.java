@@ -1096,6 +1096,20 @@ public class Controller {
         airportList.setItems( FXCollections.observableArrayList(xmlImporter.getAirports()));
     }
 
+    @FXML
+    void airportSelectEvent(ActionEvent event) {
+        Airport current = airportList.getSelectionModel().getSelectedItem();
+        if (runwaySelect != null) {
+            runwaySelect.getItems().clear();
+            for (Runway currentRunway : current.getObservableRunwayList()) {
+                runwaySelect.getItems().add(currentRunway.toString());
+            }
+            removeObjButton.setDisable(true);
+            removeRunwayButton.setDisable(true);
+            addObjButton.setDisable(true);
+        }
+
+    }
     // Opens up the Object window
     @FXML
     void addObjectToRunwayEvent(ActionEvent event) {

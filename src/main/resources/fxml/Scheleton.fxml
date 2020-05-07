@@ -149,7 +149,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="airportList" layoutX="11.0" layoutY="61.0" onAction="#runwaySelectEvent" prefHeight="25.0" prefWidth="265.0" />
+                        <ComboBox fx:id="airportList" layoutX="11.0" layoutY="61.0" onAction="#airportSelectEvent" prefHeight="25.0" prefWidth="265.0" />
                      </children>
                   </Pane>
                   <Pane prefHeight="103.0" prefWidth="331.0">
