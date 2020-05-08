@@ -54,14 +54,18 @@ public class RunwayCreationController {
     @FXML
     void runwayCancelButtonEvent(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
+
+        parentController.setAllButtonsDisable(false);
+        parentController.runwaySelectEvent(event);
         stage.close();
     }
 
     @FXML
     void createRunwayButtonEvent(ActionEvent event) {
         if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDispThr.getText() == null || rightDispThr == null || leftLDA.getText() == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightLDA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null) {
-            System.out.println("Error message. Empty fields");
+            parentController.setAllButtonsDisable(false);
             parentController.notify("Runway creation error: empty fields");
+            runwayCancelButtonEvent(new ActionEvent());
         }
         else {
             String topRValue = topRDirComboBox.getSelectionModel().getSelectedItem();
@@ -115,10 +119,12 @@ public class RunwayCreationController {
                 }
             }
             parentController.notify("Runway " + runway + " added to airport");
+            parentController.setAllButtonsDisable(false);
+
             runwayCancelButtonEvent(event);
             }  catch (NullPointerException | NumberFormatException ex)
             {
-              System.out.println("Notification : Error. Only doubles allowed in the text fields.");
+              parentController.setAllButtonsDisable(false);
               parentController.notify("Runway creation error: only doubles allowed in the text fields.");
             }
 

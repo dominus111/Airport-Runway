@@ -42,8 +42,7 @@ public class ObjectCreationController {
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
-        parentController.addObjButton.setDisable(false);
-        parentController.getRunwaySelect().setDisable(false);
+        parentController.setAllButtonsDisable(false);
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
@@ -89,19 +88,23 @@ public class ObjectCreationController {
                 calculator.calculate(oParam, runway);
                 parentController.updateTables();
                 parentController.notify("Object " + name + " added to " + runway);
+
                 runway.setObstacle(obstacle);
                 parentController.runwayUpdate();
                 parentController.topRunwayUpdate();
                 objectCancelButtonEvent(event);
+
+                parentController.removeObjButton.setDisable(false);
+                parentController.removeObjButton.setText("Remove Object " + name);
 
             } catch (NullPointerException | NumberFormatException ex) {
                 errorWindow("Text field for numbers contains letters or is empty.");
                 disable = true;
             }
         }
+
         if (!disable) {
-            parentController.addObjButton.setDisable(false);
-            parentController.getRunwaySelect().setDisable(false);
+            parentController.setAllButtonsDisable(false);
         }
      }
 
