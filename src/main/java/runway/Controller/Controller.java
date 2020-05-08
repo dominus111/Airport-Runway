@@ -224,6 +224,70 @@ public class Controller {
     }
 
     @FXML
+    void showTODA(){
+        if(lineTODA.isVisible()){
+            lineTODA.setVisible(false);
+        }
+        else{
+            lineTODA.setVisible(true);
+        }
+        if(sideLineTODA.isVisible()){
+            sideLineTODA.setVisible(false);
+        }
+        else{
+            sideLineTODA.setVisible(true);
+        }
+    }
+
+    @FXML
+    void showTORA(){
+        if(lineTORA.isVisible()){
+            lineTORA.setVisible(false);
+        }
+        else{
+            lineTORA.setVisible(true);
+        }
+        if(sideLineTORA.isVisible()){
+            sideLineTORA.setVisible(false);
+        }
+        else{
+            sideLineTORA.setVisible(true);
+        }
+    }
+
+    @FXML
+    void showASDA(){
+        if(lineASDA.isVisible()){
+            lineASDA.setVisible(false);
+        }
+        else{
+            lineASDA.setVisible(true);
+        }
+        if(sideLineASDA.isVisible()){
+            sideLineASDA.setVisible(false);
+        }
+        else{
+            sideLineASDA.setVisible(true);
+        }
+    }
+
+    @FXML
+    void showLDA(){
+        if(lineLDA.isVisible()){
+            lineLDA.setVisible(false);
+        }
+        else{
+            lineLDA.setVisible(true);
+        }
+        if(sideLineLDA.isVisible()){
+            sideLineLDA.setVisible(false);
+        }
+        else{
+            sideLineLDA.setVisible(true);
+        }
+    }
+
+    @FXML
     void notificationPopOutAction(){
         if(notificationsVisible){
             return;
