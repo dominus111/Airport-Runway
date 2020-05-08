@@ -1150,6 +1150,8 @@ public class Controller {
 
     @FXML
     void runwaySelectEvent(Event event) {
+        if(rotateRadioButton.getText().equals("Rotate to initial position."))
+            rotateEvent(new ActionEvent());
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
             current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             removeRunwayButton.setDisable(false);
@@ -1368,6 +1370,8 @@ public class Controller {
             runway.getRightRunway().setRecalculatedParameters(null);
             updateTables();
             runwayUpdate();
+            if(rotateRadioButton.getText().equals("Rotate to initial position."))
+                rotateEvent(event);
             topRunwayUpdate();
             notify("Object removed from runway " + runway + ".");
             removeObjButton.setDisable(true);
