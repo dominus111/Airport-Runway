@@ -38,7 +38,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -191,8 +193,8 @@ public class Controller {
     }
 
     void notify(String message){
-        String text = message;
-        notifications.add(message);
+        String text = message + "  -  " + (new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(new Date()));
+        notifications.add(text);
         try {
             notificationController.update();
         }

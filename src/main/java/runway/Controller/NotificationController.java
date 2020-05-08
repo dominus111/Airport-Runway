@@ -38,7 +38,7 @@ public class NotificationController {
         int scaler = parent.getNotifications().size() - 1;
         content.setPrefHeight((scaler + 2)*notificationSize);
         for(String s : parent.getNotifications()){
-            Label notification = new Label(s + "  -  " + new SimpleDateFormat("dd/MM/yyyy @ HH:mm:ss").format(new Date()));
+            Label notification = new Label(s);
             notification.setBackground(new Background(new BackgroundFill(new Color(1,1,1,1.0), CornerRadii.EMPTY, Insets.EMPTY)));
             notification.setTranslateY(notificationSize*scaler);
             content.getChildren().add(notification);
