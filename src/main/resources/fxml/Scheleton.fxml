@@ -12,8 +12,6 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -24,69 +22,83 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Polygon?>
+<?import javafx.scene.shape.Polyline?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="768.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
+<VBox prefHeight="861.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
    <children>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="1000.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="1000.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="711.4444783528646" minWidth="10.0" prefWidth="634.6666327582466" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.5555419921875" minWidth="10.0" prefWidth="297.3333672417534" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="629.3333333333334" minHeight="10.0" prefHeight="629.3333333333334" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="670.3333333333334" minHeight="10.0" prefHeight="670.3333333333334" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="306.33333672417535" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TabPane prefHeight="539.0" prefWidth="658.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane prefHeight="674.0" prefWidth="669.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab onSelectionChanged="#topDownTabEvent" text="Top Down">
                   <content>
-                    <AnchorPane fx:id="topView" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <AnchorPane fx:id="topView" layoutY="20.0" minHeight="0.0" minWidth="0.0" prefHeight="634.0" prefWidth="669.0">
                            <children>
-                              <ImageView fx:id="image" fitHeight="479.0" fitWidth="620.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@image.png" />
-                                 </image></ImageView>
-                              <Text fx:id="designatorL" layoutX="86.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                              <Text fx:id="designatorR" layoutX="540.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                              <RadioButton fx:id="leftB" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#topLeftButton" selected="true" text="Left">
+                              <RadioButton fx:id="leftB" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#topLeftButton" selected="true" text="Left">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="topGroup" />
                                  </toggleGroup>
                               </RadioButton>
-                              <RadioButton fx:id="rightB" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" onAction="#topRightButton" text="Right" toggleGroup="$topGroup" />
-                              <Label layoutX="276.0" layoutY="15.0" text="Direction" />
-                              <Line fx:id="arrowLine" endX="-67.66664123535156" layoutX="390.0" layoutY="40.0" startX="-100.0" />
-                              <Polygon fx:id="topRightArrow" fill="DODGERBLUE" layoutX="335.0" layoutY="98.0" points="-9.666641235351562, -49.44444274902344, 10.222213745117188, -57.888885498046875, -9.666641235351562, -65.88888549804688" stroke="BLACK" strokeType="INSIDE" />
-                               <Polygon fx:id="topLeftArrow" fill="DODGERBLUE" layoutX="276.0" layoutY="97.0" points="-9.666641235351562, -49.44444274902344, 10.222213745117188, -57.888885498046875, -9.666641235351562, -65.88888549804688" rotate="180.0" stroke="BLACK" strokeType="INSIDE" />
-                              <Rectangle fx:id="topRunaway" arcHeight="5.0" arcWidth="5.0" fill="#8d8d8d" height="70.0" layoutX="45.0" layoutY="156.0" stroke="BLACK" strokeType="INSIDE" width="550.0" />
-                              <AnchorPane fx:id="topRunawayPane" layoutY="79.0" prefHeight="353.0" prefWidth="632.0">
+                              <RadioButton fx:id="rightB" layoutX="21.0" layoutY="47.0" mnemonicParsing="false" onAction="#topRightButton" text="Right" toggleGroup="$topGroup" />
+                              <AnchorPane fx:id="topRunawayPane" layoutX="14.0" layoutY="180.0" prefHeight="300.0" prefWidth="217.0">
                                  <children>
+                                    <Polyline fx:id="midPoly" fill="#6db061" layoutX="82.0" layoutY="86.0" points="566.4444580078125, -53.33332824707031, 566.4444580078125, 105.77777099609375, -79.4444580078125, 105.77777099609375, -79.4444580078125, -53.33332824707031" strokeType="INSIDE" strokeWidth="0.0" />
+                                    <Text fx:id="designatorL" layoutX="95.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                    <Text fx:id="designatorR" layoutX="525.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                    <Rectangle fx:id="topRunaway" arcHeight="5.0" arcWidth="5.0" fill="#8d8d8d" height="70.0" layoutX="41.0" layoutY="76.0" stroke="BLACK" strokeType="INSIDE" width="550.0" />
                                     <Line fx:id="centerLine" endX="404.0" layoutX="125.0" layoutY="111.0" stroke="WHITE" strokeWidth="3.0" />
                                     <Line fx:id="leftStart" endX="55.0" layoutX="94.0" layoutY="111.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
                                      <Line fx:id="rightStart" endX="55.0" layoutX="504.0" layoutY="111.0" rotate="90.0" stroke="WHITE" strokeWidth="5.0" />
                                     <Rectangle fx:id="topYellow" arcHeight="5.0" arcWidth="5.0" fill="#ebde6fa3" height="70.0" layoutX="45.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="40.0" />
                                     <Rectangle fx:id="topRed" arcHeight="5.0" arcWidth="5.0" fill="#b20f0fb2" height="70.0" layoutX="159.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="40.0" />
                                     <Rectangle fx:id="topOrange" arcHeight="5.0" arcWidth="5.0" fill="#e8700eb5" height="60.0" layoutX="225.0" layoutY="77.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="40.0" />
-                                    <Line fx:id="lineTODA" endX="100.0" layoutX="266.0" layoutY="150.0" stroke="WHITE" strokeWidth="3.0" />
+                                    <Line fx:id="lineTODA" endX="100.0" layoutX="266.0" layoutY="150.0" stroke="WHITE" strokeWidth="3.0">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect></Line>
                                      <Text fx:id="textTODA" fill="WHITE" layoutX="302.0" layoutY="163.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                                     <Line fx:id="lineASDA" endX="100.0" layoutX="266.0" layoutY="170.0" stroke="WHITE" strokeWidth="3.0" />
-                                     <Text fx:id="textTORA" fill="WHITE" layoutX="302.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                                     <Line fx:id="lineTORA" endX="100.0" layoutX="266.0" layoutY="190.0" stroke="WHITE" strokeWidth="3.0" />
+                                     <Line fx:id="lineASDA" endX="100.0" layoutX="266.0" layoutY="170.0" stroke="WHITE" strokeWidth="3.0">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect></Line>
                                      <Text fx:id="textASDA" fill="WHITE" layoutX="302.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
-                                     <Line fx:id="lineLDA" endX="100.0" layoutX="266.0" layoutY="210.0" stroke="WHITE" strokeWidth="3.0" />
+                                    <Polyline fx:id="topPoly" fill="#6db061" layoutX="198.0" layoutY="40.0" points="-30.333343505859375, -49.44445037841797, 276.7778015136719, -49.44445037841797, 326.22222900390625, -6.7777862548828125, -82.22222900390625, -6.7777862548828125" strokeType="INSIDE" strokeWidth="0.0" />
+                                    <Polyline fx:id="bottomPoly" fill="#6db061" layoutX="162.0" layoutY="238.0" points="-65.4444580078125, -47.66668701171875, -1.888885498046875, 6.111083984375, 304.7778015136719, 6.111083984375, 365.22222900390625, -47.66668701171875" strokeType="INSIDE" strokeWidth="0.0" />
+                                    <Label fx:id="lableDir" layoutX="297.0" layoutY="3.0" text="Direction" />
+                                    <Polygon fx:id="topRightArrow" fill="DODGERBLUE" layoutX="348.0" layoutY="88.0" points="-9.666641235351562, -49.44444274902344, 9.999969482421875, -57.33332824707031, -9.666641235351562, -65.88888549804688" stroke="BLACK" strokeType="INSIDE" />
+                                     <Polygon fx:id="topLeftArrow" fill="DODGERBLUE" layoutX="311.0" layoutY="84.0" points="-9.666656494140625, -46.44444274902344, -29.777801513671875, -52.77778625488281, -9.666656494140625, -62.88890075683594" stroke="BLACK" strokeType="INSIDE" />
+                                    <Line fx:id="arrowLine" endX="-67.66664123535156" layoutX="404.0" layoutY="29.0" startX="-100.0" />
+                                     <Line fx:id="lineTORA" endX="100.0" layoutX="266.0" layoutY="190.0" stroke="WHITE" strokeWidth="3.0">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect></Line>
+                                     <Text fx:id="textTORA" fill="WHITE" layoutX="302.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
+                                     <Line fx:id="lineLDA" endX="100.0" layoutX="266.0" layoutY="210.0" stroke="WHITE" strokeWidth="3.0">
+                                       <effect>
+                                          <DropShadow />
+                                       </effect></Line>
                                      <Text fx:id="textLDA" fill="WHITE" layoutX="302.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
                                     <Circle fx:id="obstacle" fill="#e521ffb7" layoutX="93.0" layoutY="97.0" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                                  </children>
                               </AnchorPane>
-                              <RadioButton layoutX="529.0" layoutY="14.0" mnemonicParsing="false" onAction="#topTakingoffButton" selected="true" text="Taking off">
+                              <RadioButton fx:id="takingOffRadioButton" layoutX="562.0" layoutY="20.0" mnemonicParsing="false" onAction="#topTakingoffButton" selected="true" text="Taking off">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="topViewGroup" />
-                                 </toggleGroup></RadioButton>
-                              <RadioButton layoutX="529.0" layoutY="41.0" mnemonicParsing="false" onAction="#topLandingButton" text="Landing" toggleGroup="$topViewGroup" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="landingRadioButton" layoutX="562.0" layoutY="47.0" mnemonicParsing="false" onAction="#topLandingButton" text="Landing" toggleGroup="$topViewGroup" />
+                              <Button fx:id="rotateRadioButton" layoutX="23.0" layoutY="593.0" mnemonicParsing="false" onAction="#rotateEvent" text="Button" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -127,7 +139,7 @@
                 </Tab>
               </tabs>
             </TabPane>
-            <VBox prefHeight="543.0" prefWidth="297.0" GridPane.columnIndex="1">
+            <VBox prefHeight="623.0" prefWidth="292.0" GridPane.columnIndex="1">
                <children>
                   <Pane layoutX="10.0" layoutY="10.0" prefHeight="90.0" prefWidth="331.0">
                      <opaqueInsets>
@@ -152,19 +164,19 @@
                         <ComboBox fx:id="airportList" layoutX="11.0" layoutY="61.0" onAction="#airportSelectEvent" prefHeight="25.0" prefWidth="265.0" />
                      </children>
                   </Pane>
-                  <Pane prefHeight="103.0" prefWidth="331.0">
+                  <Pane prefHeight="103.0" prefWidth="332.0">
                      <opaqueInsets>
                         <Insets bottom="1.0" />
                      </opaqueInsets>
                      <children>
-                        <Label layoutX="14.0" layoutY="14.0" text="Select Runway">
+                        <Label layoutX="14.0" layoutY="7.0" text="Select Runway">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
                         <Button fx:id="addRunwayButton" layoutX="11.0" layoutY="73.0" mnemonicParsing="false" onAction="#addRunwayButtonEvent" text="Add Runway" />
                         <Button fx:id="removeRunwayButton" layoutX="103.0" layoutY="73.0" mnemonicParsing="false" onAction="#removeRunwayButtonEvent" text="Remove Runway" />
-                        <ComboBox fx:id="runwaySelect" layoutX="11.0" layoutY="33.0" onAction="#runwaySelectEvent" prefHeight="25.0" prefWidth="265.0" />
+                        <ComboBox fx:id="runwaySelect" layoutX="11.0" layoutY="28.0" onAction="#runwaySelectEvent" prefHeight="25.0" prefWidth="265.0" />
                      </children>
                   </Pane>
                   <Pane prefHeight="93.0" prefWidth="296.0">
@@ -178,14 +190,14 @@
                         <Button fx:id="removeObjButton" layoutX="14.0" layoutY="60.0" mnemonicParsing="false" onAction="#removeObjButtonEvent" prefHeight="25.0" prefWidth="265.0" text="Remove Object From Current Runway" />
                      </children>
                   </Pane>
-                  <Pane prefHeight="112.0" prefWidth="296.0">
+                  <Pane prefHeight="63.0" prefWidth="332.0">
                      <children>
                         <Label layoutX="14.0" layoutY="2.0" text="XML">
                            <font>
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <Button layoutX="16.0" layoutY="27.0" mnemonicParsing="false" onAction="#importEvent" prefHeight="25.0" prefWidth="119.0" text="Import" fx:id="xmlImport" />
+                        <Button layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#importEvent" prefHeight="25.0" prefWidth="119.0" text="Import" fx:id="xmlImport" />
                         <Button layoutX="151.0" layoutY="27.0" mnemonicParsing="false" onAction="#exportEvent" prefHeight="25.0" prefWidth="119.0" text="Export" fx:id="xmlExport" />
                      </children>
                   </Pane>
@@ -196,10 +208,10 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Label>
-                        <Button fx:id="popOutButton" layoutY="86.0" mnemonicParsing="false" onAction="#notificationPopOutAction" prefHeight="25.0" prefWidth="294.0" text="Pop out" textAlignment="CENTER" />
+                        <Button fx:id="popOutButton" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" onAction="#notificationPopOutAction" prefHeight="25.0" prefWidth="265.0" text="Pop out" textAlignment="CENTER" />
                         <AnchorPane layoutX="4.0" layoutY="20.0" prefHeight="62.0" prefWidth="286.0">
                            <children>
-                              <Label fx:id="notification1" layoutX="11.0" prefHeight="20.0" prefWidth="278.0" text="Notifications displayed here">
+                              <Label fx:id="notification1" layoutX="15.0" prefHeight="20.0" prefWidth="278.0" text="Notifications displayed here">
                                  <font>
                                     <Font name="System Italic" size="14.0" />
                                  </font>
@@ -214,7 +226,8 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                           </children></AnchorPane>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </Pane>
                </children>
@@ -230,7 +243,7 @@
                         <Insets />
                      </VBox.margin>
                   </Separator>
-                  <HBox prefHeight="216.0" prefWidth="793.0">
+                  <HBox prefHeight="216.0" prefWidth="832.0">
                      <children>
                         <VBox prefHeight="74.0" prefWidth="135.0">
                            <children>

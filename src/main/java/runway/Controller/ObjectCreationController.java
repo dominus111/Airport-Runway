@@ -88,10 +88,12 @@ public class ObjectCreationController {
                 calculator.calculate(oParam, runway);
                 parentController.updateTables();
                 parentController.notify("Object " + name + " added to " + runway);
+
                 runway.setObstacle(obstacle);
                 parentController.runwayUpdate();
                 parentController.topRunwayUpdate();
                 objectCancelButtonEvent(event);
+
                 parentController.removeObjButton.setDisable(false);
                 parentController.removeObjButton.setText("Remove Object " + name);
 
@@ -100,6 +102,7 @@ public class ObjectCreationController {
                 disable = true;
             }
         }
+
         if (!disable) {
             parentController.setAllButtonsDisable(false);
         }

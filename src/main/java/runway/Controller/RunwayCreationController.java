@@ -54,7 +54,9 @@ public class RunwayCreationController {
     @FXML
     void runwayCancelButtonEvent(ActionEvent event) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
+
         parentController.setAllButtonsDisable(false);
+        parentController.runwaySelectEvent(event);
         stage.close();
     }
 

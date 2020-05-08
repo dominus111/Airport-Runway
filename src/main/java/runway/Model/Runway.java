@@ -7,7 +7,7 @@ public class Runway {
 
     private VirtualRunway leftRunway;
     private VirtualRunway rightRunway;
-    private Obstacle obstacle;
+    private Obstacle obstacle = null;
 
     public Runway(VirtualRunway leftRunway, VirtualRunway rightRunway) {
         this.leftRunway = leftRunway;
