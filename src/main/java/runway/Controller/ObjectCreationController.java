@@ -42,6 +42,8 @@ public class ObjectCreationController {
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
+        parentController.makeGraphicsVisible(true);
+        parentController.disableViewButtons(false);
         parentController.setAllButtonsDisable(false);
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
@@ -105,6 +107,7 @@ public class ObjectCreationController {
 
         if (!disable) {
             parentController.setAllButtonsDisable(false);
+            parentController.addObjButton.setDisable(true);
         }
      }
 

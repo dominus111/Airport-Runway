@@ -60,6 +60,9 @@ public class Controller {
     private Boolean topTakingoff = true;
 
     @FXML
+    protected CheckBox todaCBox, toraCBox, asdaCBox, ldaCBox;
+
+    @FXML
     protected Button addObjButton, addRunwayButton, removeRunwayButton, removeObjButton, popOutButton;
     @FXML
     protected Button topShowCalcButton, bottomShowCalcButton;
@@ -71,7 +74,7 @@ public class Controller {
     @FXML
     protected ImageView image, image1;
     @FXML
-    protected Label lableDir;
+    protected Label lableDir, hideShowLable;
 
     @FXML
     private AnchorPane notificationBox;
@@ -193,14 +196,17 @@ public class Controller {
 
         if(runwaySelect.getSelectionModel().getSelectedItem() == null) {
             removeRunwayButton.setDisable(true);
-            addObjButton.setDisable(true);
             makeGraphicsVisible(false);
             disableViewButtons(true);
         } else {
             removeRunwayButton.setDisable(false);
-            addObjButton.setDisable(false);
             disableViewButtons(false);
             makeGraphicsVisible(true);
+            Runway current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
+            if(current.getObstacle() != null)
+                addObjButton.setDisable(true);
+            else
+                addObjButton.setDisable(false);
         }
 
         if(airportList.getSelectionModel().getSelectedItem() == null) {
@@ -227,15 +233,19 @@ public class Controller {
     void showTODA(){
         if(lineTODA.isVisible()){
             lineTODA.setVisible(false);
+            textTODA.setVisible(false);
         }
         else{
             lineTODA.setVisible(true);
+            textTODA.setVisible(true);
         }
         if(sideLineTODA.isVisible()){
             sideLineTODA.setVisible(false);
+            sideTODA.setVisible(false);
         }
         else{
             sideLineTODA.setVisible(true);
+            sideTODA.setVisible(true);
         }
     }
 
@@ -243,15 +253,19 @@ public class Controller {
     void showTORA(){
         if(lineTORA.isVisible()){
             lineTORA.setVisible(false);
+            textTORA.setVisible(false);
         }
         else{
             lineTORA.setVisible(true);
+            textTORA.setVisible(true);
         }
         if(sideLineTORA.isVisible()){
             sideLineTORA.setVisible(false);
+            sideTORA.setVisible(false);
         }
         else{
             sideLineTORA.setVisible(true);
+            sideTORA.setVisible(true);
         }
     }
 
@@ -259,15 +273,19 @@ public class Controller {
     void showASDA(){
         if(lineASDA.isVisible()){
             lineASDA.setVisible(false);
+            textASDA.setVisible(false);
         }
         else{
             lineASDA.setVisible(true);
+            textASDA.setVisible(true);
         }
         if(sideLineASDA.isVisible()){
             sideLineASDA.setVisible(false);
+            sideASDA.setVisible(false);
         }
         else{
             sideLineASDA.setVisible(true);
+            sideASDA.setVisible(true);
         }
     }
 
@@ -275,15 +293,19 @@ public class Controller {
     void showLDA(){
         if(lineLDA.isVisible()){
             lineLDA.setVisible(false);
+            textLDA.setVisible(false);
         }
         else{
             lineLDA.setVisible(true);
+            textLDA.setVisible(true);
         }
         if(sideLineLDA.isVisible()){
             sideLineLDA.setVisible(false);
+            sideLDA.setVisible(false);
         }
         else{
             sideLineLDA.setVisible(true);
+            sideLDA.setVisible(true);
         }
     }
 
@@ -376,7 +398,7 @@ public class Controller {
     }
 
     public void updateRotationLable() {
-        if (!rotateRadioButton.getText().equals("Rotate to initial position.")) {
+        if (!rotateRadioButton.getText().equals("Rotate to initial position")) {
             rotateRadioButton.setText("Match compas heading: " + getRotation());
         }
     }
@@ -441,7 +463,7 @@ public class Controller {
     void rotateEvent (ActionEvent e) {
             int rotate;
             rotate = getRotation();
-            if (rotateRadioButton.getText().equals("Rotate to initial position.")) {
+            if (rotateRadioButton.getText().equals("Rotate to initial position")) {
                 rotateToValue(90);
                 rotateRadioButton.setText("Match compas heading: " + rotate);
             } else {
@@ -451,7 +473,7 @@ public class Controller {
                 else
                     rotateToValue(rotate);
 
-                rotateRadioButton.setText("Rotate to initial position.");
+                rotateRadioButton.setText("Rotate to initial position");
         }
 
     }
@@ -476,6 +498,16 @@ public class Controller {
         landingRadioButton.setDisable(val);
         rotateRadioButton.setDisable(val);
         rotateRadioButton.setVisible(!val);
+        ldaCBox.setDisable(val);
+        ldaCBox.setVisible(!val);
+        asdaCBox.setDisable(val);
+        asdaCBox.setVisible(!val);
+        toraCBox.setDisable(val);
+        toraCBox.setVisible(!val);
+        todaCBox.setDisable(val);
+        todaCBox.setVisible(!val);
+        hideShowLable.setVisible(!val);
+        hideShowLable.setDisable(val);
 
         if(runwaySelect.getSelectionModel().getSelectedItem() != null) {
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
@@ -1175,6 +1207,8 @@ public class Controller {
 
             setAllButtonsDisable(true);
             disableButtons();
+            disableViewButtons(true);
+            makeGraphicsVisible(false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1216,18 +1250,19 @@ public class Controller {
 
     @FXML
     void runwaySelectEvent(Event event) {
-        if(rotateRadioButton.getText().equals("Rotate to initial position."))
+        if(rotateRadioButton.getText().equals("Rotate to initial position"))
             rotateEvent(new ActionEvent());
         if (runwaySelect.getSelectionModel().getSelectedItem() != null) {
             current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             removeRunwayButton.setDisable(false);
-            addObjButton.setDisable(false);
             if(current != null ) {
                 if (current.getObstacle() != null) {
                     removeObjButton.setDisable(false);
+                    addObjButton.setDisable(true);
                     removeObjButton.setText("Remove Object " + current.getObstacle().getName());
                 } else {
                     removeObjButton.setDisable(true);
+                    addObjButton.setDisable(false);
                     removeObjButton.setText("No object on Runway");
                 }
             }
@@ -1341,8 +1376,9 @@ public class Controller {
             setAllButtonsDisable(true);
             disableButtons();
             makeGraphicsVisible(false);
+            disableViewButtons(true);
 
-            if(rotateRadioButton.getText().equals("Rotate to initial position."))
+            if(rotateRadioButton.getText().equals("Rotate to initial position"))
                 rotateEvent(event);
 
             Runway runway = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
@@ -1436,10 +1472,11 @@ public class Controller {
             runway.getRightRunway().setRecalculatedParameters(null);
             updateTables();
             runwayUpdate();
-            if(rotateRadioButton.getText().equals("Rotate to initial position."))
+            if(rotateRadioButton.getText().equals("Rotate to initial position"))
                 rotateEvent(event);
             topRunwayUpdate();
             notify("Object removed from runway " + runway + ".");
+            addObjButton.setDisable(false);
             removeObjButton.setDisable(true);
             removeObjButton.setText("No object on Runway");
         } else if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() == null) {
@@ -1497,6 +1534,8 @@ public class Controller {
     public void importEvent(ActionEvent actionEvent) {
         setAllButtonsDisable(true);
         disableButtons();
+        makeGraphicsVisible(false);
+        disableViewButtons(true);
         FileChooser fileChooser = new FileChooser();
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -1541,6 +1580,8 @@ public class Controller {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
         setAllButtonsDisable(true);
         disableButtons();
+        makeGraphicsVisible(false);
+        disableViewButtons(true);
         try {
             File file = fileChooser.showSaveDialog(dialog);
 

@@ -28,23 +28,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="900.0" prefWidth="998.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
+<VBox prefHeight="879.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
    <children>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="1000.0">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="1000.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="711.4444783528646" minWidth="10.0" prefWidth="634.6666327582466" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="480.5555419921875" minWidth="10.0" prefWidth="297.3333672417534" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="670.3333333333334" minHeight="10.0" prefHeight="670.3333333333334" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="306.33333672417535" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="670.3333333333334" minHeight="10.0" prefHeight="654.6666463216146" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="306.33333672417535" minHeight="0.0" prefHeight="16.44446478949658" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <TabPane prefHeight="674.0" prefWidth="669.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab onSelectionChanged="#topDownTabEvent" text="Top Down">
                   <content>
-                    <AnchorPane fx:id="topView" layoutY="20.0" minHeight="0.0" minWidth="0.0" prefHeight="634.0" prefWidth="669.0">
+                    <AnchorPane fx:id="topView" layoutY="20.0" minHeight="0.0" minWidth="0.0" prefHeight="620.0" prefWidth="669.0">
                            <children>
                               <RadioButton fx:id="leftB" layoutX="21.0" layoutY="20.0" mnemonicParsing="false" onAction="#topLeftButton" selected="true" text="Left">
                                  <toggleGroup>
@@ -99,7 +99,7 @@
                                  </toggleGroup>
                               </RadioButton>
                               <RadioButton fx:id="landingRadioButton" layoutX="562.0" layoutY="47.0" mnemonicParsing="false" onAction="#topLandingButton" text="Landing" toggleGroup="$topViewGroup" />
-                              <Button fx:id="rotateRadioButton" layoutX="23.0" layoutY="593.0" mnemonicParsing="false" onAction="#rotateEvent" text="Button" />
+                              <Button fx:id="rotateRadioButton" layoutX="23.0" layoutY="588.0" mnemonicParsing="false" onAction="#rotateEvent" text="Button" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -235,13 +235,13 @@
             </VBox>
          </children>
       </GridPane>
-      <AnchorPane prefHeight="200.0" prefWidth="1000.0">
+      <AnchorPane prefHeight="100.0" prefWidth="1000.0">
          <children>
-            <CheckBox layoutX="150.0" layoutY="25.0" mnemonicParsing="false" onAction="#showTODA" selected="true" text="TODA" />
-            <CheckBox layoutX="241.0" layoutY="25.0" mnemonicParsing="false" onAction="#showTORA" selected="true" text="TORA" />
-            <CheckBox layoutX="333.0" layoutY="25.0" mnemonicParsing="false" onAction="#showASDA" selected="true" text="ASDA" />
-            <CheckBox layoutX="424.0" layoutY="25.0" mnemonicParsing="false" onAction="#showLDA" selected="true" text="LDA" />
-            <Label layoutX="29.0" layoutY="25.0" text="Hide / Show values">
+            <CheckBox fx:id="todaCBox" layoutX="150.0" layoutY="8.0" mnemonicParsing="false" onAction="#showTODA" selected="true" text="TODA" />
+            <CheckBox fx:id="toraCBox" layoutX="241.0" layoutY="8.0" mnemonicParsing="false" onAction="#showTORA" selected="true" text="TORA" />
+            <CheckBox fx:id="asdaCBox" layoutX="333.0" layoutY="8.0" mnemonicParsing="false" onAction="#showASDA" selected="true" text="ASDA" />
+            <CheckBox fx:id="ldaCBox" layoutX="424.0" layoutY="8.0" mnemonicParsing="false" onAction="#showLDA" selected="true" text="LDA" />
+            <Label fx:id="hideShowLable" layoutX="29.0" layoutY="8.0" text="Hide / Show values">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -332,7 +332,7 @@
                                     <Insets bottom="5.0" right="5.0" top="10.0" />
                                  </VBox.margin>
                               </TableView>
-                              <TableView fx:id="topRtableView" prefHeight="71.0" prefWidth="637.0" stylesheets="@ScrollBar.css">
+                              <TableView fx:id="topRtableView" prefHeight="77.0" prefWidth="637.0" stylesheets="@ScrollBar.css">
                                 <columns>
                                   <TableColumn fx:id="rightToda" prefWidth="158.0" text="TODA" />
                                   <TableColumn fx:id="rightAsda" prefWidth="158.0" text="ASDA" />
