@@ -110,7 +110,7 @@ public class Controller {
     @FXML
     private RadioButton sideLeftButton, sideRightButton;
     @FXML
-    private RadioButton leftB, rightB;
+    protected RadioButton leftB, rightB;
     @FXML
     private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA;
     @FXML
@@ -169,6 +169,8 @@ public class Controller {
                 runwaySelect.getItems().add(currentRunway.toString());
             }
             removeObjButton.setDisable(true);
+            bottomShowCalcButton.setDisable(true);
+            topShowCalcButton.setDisable(true);
             disableButtons();
             disableViewButtons(true);
             makeGraphicsVisible(false);
@@ -198,15 +200,25 @@ public class Controller {
             removeRunwayButton.setDisable(true);
             makeGraphicsVisible(false);
             disableViewButtons(true);
+            addObjButton.setDisable(true);
+            bottomShowCalcButton.setDisable(true);
+            topShowCalcButton.setDisable(true);
         } else {
             removeRunwayButton.setDisable(false);
             disableViewButtons(false);
             makeGraphicsVisible(true);
             Runway current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
-            if(current.getObstacle() != null)
+
+            if(current.getObstacle() != null) {
                 addObjButton.setDisable(true);
-            else
+                bottomShowCalcButton.setDisable(false);
+                topShowCalcButton.setDisable(false);
+            }
+            else {
                 addObjButton.setDisable(false);
+                bottomShowCalcButton.setDisable(true);
+                topShowCalcButton.setDisable(true);
+            }
         }
 
         if(airportList.getSelectionModel().getSelectedItem() == null) {
@@ -222,6 +234,8 @@ public class Controller {
         runwaySelect.setDisable(true);
         addRunwayButton.setDisable(true);
         addObjButton.setDisable(true);
+        bottomShowCalcButton.setDisable(true);
+        topShowCalcButton.setDisable(true);
         removeRunwayButton.setDisable(true);
     }
 
@@ -533,11 +547,10 @@ public class Controller {
         lineLDA.setVisible(val);
         textLDA.setVisible(val);
 
-        if (leftB.isArmed()) {
-            topLeftArrow.setVisible(val);
-        } else
-            topRightArrow.setVisible(val);
-
+        if (leftB.isDisable()) {
+            topLeftArrow.setVisible(false);
+            topRightArrow.setVisible(false);
+        }
     }
 
     public void topRunwayUpdate() {
@@ -1239,6 +1252,8 @@ public class Controller {
             removeObjButton.setDisable(true);
             removeObjButton.setText("No object on Runway");
             addObjButton.setDisable(true);
+            bottomShowCalcButton.setDisable(true);
+            topShowCalcButton.setDisable(true);
             disableViewButtons(true);
             makeGraphicsVisible(false);
         } else {
@@ -1259,10 +1274,14 @@ public class Controller {
                 if (current.getObstacle() != null) {
                     removeObjButton.setDisable(false);
                     addObjButton.setDisable(true);
+                    bottomShowCalcButton.setDisable(false);
+                    topShowCalcButton.setDisable(false);
                     removeObjButton.setText("Remove Object " + current.getObstacle().getName());
                 } else {
                     removeObjButton.setDisable(true);
                     addObjButton.setDisable(false);
+                    bottomShowCalcButton.setDisable(true);
+                    topShowCalcButton.setDisable(true);
                     removeObjButton.setText("No object on Runway");
                 }
             }
@@ -1454,9 +1473,13 @@ public class Controller {
             Runway current = airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem());
             if(current.getObstacle() != null) {
                 removeObjButton.setDisable(false);
+                bottomShowCalcButton.setDisable(false);
+                topShowCalcButton.setDisable(false);
                 removeObjButton.setText("Remove Object " + current.getObstacle().getName());
             } else {
                 removeObjButton.setDisable(true);
+                bottomShowCalcButton.setDisable(true);
+                topShowCalcButton.setDisable(true);
                 removeObjButton.setText("No object on Runway");
             }
         }
@@ -1477,6 +1500,8 @@ public class Controller {
             topRunwayUpdate();
             notify("Object removed from runway " + runway + ".");
             addObjButton.setDisable(false);
+            bottomShowCalcButton.setDisable(true);
+            topShowCalcButton.setDisable(true);
             removeObjButton.setDisable(true);
             removeObjButton.setText("No object on Runway");
         } else if (runwaySelect.getSelectionModel().getSelectedItem() != null && airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getObstacle() == null) {

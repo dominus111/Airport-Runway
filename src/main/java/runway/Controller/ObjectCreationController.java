@@ -13,6 +13,7 @@ import runway.Model.Calculator;
 import runway.Model.Obstacle;
 import runway.Model.ObstaclePositionParam;
 import runway.Model.Runway;
+import javafx.scene.input.KeyEvent;
 
 public class ObjectCreationController {
     @FXML
@@ -38,6 +39,8 @@ public class ObjectCreationController {
 
     @FXML
     public ComboBox<Obstacle> objectComboBox;
+
+    String height = "";
 
 
     @FXML
@@ -108,6 +111,11 @@ public class ObjectCreationController {
         if (!disable) {
             parentController.setAllButtonsDisable(false);
             parentController.addObjButton.setDisable(true);
+            if (parentController.leftB.isSelected()) {
+                parentController.topLeftButton(new ActionEvent());
+            } else
+                parentController.topRightButton(new ActionEvent());
+
         }
      }
 
@@ -116,10 +124,48 @@ public class ObjectCreationController {
         if (objectComboBox.getSelectionModel()!=null) {
             nameTextField.setText(objectComboBox.getSelectionModel().getSelectedItem().getName());
             heightTextField.setText(String.valueOf(objectComboBox.getSelectionModel().getSelectedItem().getHeight()));
+            height = String.valueOf(objectComboBox.getSelectionModel().getSelectedItem().getHeight());
         }
     }
 
-        public void errorWindow(String errorMsg) {
+    @FXML
+    void heightOnKeyTyped (KeyEvent event) {
+        height = checkDouble(heightTextField,height, 0, 100, 12);
+    }
+
+    protected String checkDouble(TextField textField, String lastValue, int lowerVal, int upperVal, int maxLength) {
+        String str = textField.getText();
+        /*if (str.length() < lastValue.length())
+            lastValue = str;*/
+
+        if (!str.equals("")) {
+            if (str.length() > 1)
+                if (str.charAt(0) == '0' && str.charAt(1) != '.') {
+                    textField.setText(lastValue);
+                    textField.positionCaret(lastValue.length());
+                    return lastValue;
+                }
+                else try {
+                    double test = Double.parseDouble(str);
+                    if (test < lowerVal || test > upperVal || str.length() > maxLength) {
+                        textField.setText(lastValue);
+                        textField.positionCaret(lastValue.length());
+                        return lastValue;
+                    } else
+                        return str;
+                } catch (NumberFormatException e) {
+                    textField.setText(lastValue);
+                    textField.positionCaret(lastValue.length());
+                }
+        }
+        if (str.equals(".") || str.equals("-")) {
+            textField.setText("");
+            return "";
+        }
+        return str;
+    }
+
+    public void errorWindow(String errorMsg) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setFullScreen(false);
