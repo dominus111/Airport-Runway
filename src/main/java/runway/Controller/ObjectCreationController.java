@@ -41,7 +41,9 @@ public class ObjectCreationController {
     public ComboBox<Obstacle> objectComboBox;
 
     String height = "";
-
+    String distToCL = "";
+    String topThr = "";
+    String bottomThr = "";
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
@@ -103,7 +105,10 @@ public class ObjectCreationController {
                 parentController.removeObjButton.setText("Remove Object " + name);
 
             } catch (NullPointerException | NumberFormatException ex) {
-                errorWindow("Text field for numbers contains letters or is empty.");
+                errorWindow("Name field can contain between 1 and 20 characters. \n" +
+                        "The object's height must be a positive value smaller or equal to 50. \n" +
+                        "Distance to center line value must be between -75 and 75. \n" +
+                        "Distance to thresholds values must between -60 an 500.");
                 disable = true;
             }
         }
@@ -129,54 +134,45 @@ public class ObjectCreationController {
     }
 
     @FXML
+    void nameKeyTyped ( KeyEvent event) {
+        String string = nameTextField.getText();
+        if(string.length() > 20 ) {
+            nameTextField.setText(string.substring(0, string.length()-1));
+            nameTextField.positionCaret(string.length()-1);
+        }
+    }
+
+    @FXML
     void heightOnKeyTyped (KeyEvent event) {
-        height = checkDouble(heightTextField,height, 0, 100, 12);
+        height = parentController.checkDouble(heightTextField,height, 1, 50, 12);
     }
 
-    protected String checkDouble(TextField textField, String lastValue, int lowerVal, int upperVal, int maxLength) {
-        String str = textField.getText();
-        /*if (str.length() < lastValue.length())
-            lastValue = str;*/
-
-        if (!str.equals("")) {
-            if (str.length() > 1)
-                if (str.charAt(0) == '0' && str.charAt(1) != '.') {
-                    textField.setText(lastValue);
-                    textField.positionCaret(lastValue.length());
-                    return lastValue;
-                }
-                else try {
-                    double test = Double.parseDouble(str);
-                    if (test < lowerVal || test > upperVal || str.length() > maxLength) {
-                        textField.setText(lastValue);
-                        textField.positionCaret(lastValue.length());
-                        return lastValue;
-                    } else
-                        return str;
-                } catch (NumberFormatException e) {
-                    textField.setText(lastValue);
-                    textField.positionCaret(lastValue.length());
-                }
-        }
-        if (str.equals(".") || str.equals("-")) {
-            textField.setText("");
-            return "";
-        }
-        return str;
+    @FXML
+    void dCentrLOnKeyTyped (KeyEvent event) {
+        distToCL = parentController.checkDouble(distToCLTextField, distToCL, -75, 75, 12);
     }
+
+    @FXML
+    void displThrTopKeyTyped (KeyEvent event) {
+        topThr = parentController.checkDouble(distToThrTextField, topThr, -60, 500, 12);
+    }
+
+    @FXML
+    void displThrBottomKeyTyped (KeyEvent event) {
+        bottomThr = parentController.checkDouble(bottomDistToThrTextF, bottomThr, -60, 500, 12);
+    }
+
 
     public void errorWindow(String errorMsg) {
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.setFullScreen(false);
-        dialog.setResizable(false);
         dialog.setTitle("Add Object");
         dialog.setIconified(false);
-        VBox dialogVbox = new VBox(40);
+        VBox dialogVbox = new VBox(100);
         Text text = new Text(errorMsg);
 
-
-        Scene dialogScene = new Scene(dialogVbox, 250, 80);
+        Scene dialogScene = new Scene(dialogVbox, 400, 100);
         dialog.setScene(dialogScene);
         dialogVbox.setPadding(new Insets(20, 20, 20, 20));
         dialogVbox.getChildren().add(text);

@@ -1409,8 +1409,8 @@ public class Controller {
                     Parent root = loader.load();
                     ObjectCreationController ctrl = loader.getController();
 
-                    ctrl.getLeftThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
-                    ctrl.getRightThrLabel().setText("Displaced Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
+                    ctrl.getLeftThrLabel().setText("Distance to Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getLeftRunway().toString());
+                    ctrl.getRightThrLabel().setText("Distance to Threshold Runway " + airport.getRunway(runwaySelect.getSelectionModel().getSelectedItem()).getRightRunway().toString());
 
                     List<Obstacle> obstaclesList = xmlImporter.getObstacles();
                     ctrl.objectComboBox.setItems( FXCollections.observableArrayList(obstaclesList));
@@ -1626,6 +1626,45 @@ public class Controller {
             e.printStackTrace();
         }
         setAllButtonsDisable(false);
+    }
+    protected String checkDouble(TextField textField, String lastValue, int lowerVal, int upperVal, int maxLength) {
+        String string = textField.getText();
+        String cleanString = "";
+
+        if (string.length() > 0) {
+
+            for(int i = 0 ; i < string.length() ; i++)
+                if(string.charAt(i) == '.') {
+                    cleanString = string.substring(0, i) + '.' + string.substring(i).replaceAll("[^0-9]", "");
+                    string = cleanString;
+                    i = string.length();
+                }
+
+            if(string.length()>0)
+                if (string.charAt(0) == '-' && lowerVal < 0) {
+                    cleanString = "-" + string.replaceAll("[^0-9.]", "");
+                } else
+                    cleanString = string.replaceAll("[^0-9.]", "");
+
+            try {
+                double value = Double.parseDouble(cleanString);
+                if (value < lowerVal || value > upperVal || string.length() > 12) {
+                    textField.setText(lastValue);
+                    textField.positionCaret(lastValue.length());
+                    return lastValue;
+                } else {
+                    textField.setText(cleanString);
+                    textField.positionCaret(cleanString.length());
+                    return cleanString;
+                }
+
+            } catch (NumberFormatException e) {
+                textField.setText(cleanString);
+                textField.positionCaret(cleanString.length());
+                return cleanString;
+            }
+        }
+        return "";
     }
 
     public void xmlSelectionEvent(ActionEvent actionEvent) {
