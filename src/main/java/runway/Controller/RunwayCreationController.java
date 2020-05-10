@@ -163,9 +163,9 @@ public class RunwayCreationController {
             }
             }  catch (NullPointerException | NumberFormatException ex) {
               parentController.setAllButtonsDisable(false);
+              runwayCancelButtonEvent(event);
               parentController.notify("Runway creation error: only doubles allowed in the text fields.");
             }
-
         }
     }
 
