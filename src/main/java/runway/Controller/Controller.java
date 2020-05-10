@@ -1627,6 +1627,7 @@ public class Controller {
         }
         setAllButtonsDisable(false);
     }
+
     protected String checkDouble(TextField textField, String lastValue, int lowerVal, int upperVal, int maxLength) {
         String string = textField.getText();
         String cleanString = "";
@@ -1645,6 +1646,9 @@ public class Controller {
                     cleanString = "-" + string.replaceAll("[^0-9.]", "");
                 } else
                     cleanString = string.replaceAll("[^0-9.]", "");
+
+                if (cleanString.length() > maxLength)
+                    cleanString = cleanString.substring(0,maxLength);
 
             try {
                 double value = Double.parseDouble(cleanString);

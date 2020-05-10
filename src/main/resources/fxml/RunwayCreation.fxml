@@ -35,8 +35,8 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Text>
-            <TextField fx:id="leftLDA" layoutX="151.0" layoutY="113.0" />
-            <TextField fx:id="leftTODA" layoutX="151.0" layoutY="148.0" />
+            <TextField fx:id="leftLDA" layoutX="151.0" layoutY="113.0" onKeyTyped="#leftLdaKeyTyped" />
+            <TextField fx:id="leftTODA" layoutX="151.0" layoutY="148.0" onKeyTyped="#leftTodaKeyTyped" />
             <Label layoutX="16.0" layoutY="187.0" text="ASDA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
@@ -47,8 +47,8 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="leftASDA" layoutX="151.0" layoutY="182.0" />
-            <TextField fx:id="leftTORA" layoutX="151.0" layoutY="217.0" />
+            <TextField fx:id="leftASDA" layoutX="151.0" layoutY="182.0" onKeyTyped="#leftAsdaKeyTyped" />
+            <TextField fx:id="leftTORA" layoutX="151.0" layoutY="217.0" onKeyTyped="#leftToraKeyTyped" />
             <Label layoutX="16.0" layoutY="84.0" text="Heading Direction">
                <font>
                   <Font name="Calibri" size="13.0" />
@@ -82,8 +82,8 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Text>
-            <TextField fx:id="rightLDA" layoutX="151.0" layoutY="49.0" />
-            <TextField fx:id="rightTODA" layoutX="151.0" layoutY="84.0" />
+            <TextField fx:id="rightLDA" layoutX="151.0" layoutY="49.0" onKeyTyped="#rightLdaKeyTyped" />
+            <TextField fx:id="rightTODA" layoutX="151.0" layoutY="84.0" onKeyTyped="#rightTodaKeyTyped" />
             <Label layoutX="16.0" layoutY="123.0" text="ASDA (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
@@ -94,8 +94,8 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="rightASDA" layoutX="151.0" layoutY="118.0" />
-            <TextField fx:id="rightTORA" layoutX="151.0" layoutY="153.0" />
+            <TextField fx:id="rightASDA" layoutX="151.0" layoutY="118.0" onKeyTyped="#rightAsdaKeyTyped" />
+            <TextField fx:id="rightTORA" layoutX="151.0" layoutY="153.0" onKeyTyped="#rightToraKeyTyped" />
             <Button layoutX="90.0" layoutY="235.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Physical  Runway" />
             <Button fx:id="cancelButton" layoutX="137.0" layoutY="269.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
             <Label layoutX="8.0" layoutY="191.0" text="Displaced Threashold (m)">
