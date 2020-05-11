@@ -1172,9 +1172,7 @@ public class Controller {
         if(sideLineASDA.getEndX() > PIXEL_END){
             sideLineASDA.setEndX(PIXEL_END);
         }
-
-
-
+        sideOnAnchorPane.setVisible(true);
     }
 
     public double scale(double tora, double toda, double lda, double asda) {
@@ -1239,6 +1237,7 @@ public class Controller {
             String runwaySelected = runwaySelect.getSelectionModel().getSelectedItem();
             runwaySelect.getItems().clear();
             topRunawayPane.setVisible(false);
+            sideOnAnchorPane.setVisible(false);
 
             for (Runway currentRunway : airport.getObservableRunwayList()) {
                 if (!runwaySelected.equals(currentRunway.toString())) {
@@ -1288,6 +1287,7 @@ public class Controller {
             this.sideOnTabEvent(event);
             this.topDownTabEvent(event);
             topRunawayPane.setVisible(true);
+            sideOnAnchorPane.setVisible(true);
             this.updateTables();
             disableViewButtons(false);
             makeGraphicsVisible(true);
@@ -1384,6 +1384,9 @@ public class Controller {
             }
             addRunwayButton.setDisable(false);
             runwaySelect.setDisable(false);
+
+            sideOnAnchorPane.setVisible(false);
+            topRunawayPane.setVisible(false);
         }
 
     }
