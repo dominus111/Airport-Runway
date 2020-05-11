@@ -116,6 +116,8 @@ public class RunwayCreationController {
                     errorWindow("TORA value must be between 1000 and 5000 inclusive.");
                 else if (topTODA < 1000 || bottomTODA < 1000)
                     errorWindow("TODA value must be between 1000 and 10000 inclusive.");
+                else if (topLDA > topTORA || bottomLDA > bottomTORA)
+                    errorWindow( "LDA value must be higher than TORA value.");
                 else if (bottomLDA + topLDA - 500 < topTORA || bottomLDA + topLDA - 500 < bottomTORA )
                     errorWindow("LDA values must sum to a value that is at least 500 greater than TORA.");
                 else {
