@@ -151,7 +151,9 @@ public class ObjectCreationController {
 
     @FXML
     void dCentrLOnKeyTyped (KeyEvent event) {
-        distToCL = parentController.checkDouble(distToCLTextField, distToCL, -75, 75, 12);
+        VirtualRunway v = current.getLeftRunway();
+        int val = (int) v.getInitialParameters().getTora() / 15;
+        distToCL = parentController.checkDouble(distToCLTextField, distToCL, -val, val, 12);
     }
 
     @FXML
