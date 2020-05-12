@@ -100,6 +100,7 @@ public class Controller {
     @FXML
     private CheckBox colorBlind, colorBlindSide;
 
+
     @FXML
     private Polyline topPoly, midPoly, bottomPoly;
     @FXML
@@ -298,7 +299,7 @@ public class Controller {
     }
     @FXML
     void mouseYellow() {
-        colorText.setText("This color represents the length from the start of the runway up to a place available for landing or taking off");
+        colorText.setText("This color represents an area that cannot be used for landing or taking off");
         colorText.setVisible(true);
     }
     @FXML
@@ -552,6 +553,10 @@ public class Controller {
     public void topTakingoffButton(ActionEvent actionEvent) {
         if (runwaySelect.getValue() != null) {
             topTakingoff = true;
+            Calculator calculator = new Calculator();
+            calculator.setLanding(false);
+            calculator.calculate(current.getObstacle().getoParam(), current);
+            updateTables();
             topRunwayUpdate();
         }
     }
@@ -559,6 +564,10 @@ public class Controller {
     public void topLandingButton(ActionEvent actionEvent) {
         if (runwaySelect.getValue() != null) {
             topTakingoff = false;
+            Calculator calculator = new Calculator();
+            calculator.setLanding(true);
+            calculator.calculate(current.getObstacle().getoParam(), current);
+            updateTables();
             topRunwayUpdate();
         }
     }
@@ -698,10 +707,10 @@ public class Controller {
         //ObstaclePositionParam plane1Parm = new ObstaclePositionParam(plane1, 500, 500, 0);
         //plane1.setoParam(plane1Parm);
 
-        int obstHight = 0;
-        int obstLTHR = 0;
-        int obstRTHR = 0;
-        int obstCLine = 0;
+        double obstHight = 0;
+        double obstLTHR = 0;
+        double obstRTHR = 0;
+        double obstCLine = 0;
         double obstDisp = 0;
         double obstOffDisp = 0;
         double obstOffDisp2 = 0;
@@ -711,10 +720,10 @@ public class Controller {
 
         if( current.getObstacle() != null){
             obstacle.setVisible(true);
-            obstHight = (int) current.getObstacle().getHeight();
-            obstLTHR = (int) current.getObstacle().getoParam().getDistToLTHR();
-            obstRTHR = (int) current.getObstacle().getoParam().getDistToRTHR();
-            obstCLine = (int) current.getObstacle().getoParam().getDistToCenterL();
+            obstHight = (double) current.getObstacle().getHeight();
+            obstLTHR = (double) current.getObstacle().getoParam().getDistToLTHR();
+            obstRTHR = (double) current.getObstacle().getoParam().getDistToRTHR();
+            obstCLine = (double) current.getObstacle().getoParam().getDistToCenterL();
             obstDisp = obstHight * slope + RESA + stripEnd;
             obstOffDisp = obstLTHR - (RESA + stripEnd );
             obstOffDisp2 = obstLTHR - (RESA + stripEnd + (obstHight * slope));
@@ -780,8 +789,8 @@ public class Controller {
             topOrange.setVisible(true);
 
             double tora = v.getInitialParameters().getTora();
-            double lda = v.getInitialParameters().getLda();
-            System.out.println("LDA IS " + lda);
+            double leftT = v.getInitialParameters().getdispTHR();
+            double lda = tora - leftT;
             double toda = v.getInitialParameters().getToda();
             double asda = v.getInitialParameters().getAsda();
 
@@ -796,7 +805,6 @@ public class Controller {
                     if (topTakingoff) {
                         lineLDA.setVisible(false);
                         textLDA.setVisible(false);
-                        ldaCBox.setSelected(false);
                         ldaCBox.setDisable(true);
                         obstacle.setLayoutX(centerLine.getLayoutX() + obstoffset);
 
@@ -844,7 +852,6 @@ public class Controller {
                     } else {
                         lineLDA.setVisible(true);
                         textLDA.setVisible(true);
-                        ldaCBox.setSelected(true);
                         ldaCBox.setDisable(false);
                         obstacle.setLayoutX(centerLine.getLayoutX() + obstoffset);
 
@@ -892,6 +899,9 @@ public class Controller {
                      */
                 } else {
                     if (topTakingoff) {
+                        lineLDA.setVisible(false);
+                        textLDA.setVisible(false);
+                        ldaCBox.setDisable(true);
                         double obstStart = centerLine.getLayoutX() + obstoffset;
                         obstacle.setLayoutX(obstStart);
 
@@ -927,16 +937,19 @@ public class Controller {
                         lineTORA.setLayoutX(LTORA);
                         lineLDA.setLayoutX(ldaoffset);
 
-                        lineTODA.setEndX(RTODA - LTORA);
+                        lineTODA.setEndX(asdaoffset);
                         lineASDA.setEndX(asdaoffset);
                         lineTORA.setEndX(toraoffset2);
                         lineLDA.setEndX(ldaoffset2);
 
-                        textTORA.setText("TORA: " + Math.round(tora) + "m");
+                        textTORA.setText("TORA: " + Math.round(obstOffDisp2) + "m");
                         textLDA.setText("LDA: " + Math.round(obstOffDisp2) + "m");
-                        textTODA.setText("TODA: " + Math.round(toda) + "m");
-                        textASDA.setText("ASDA: " + Math.round(asda) + "m");
+                        textTODA.setText("TODA: " + Math.round(obstOffDisp2) + "m");
+                        textASDA.setText("ASDA: " + Math.round(obstOffDisp2) + "m");
                     } else {
+                        lineLDA.setVisible(true);
+                        textLDA.setVisible(true);
+                        ldaCBox.setDisable(false);
                         double obstStart = centerLine.getLayoutX() + obstoffset;
                         obstacle.setLayoutX(obstStart);
 
@@ -1038,7 +1051,8 @@ public class Controller {
             topOrange.setVisible(true);
 
             double tora = v.getInitialParameters().getTora();
-            double lda = v.getInitialParameters().getLda();
+            double rigthT = v.getInitialParameters().getdispTHR();
+            double lda = tora - rigthT;
             double toda = v.getInitialParameters().getToda();
             double asda = v.getInitialParameters().getAsda();
 
@@ -1051,10 +1065,13 @@ public class Controller {
                 obstacle.setLayoutY(centerLine.getLayoutY() + obstFromCLine);
 
                 if (tora / 2 < obstRTHR) {
-
+                    if(topTakingoff) {
+                        lineLDA.setVisible(false);
+                        textLDA.setVisible(false);
+                        ldaCBox.setDisable(true);
                         double asdadist = (TTODA * asda / toda);
                         double toradist = (TTODA * tora / toda);
-                        double ldadist = (TTODA * (obstRTHR - BLAST) / toda);
+                        double ldadist = (TTODA * (obstRTHR) / toda) - obstDisplacement;
 
                         double asdaoffset = TTODA - asdadist + LTODA;
                         double toraoffset = TTODA - toradist + LTODA;
@@ -1083,30 +1100,27 @@ public class Controller {
                         topOrange.setLayoutX(asdaoffset);
                         topOrange.setWidth(orangeoffset);
 
-                        lineTODA.setLayoutX(LTODA);
-                        lineASDA.setLayoutX(asdaoffset);
-                        lineTORA.setLayoutX(toraoffset);
-                        lineLDA.setLayoutX(toraoffset + obstoffset + blast);
+                        lineTODA.setLayoutX(toraoffset + obstoffset + obstDisplacement);
+                        lineASDA.setLayoutX(toraoffset + obstoffset + obstDisplacement);
+                        lineTORA.setLayoutX(toraoffset + obstoffset + obstDisplacement);
+                        lineLDA.setLayoutX(toraoffset + obstoffset + obstDisplacement);
 
-                        lineTODA.setEndX(TTODA);
-                        lineASDA.setEndX(asdadist);
-                        lineTORA.setEndX(toradist);
+                        lineTODA.setEndX(ldadist);
+                        lineASDA.setEndX(ldadist);
+                        lineTORA.setEndX(ldadist);
                         lineLDA.setEndX(ldadist);
 
-                        textTORA.setText("TORA: " + Math.round(tora) + "m");
-                        textLDA.setText("LDA: " + Math.round(obstRTHR - BLAST) + "m");
-                        textTODA.setText("TODA: " + Math.round(toda) + "m");
-                        textASDA.setText("ASDA: " + Math.round(asda) + "m");
-
-                    /**
-                     *
-                     * OBSTACLE CLOSER TO THE RIGHT SIDE
-                     */
-                } else {
-                    if (topTakingoff) {
+                        textTORA.setText("TORA: " + Math.round(obstRTHR - obstDisp) + "m");
+                        textLDA.setText("LDA: " + Math.round(obstRTHR - obstDisp) + "m");
+                        textTODA.setText("TODA: " + Math.round(obstRTHR - obstDisp) + "m");
+                        textASDA.setText("ASDA: " + Math.round(obstRTHR - obstDisp) + "m");
+                    }else {
+                        lineLDA.setVisible(true);
+                        textLDA.setVisible(true);
+                        ldaCBox.setDisable(false);
                         double asdadist = (TTODA * asda / toda);
                         double toradist = (TTODA * tora / toda);
-                        double ldadist = (TTODA * (tora - (obstRTHR + RESA + stripEnd)) / toda);
+                        double ldadist = (TTODA * (obstRTHR - BLAST) / toda);
 
                         double asdaoffset = TTODA - asdadist + LTODA;
                         double toraoffset = TTODA - toradist + LTODA;
@@ -1126,7 +1140,8 @@ public class Controller {
 
                         leftStart.setLayoutX(toraoffset - lineLenght);
 
-                        topYellow.setLayoutX(toraoffset + ldadist);
+
+                        topYellow.setLayoutX(toraoffset);
                         topYellow.setWidth(yellowoffset);
 
                         topRed.setLayoutX(LTODA);
@@ -1138,7 +1153,7 @@ public class Controller {
                         lineTODA.setLayoutX(LTODA);
                         lineASDA.setLayoutX(asdaoffset);
                         lineTORA.setLayoutX(toraoffset);
-                        lineLDA.setLayoutX(toraoffset);
+                        lineLDA.setLayoutX(toraoffset + obstoffset + blast);
 
                         lineTODA.setEndX(TTODA);
                         lineASDA.setEndX(asdadist);
@@ -1146,10 +1161,71 @@ public class Controller {
                         lineLDA.setEndX(ldadist);
 
                         textTORA.setText("TORA: " + Math.round(tora) + "m");
-                        textLDA.setText("LDA: " + Math.round(tora - (obstRTHR + RESA + stripEnd)) + "m");
+                        textLDA.setText("LDA: " + Math.round(obstRTHR - BLAST) + "m");
                         textTODA.setText("TODA: " + Math.round(toda) + "m");
                         textASDA.setText("ASDA: " + Math.round(asda) + "m");
+                    }
+
+                    /**
+                     *
+                     * OBSTACLE CLOSER TO THE RIGHT SIDE
+                     */
+                } else {
+                    if (topTakingoff) {
+                        lineLDA.setVisible(false);
+                        textLDA.setVisible(false);
+                        ldaCBox.setDisable(true);
+                        double obstacleOffset = (TTODA * (obstRTHR + RESA + stripEnd) / toda) ;;
+                        double asdadist = (TTODA * (asda- (obstRTHR + RESA + stripEnd) )/ toda) ;
+                        double toradist = (TTODA * (tora - (obstRTHR + RESA + stripEnd)) / toda);
+                        double ldadist = (TTODA * (tora - (obstRTHR + RESA + stripEnd)) / toda);
+
+                        double asdaoffset = TTODA - asdadist + LTODA - obstacleOffset;
+                        double toraoffset = TTODA - toradist + LTODA - obstacleOffset;
+                        double ldaoffset = TTODA - toradist + LTODA - obstacleOffset;
+
+                        double yellowoffset = obstacleOffset;
+                        double redoffset = TTODA - toradist - obstacleOffset;
+                        double orangeoffset = asdadist - toradist;
+
+                        obstacle.setLayoutX(toraoffset + obstoffset);
+
+                        topRunaway.setLayoutX(asdaoffset - 2);
+                        topRunaway.setWidth(asdadist + TORA_ASDA_DIST + obstacleOffset);
+
+                        centerLine.setLayoutX(toraoffset);
+                        centerLine.setEndX(toradist + obstacleOffset);
+
+                        leftStart.setLayoutX(toraoffset - lineLenght);
+                        rightStart.setLayoutX(toraoffset - lineLenght + toradist+ obstacleOffset);
+
+                        topYellow.setLayoutX(toraoffset + ldadist);
+                        topYellow.setWidth(yellowoffset);
+
+                        topRed.setLayoutX(LTODA);
+                        topRed.setWidth(redoffset);
+
+                        topOrange.setLayoutX(asdaoffset);
+                        topOrange.setWidth(orangeoffset);
+
+                        lineTODA.setLayoutX(LTODA);
+                        lineASDA.setLayoutX(toraoffset);
+                        lineTORA.setLayoutX(toraoffset);
+                        lineLDA.setLayoutX(toraoffset);
+
+                        lineTODA.setEndX(TTODA - obstacleOffset);
+                        lineASDA.setEndX(asdadist);
+                        lineTORA.setEndX(toradist);
+                        lineLDA.setEndX(ldadist);
+
+                        textTORA.setText("TORA: " + Math.round(tora- (obstRTHR + RESA + stripEnd)) + "m");
+                        textLDA.setText("LDA: " + Math.round(tora - (obstRTHR + RESA + stripEnd)) + "m");
+                        textTODA.setText("TODA: " + Math.round(toda - (obstRTHR + RESA + stripEnd)) + "m");
+                        textASDA.setText("ASDA: " + Math.round(asda- (obstRTHR + RESA + stripEnd)) + "m");
                     } else {
+                        lineLDA.setVisible(true);
+                        textLDA.setVisible(true);
+                        ldaCBox.setDisable(false);
                         double asdadist = (TTODA * asda / toda);
                         double toradist = (TTODA * tora / toda);
                         double ldadist = (TTODA * (tora - (obstRTHR + obstDisp)) / toda);
