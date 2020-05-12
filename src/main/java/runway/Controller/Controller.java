@@ -308,7 +308,7 @@ public class Controller {
     }
     @FXML
     void mouseRExit() {
-        colorTextSide.setVisible(false);
+        colorText.setVisible(false);
     }
     @FXML
     void mouseOExit() {
