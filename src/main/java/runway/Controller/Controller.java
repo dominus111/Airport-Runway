@@ -95,7 +95,7 @@ public class Controller {
     @FXML
     private Circle obstacle;
     @FXML
-    private CheckBox colorBlind;
+    private CheckBox colorBlind2;
 
     @FXML
     private Polyline topPoly, midPoly, bottomPoly;
@@ -248,7 +248,7 @@ public class Controller {
     Color green = Color.rgb(111,176,99);
     @FXML
     void selectColorBlindness() {
-        if (colorBlind.isSelected()) {
+        if (colorBlind2.isSelected()) {
             topPoly.setFill(yellow);
             midPoly.setFill(yellow);
             bottomPoly.setFill(yellow);
@@ -677,7 +677,7 @@ public class Controller {
             boolObstacle = false;
         }
 
-        if(colorBlind.isSelected()) {
+        if(colorBlind2.isSelected()) {
             topRed.setFill(Color.PURPLE);
             topOrange.setFill(Color.BLUE);
         } else {
