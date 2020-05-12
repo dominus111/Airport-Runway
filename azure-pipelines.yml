@@ -21,4 +21,4 @@ steps:
     # options: '-i'
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
-    tasks: 'build'
+    tasks: 'assemble'
