@@ -9,10 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import runway.Model.Calculator;
-import runway.Model.Obstacle;
-import runway.Model.ObstaclePositionParam;
-import runway.Model.Runway;
+import runway.Model.*;
 import javafx.scene.input.KeyEvent;
 
 public class ObjectCreationController {
@@ -44,6 +41,7 @@ public class ObjectCreationController {
     String distToCL = "";
     String topThr = "";
     String bottomThr = "";
+    Runway current;
 
     @FXML
     void objectCancelButtonEvent(ActionEvent event) {
@@ -52,6 +50,10 @@ public class ObjectCreationController {
         parentController.setAllButtonsDisable(false);
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
+    }
+
+    public void setRunway(Runway run) {
+        this.current = run;
     }
 
     public Label getRightThrLabel() {
@@ -154,12 +156,16 @@ public class ObjectCreationController {
 
     @FXML
     void displThrTopKeyTyped (KeyEvent event) {
-        topThr = parentController.checkDouble(distToThrTextField, topThr, -60, 500, 12);
+        VirtualRunway v = current.getLeftRunway();
+        int val = (int) v.getInitialParameters().getTora();
+                topThr = parentController.checkDouble(distToThrTextField, topThr, 0, val, 12);
     }
 
     @FXML
     void displThrBottomKeyTyped (KeyEvent event) {
-        bottomThr = parentController.checkDouble(bottomDistToThrTextF, bottomThr, -60, 500, 12);
+        VirtualRunway v = current.getRightRunway();
+        int val = (int) v.getInitialParameters().getTora();
+        bottomThr = parentController.checkDouble(bottomDistToThrTextF, bottomThr, 0, val, 12);
     }
 
 
