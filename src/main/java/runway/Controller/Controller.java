@@ -106,13 +106,13 @@ public class Controller {
      */
 
     @FXML
-    private Text sideTORA, sideLDA, sideTODA, sideASDA;
+    private Text sideTORA, sideLDA, sideTODA, sideASDA, sideRESA;
     @FXML
     private RadioButton sideLeftButton, sideRightButton;
     @FXML
     protected RadioButton leftB, rightB;
     @FXML
-    private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA;
+    private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA, sideLineRESA;
     @FXML
     private Rectangle rightStopway, rightClearway, sideDisplacedThreshold, topRunaway, sideObstacle;
 
@@ -1070,6 +1070,12 @@ public class Controller {
         boolean updated;
         sideLeftButton.setText(current.getLeftRunway().toString());
         sideRightButton.setText(current.getRightRunway().toString());
+        sideRESA.setVisible(false);
+        sideLineRESA.setVisible(false);
+        sideLineTODA.setVisible(true);
+        sideLineTORA.setVisible(true);
+        sideLineASDA.setVisible(true);
+        sideLineLDA.setVisible(true);
 
         if (leftView) {
             v = current.getLeftRunway();
@@ -1083,7 +1089,8 @@ public class Controller {
         Integer PIXEL_END = 316;
 
         double tora, lda, toda, asda, displacedThreshold;
-        if(updated) {
+        if(updated && v.getRecalculatedParameters().getTora() > 0 && v.getRecalculatedParameters().getToda() > 0 && v.getRecalculatedParameters().getAsda() > 0
+                && v.getRecalculatedParameters().getLda() > 0 && v.getRecalculatedParameters().getdispTHR() > 0) {
             tora = v.getRecalculatedParameters().getTora();
             lda = v.getRecalculatedParameters().getLda();
             toda = v.getRecalculatedParameters().getToda();
@@ -1102,8 +1109,36 @@ public class Controller {
 
         double translate = 0;
 
-        if( current.getObstacle() != null){
+        sideTORA.setText("TORA: " + Math.round(tora) + "m");
+        sideLDA.setText("LDA: " + Math.round(lda) + "m");
+        sideTODA.setText("TODA: " + Math.round(toda) + "m");
+        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
+
+        sideLineTORA.setStartX(PIXEL_START);
+        sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
+        sideLineTODA.setStartX(PIXEL_START);
+        sideLineASDA.setStartX(PIXEL_START);
+
+        sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
+        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
+        sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL * (toda / max));
+        sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL * (asda / max));
+
+        //any setTranslateX using PIXEL_START must take into account the actual pixel start of -317
+        sideDisplacedThreshold.setTranslateX( PIXEL_START + 317 );
+        sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max));
+
+        rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
+        rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max) - translate);
+
+        rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
+        rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max) - translate);
+
+        if(current.getObstacle() != null){
             sideObstacle.setVisible(true);
+            sideRESA.setVisible(true);
+            sideLineRESA.setVisible(true);
+
             if(leftView) {
                 translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max);
             }
@@ -1112,66 +1147,90 @@ public class Controller {
             }
             sideObstacle.setTranslateX(PIXEL_START + 317 + translate);
             translate += sideObstacle.getWidth();
-            sideObstacle.setTranslateY(10 - current.getObstacle().getHeight());
+            sideObstacle.setTranslateY(20 - current.getObstacle().getHeight());
             sideObstacle.setHeight(current.getObstacle().getHeight());
-        }
-        else{
+
+            sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
+            sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
+
+            rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
+            rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max) - translate);
+
+            rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
+            rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max) - translate);
+
+        }else{
             sideObstacle.setVisible(false);
+            sideRESA.setVisible(false);
+            sideLineRESA.setVisible(false);
         }
 
+//        if( current.getObstacle() != null){
+//            sideObstacle.setVisible(true);
+//            sideRESA.setVisible(true);
+//            sideLineRESA.setVisible(true);
+//            if(leftView) {
+//                translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max);
+//            }
+//            else{
+//                translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max);
+//            }
+//            sideObstacle.setTranslateX(PIXEL_START + 317 + translate);
+//            translate += sideObstacle.getWidth();
+//            sideObstacle.setTranslateY(10 - current.getObstacle().getHeight());
+//            sideObstacle.setHeight(current.getObstacle().getHeight());
+//        }
+//        else{
+//            sideObstacle.setVisible(false);
+//            sideRESA.setVisible(false);
+//            sideLineRESA.setVisible(false);
+//        }
+//
+//
+//        sideTORA.setText("TORA: " + Math.round(tora) + "m");
+//        sideLineTORA.setStartX(PIXEL_START - 20);
+//        sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
+//
 
-        sideTORA.setText("TORA: " + Math.round(tora) + "m");
-        sideLineTORA.setStartX(PIXEL_START);
-        sideLineTORA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
-
-        rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
-
-        rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
-
-        sideLDA.setText("LDA: " + Math.round(lda) + "m");
-        sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
-        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
-
-        //any setTranslateX using PIXEL_START must take into account the actual pixel start of -317
-        sideDisplacedThreshold.setTranslateX( PIXEL_START + 317 );
-        sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max));
-
-        sideTODA.setText("TODA: " + Math.round(toda) + "m");
-        sideLineTODA.setStartX(PIXEL_START);
-        sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL * (toda / max));
-
-        rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max) - translate);
-
-        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
-        sideLineASDA.setStartX(PIXEL_START);
-        sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL * (asda / max));
-
-        rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max) - translate);
-
-        if(sideLineLDA.getStartX() < PIXEL_START){
-            sideLineLDA.setStartX(PIXEL_START);
-        }
-        if(sideLineASDA.getStartX() < PIXEL_START){
-            sideLineASDA.setStartX(PIXEL_START);
-        }
-        if(sideLineTODA.getStartX() < PIXEL_START){
-            sideLineTODA.setStartX(PIXEL_START);
-        }
-        if(sideLineTORA.getStartX() < PIXEL_START){
-            sideLineTORA.setStartX(PIXEL_START);
-        }
-        if(sideLineTORA.getEndX() > PIXEL_END){
-            sideLineTORA.setEndX(PIXEL_END);
-        }
-        if(sideLineTODA.getEndX() > PIXEL_END){
-            sideLineTODA.setEndX(PIXEL_END);
-        }
-        if(sideLineLDA.getEndX() > PIXEL_END){
-            sideLineLDA.setEndX(PIXEL_END);
-        }
-        if(sideLineASDA.getEndX() > PIXEL_END){
-            sideLineASDA.setEndX(PIXEL_END);
-        }
+//
+//        sideLDA.setText("LDA: " + Math.round(lda) + "m");
+//        sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
+//        sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
+//
+//
+//
+//        sideTODA.setText("TODA: " + Math.round(toda) + "m");
+//        sideLineTODA.setStartX(PIXEL_START);
+//        sideLineTODA.setEndX(PIXEL_START + PIXEL_TOTAL * (toda / max));
+//
+//        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
+//        sideLineASDA.setStartX(PIXEL_START);
+//        sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL * (asda / max));
+//
+//        if(sideLineLDA.getStartX() < PIXEL_START || sideLineLDA.getStartX() > PIXEL_END){
+//            sideLineLDA.setStartX(PIXEL_START);
+//        }
+//        if(sideLineASDA.getStartX() < PIXEL_START || sideLineASDA.getStartX() > PIXEL_END){
+//            sideLineASDA.setStartX(PIXEL_START);
+//        }
+//        if(sideLineTODA.getStartX() < PIXEL_START || sideLineTODA.getStartX() > PIXEL_END){
+//            sideLineTODA.setStartX(PIXEL_START);
+//        }
+//        if(sideLineTORA.getStartX() < PIXEL_START || sideLineTORA.getStartX() > PIXEL_END){
+//            sideLineTORA.setStartX(PIXEL_START);
+//        }
+//        if(sideLineTORA.getEndX() > PIXEL_END || sideLineTORA.getStartX() < PIXEL_START){
+//            sideLineTORA.setEndX(PIXEL_END);
+//        }
+//        if(sideLineTODA.getEndX() > PIXEL_END || sideLineTODA.getStartX() < PIXEL_START){
+//            sideLineTODA.setEndX(PIXEL_END);
+//        }
+//        if(sideLineLDA.getEndX() > PIXEL_END || sideLineLDA.getStartX() < PIXEL_START){
+//            sideLineLDA.setEndX(PIXEL_END);
+//        }
+//        if(sideLineASDA.getEndX() > PIXEL_END || sideLineASDA.getStartX() < PIXEL_START){
+//            sideLineASDA.setEndX(PIXEL_END);
+//        }
         sideOnAnchorPane.setVisible(true);
     }
 
