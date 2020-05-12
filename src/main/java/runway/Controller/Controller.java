@@ -95,6 +95,8 @@ public class Controller {
     @FXML
     private Circle obstacle;
     @FXML
+    private CheckBox colorBlind;
+    @FXML
     private CheckBox colorBlind2;
 
     @FXML
