@@ -85,7 +85,7 @@ public class Controller {
     @FXML
     private Line lineTODA, lineASDA, lineTORA, lineLDA, centerLine, leftStart, rightStart;
     @FXML
-    private Text textTODA, textASDA, textTORA, textLDA, colorText;
+    private Text textTODA, textASDA, textTORA, textLDA, colorText, colorTextSide;
     @FXML
     private Text designatorL, designatorR;
     @FXML
@@ -287,7 +287,7 @@ public class Controller {
     }
     @FXML
     void mouseRExit() {
-        colorText.setVisible(false);
+        colorTextSide.setVisible(false);
     }
     @FXML
     void mouseOExit() {
@@ -300,6 +300,42 @@ public class Controller {
     @FXML
     void mouseObsExit() {
         colorText.setVisible(false);
+    }
+    @FXML
+    void mouseRedSide() {
+        colorTextSide.setText("This color represents the Clearway area");
+        colorTextSide.setVisible(true);
+    }
+    @FXML
+    void mouseOrangeSide() {
+        colorTextSide.setText("This color represents the Stopway area");
+        colorTextSide.setVisible(true);
+    }
+    @FXML
+    void mouseYellowSide() {
+        colorTextSide.setText("This color represents the length from the start of the runway up to a place available for landing or taking off");
+        colorTextSide.setVisible(true);
+    }
+    @FXML
+    void mouseObstacleSide() {
+        colorTextSide.setText("This is the obstacle");
+        colorTextSide.setVisible(true);
+    }
+    @FXML
+    void mouseRExitSide() {
+        colorTextSide.setVisible(false);
+    }
+    @FXML
+    void mouseOExitSide() {
+        colorTextSide.setVisible(false);
+    }
+    @FXML
+    void mouseYExitSide() {
+        colorTextSide.setVisible(false);
+    }
+    @FXML
+    void mouseObsExitSide() {
+        colorTextSide.setVisible(false);
     }
 
     @FXML
