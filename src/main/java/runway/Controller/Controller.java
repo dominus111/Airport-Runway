@@ -60,6 +60,9 @@ public class Controller {
     private Boolean topTakingoff = true;
 
     @FXML
+    private Rectangle greenPart, bluePart;
+
+    @FXML
     protected CheckBox todaCBox, toraCBox, asdaCBox, ldaCBox;
 
     @FXML
@@ -95,7 +98,7 @@ public class Controller {
     @FXML
     private Circle obstacle;
     @FXML
-    private CheckBox colorBlind;
+    private CheckBox colorBlind, colorBlindSide;
 
     @FXML
     private Polyline topPoly, midPoly, bottomPoly;
@@ -246,12 +249,15 @@ public class Controller {
     }
     Color yellow = Color.rgb(179,165,75);
     Color green = Color.rgb(111,176,99);
+    Color blue = Color.rgb(179, 219, 255);
+
     @FXML
     void selectColorBlindness() {
         if (colorBlind.isSelected()) {
             topPoly.setFill(yellow);
             midPoly.setFill(yellow);
             bottomPoly.setFill(yellow);
+
             if (runwaySelect.getValue() != null) {
                 topRunwayUpdate();
             }
@@ -262,6 +268,21 @@ public class Controller {
             if (runwaySelect.getValue() != null) {
                 topRunwayUpdate();
             }
+        }
+    }
+
+    @FXML
+    void selectColorBlindnessSide() {
+        if(colorBlindSide.isSelected()) {
+            greenPart.setFill(yellow);
+            bluePart.setFill(Color.LIGHTGRAY);
+
+        } else {
+            greenPart.setFill(green);
+            bluePart.setFill(blue);
+        }
+        if (runwaySelect.getValue() != null) {
+            runwayUpdate();
         }
     }
 
@@ -1229,6 +1250,15 @@ public class Controller {
 
 
     public void runwayUpdate() {
+
+        if(colorBlindSide.isSelected()) {
+            rightClearway.setFill(Color.PURPLE);
+            rightStopway.setFill(Color.BLUE);
+        } else {
+            rightClearway.setFill(Color.RED);
+            rightStopway.setFill(Color.ORANGE);
+        }
+
         VirtualRunway v;
         boolean updated;
         sideLeftButton.setText(current.getLeftRunway().toString());

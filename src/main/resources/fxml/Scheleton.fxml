@@ -91,7 +91,6 @@
                                        </effect></Line>
                                      <Text fx:id="textLDA" fill="WHITE" layoutX="302.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="text" />
                                     <Circle fx:id="obstacle" fill="#e521ffb7" layoutX="93.0" layoutY="97.0" onMouseEntered="#mouseObstacle" onMouseExited="#mouseObsExit" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                                    <CheckBox fx:id="colorBlind" layoutX="484.0" layoutY="262.0" mnemonicParsing="false" onAction="#selectColorBlindness" text="Colour blindness" />
                                     <Text fx:id="colorText" layoutX="117.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" visible="false" wrappingWidth="406.9999999701977" />
                                  </children>
                               </AnchorPane>
@@ -102,6 +101,7 @@
                               </RadioButton>
                               <RadioButton fx:id="landingRadioButton" layoutX="562.0" layoutY="47.0" mnemonicParsing="false" onAction="#topLandingButton" text="Landing" toggleGroup="$topViewGroup" />
                               <Button fx:id="rotateRadioButton" layoutX="23.0" layoutY="588.0" mnemonicParsing="false" onAction="#rotateEvent" text="Button" />
+                              <CheckBox fx:id="colorBlind" layoutX="24.0" layoutY="563.0" mnemonicParsing="false" onAction="#selectColorBlindness" text="Colour blindness" />
                            </children>
                         </AnchorPane>
                   </content>
@@ -110,8 +110,8 @@
                     <content>
                         <AnchorPane fx:id="sideOnAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" translateX="10.0">
                             <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8cc5ff" height="377.0" layoutX="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#77c25d" height="136.0" layoutY="375.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />
+                              <Rectangle fx:id="bluePart" arcHeight="5.0" arcWidth="5.0" fill="#b3d9ff" height="377.0" layoutX="-1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />
+                                <Rectangle fx:id="greenPart" arcHeight="5.0" arcWidth="5.0" fill="#6fb063" height="136.0" layoutY="375.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />
                                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#6e727d" height="19.0" layoutY="366.0" stroke="TRANSPARENT" strokeType="INSIDE" width="635.0" />
                               <Line fx:id="sideLineTORA" endX="317.0" endY="3.0517578125E-5" layoutX="318.0" layoutY="405.0" startX="-318.0" startY="3.0517578125E-5" />
                               <Line fx:id="sideLineLDA" endX="317.0" endY="3.0517578125E-5" layoutX="318.0" layoutY="429.0" startX="-318.0" startY="3.0517578125E-5" />
@@ -138,6 +138,7 @@
                               <Line fx:id="sideLineRESA" endX="-254.0" endY="3.0517578125E-5" layoutX="341.0" layoutY="365.0" startX="-318.0" startY="3.0517578125E-5" strokeLineJoin="ROUND" strokeWidth="3.0" />
                               <Text fx:id="sideRESA" layoutX="-22.0" layoutY="361.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RESA" textAlignment="CENTER" wrappingWidth="153.30535888671875" />
                               <Text fx:id="colorTextSide" layoutX="100.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" visible="false" wrappingWidth="406.9999999701977" />
+                              <CheckBox fx:id="colorBlindSide" layoutX="18.0" layoutY="592.0" mnemonicParsing="false" onAction="#selectColorBlindnessSide" text="Colour blindness" />
                             </children>
                         </AnchorPane>
                     </content>
