@@ -100,6 +100,7 @@ public class Controller {
     @FXML
     private CheckBox colorBlind, colorBlindSide;
 
+
     @FXML
     private Polyline topPoly, midPoly, bottomPoly;
     @FXML
@@ -1089,7 +1090,6 @@ public class Controller {
                         centerLine.setEndX(toradist);
 
                         leftStart.setLayoutX(toraoffset - lineLenght);
-
 
                         topYellow.setLayoutX(toraoffset);
                         topYellow.setWidth(yellowoffset);
