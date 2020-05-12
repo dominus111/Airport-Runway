@@ -1358,8 +1358,8 @@ public class Controller {
         Integer PIXEL_END = 316;
 
         double tora, lda, toda, asda, displacedThreshold;
-        if(updated && v.getRecalculatedParameters().getTora() > 0 && v.getRecalculatedParameters().getToda() > 0 && v.getRecalculatedParameters().getAsda() > 0
-                && v.getRecalculatedParameters().getLda() > 0 && v.getRecalculatedParameters().getdispTHR() > 0) {
+        if(updated && v.getRecalculatedParameters().getTora() >= 0 && v.getRecalculatedParameters().getToda() >= 0 && v.getRecalculatedParameters().getAsda() >= 0
+                && v.getRecalculatedParameters().getLda() >= 0 && v.getRecalculatedParameters().getdispTHR() >= 0) {
             tora = v.getRecalculatedParameters().getTora();
             lda = v.getRecalculatedParameters().getLda();
             toda = v.getRecalculatedParameters().getToda();
@@ -1419,14 +1419,16 @@ public class Controller {
             sideObstacle.setTranslateY(20 - current.getObstacle().getHeight());
             sideObstacle.setHeight(current.getObstacle().getHeight());
 
+            sideLineRESA.setStartX(PIXEL_START - translate);
+
             sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
             sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
 
-            rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
-            rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max) - translate);
+            rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
+            rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max));
 
-            rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
-            rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max) - translate);
+            rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
+            rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max));
 
         }else{
             sideObstacle.setVisible(false);
