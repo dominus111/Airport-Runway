@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.RunwayCreationController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="519.0" prefWidth="313.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.RunwayCreationController">
    <children>
       <Pane prefHeight="660.0" prefWidth="297.0">
          <children>
@@ -20,12 +20,12 @@
                </font>
             </Label>
             <Separator layoutX="1.0" layoutY="34.0" prefHeight="10.0" prefWidth="313.0" />
-            <Label layoutX="16.0" layoutY="52.0" text="Relative direction">
+            <Label layoutX="11.0" layoutY="52.0" text="Relative direction">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <Text layoutX="16.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
+            <Text layoutX="11.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Displaced Threashold (m) ">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
@@ -35,7 +35,7 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Text>
-            <TextField fx:id="leftLDA" layoutX="151.0" layoutY="113.0" onKeyTyped="#leftLdaKeyTyped" />
+            <TextField fx:id="leftDispThr" layoutX="151.0" layoutY="113.0" onKeyTyped="#leftThrKeyTyped" />
             <TextField fx:id="leftTODA" layoutX="151.0" layoutY="148.0" onKeyTyped="#leftTodaKeyTyped" />
             <Label layoutX="16.0" layoutY="187.0" text="ASDA (m)">
                <font>
@@ -49,19 +49,18 @@
             </Label>
             <TextField fx:id="leftASDA" layoutX="151.0" layoutY="182.0" onKeyTyped="#leftAsdaKeyTyped" />
             <TextField fx:id="leftTORA" layoutX="151.0" layoutY="217.0" onKeyTyped="#leftToraKeyTyped" />
-            <Label layoutX="16.0" layoutY="84.0" text="Heading Direction">
+            <Label layoutX="11.0" layoutY="84.0" text="Heading Direction">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
             <ComboBox fx:id="topRDirComboBox" layoutX="150.0" layoutY="45.0" prefWidth="150.0" />
             <ComboBox fx:id="topHDirComboBox" layoutX="150.0" layoutY="80.0" prefWidth="150.0" />
-            <Label layoutX="8.0" layoutY="257.0" text="Displaced Threashold (m) ">
+            <Label layoutX="16.0" layoutY="134.0">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="leftDispThr" layoutX="151.0" layoutY="251.0" />
          </children>
       </Pane>
       <Pane prefHeight="697.0" prefWidth="321.0">
@@ -72,7 +71,7 @@
                </font>
             </Label>
             <Separator layoutX="1.0" layoutY="34.0" prefHeight="10.0" prefWidth="313.0" />
-            <Text layoutX="16.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LDA (m)">
+            <Text layoutX="11.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Displaced Threashold (m)">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
@@ -82,7 +81,7 @@
                   <Font name="Calibri" size="13.0" />
                </font>
             </Text>
-            <TextField fx:id="rightLDA" layoutX="151.0" layoutY="49.0" onKeyTyped="#rightLdaKeyTyped" />
+            <TextField fx:id="rightDispThr" layoutX="151.0" layoutY="49.0" onKeyTyped="#rightThrKeyTyped" />
             <TextField fx:id="rightTODA" layoutX="151.0" layoutY="84.0" onKeyTyped="#rightTodaKeyTyped" />
             <Label layoutX="16.0" layoutY="123.0" text="ASDA (m)">
                <font>
@@ -96,14 +95,13 @@
             </Label>
             <TextField fx:id="rightASDA" layoutX="151.0" layoutY="118.0" onKeyTyped="#rightAsdaKeyTyped" />
             <TextField fx:id="rightTORA" layoutX="151.0" layoutY="153.0" onKeyTyped="#rightToraKeyTyped" />
-            <Button layoutX="90.0" layoutY="235.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Physical  Runway" />
-            <Button fx:id="cancelButton" layoutX="137.0" layoutY="269.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
-            <Label layoutX="8.0" layoutY="191.0" text="Displaced Threashold (m)">
+            <Button layoutX="90.0" layoutY="207.0" mnemonicParsing="false" onAction="#createRunwayButtonEvent" text="Create Physical  Runway" />
+            <Button fx:id="cancelButton" layoutX="137.0" layoutY="241.0" mnemonicParsing="false" onAction="#runwayCancelButtonEvent" text="Cancel" />
+            <Label layoutX="8.0" layoutY="191.0">
                <font>
                   <Font name="Calibri" size="13.0" />
                </font>
             </Label>
-            <TextField fx:id="rightDispThr" layoutX="151.0" layoutY="187.0" />
          </children>
       </Pane>
    </children>

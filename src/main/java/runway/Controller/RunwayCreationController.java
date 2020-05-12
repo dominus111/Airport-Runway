@@ -24,9 +24,9 @@ public class RunwayCreationController {
     @FXML
     private Button cancelButton;
     @FXML
-    private TextField leftLDA,leftTODA,leftASDA,leftTORA,leftDispThr, rightDispThr, rightLDA, rightTODA, rightASDA, rightTORA;
+    private TextField leftTODA,leftASDA,leftTORA,leftDispThr, rightDispThr, rightTODA, rightASDA, rightTORA;
 
-    private String leftLdaStr = "", leftTodaStr = "", leftAsdaStr = "", leftToraStr = "", rightToraStr = "", rightTodaStr = "", rightLdaStr = "", rightAsdaStr = "";
+    private String leftThrStr = "", leftTodaStr = "", leftAsdaStr = "", leftToraStr = "", rightToraStr = "", rightTodaStr = "", rightThrStr = "", rightAsdaStr = "";
 
     @FXML
     private ComboBox<String> topRDirComboBox, topHDirComboBox;
@@ -52,12 +52,10 @@ public class RunwayCreationController {
 
         leftASDA.clear();
         leftTORA.clear();
-        leftLDA.clear();
         leftTODA.clear();
         rightTODA.clear();
         rightTORA.clear();
         rightASDA.clear();
-        rightLDA.clear();
     }
 
     @FXML
@@ -72,7 +70,7 @@ public class RunwayCreationController {
     @FXML
     void createRunwayButtonEvent(ActionEvent event) {
         boolean error = false;
-        if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDispThr.getText() == null || rightDispThr == null || leftLDA.getText() == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightLDA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null) {
+        if(topHDirComboBox.getSelectionModel().getSelectedItem() == null || topRDirComboBox.getSelectionModel().getSelectedItem() == null || leftDispThr.getText() == null || rightDispThr == null || leftTODA.getText() == null || leftASDA == null || leftTORA == null || rightTORA.getText() == null || rightASDA.getText() == null || rightTORA.getText() == null) {
             errorWindow("Empty fields are not allowed.");
         } else {
             String topRValue = topRDirComboBox.getSelectionModel().getSelectedItem();
@@ -96,38 +94,28 @@ public class RunwayCreationController {
             try {
 
                 double topHValue = Double.parseDouble(topHDirComboBox.getSelectionModel().getSelectedItem());
-                double topLDA = Double.parseDouble(leftLDA.getText());
                 double topTODA = Double.parseDouble(leftTODA.getText());
                 double topASDA = Double.parseDouble(leftASDA.getText());
                 double topTORA = Double.parseDouble(leftTORA.getText());
                 double topDistThr = Double.parseDouble(leftDispThr.getText());
+                double topLDA = topTORA - topDistThr;
 
-                double bottomLDA = Double.parseDouble(rightLDA.getText());
                 double bottomTODA = Double.parseDouble(rightTODA.getText());
                 double bottomASDA = Double.parseDouble(rightASDA.getText());
                 double bottomTORA = Double.parseDouble(rightTORA.getText());
                 double bottomDistThr = Double.parseDouble(rightDispThr.getText());
+                double bottomLDA = bottomTORA - bottomDistThr;
 
-                if (topLDA < 500 || bottomLDA < 500)
-                    errorWindow("LDA value must be between 500 and 5000 inclusive.");
-                else if (topASDA < 1000 || bottomASDA < 1000)
-                    errorWindow("ASDA value must be between 1000 and 10000 inclusive.");
-                else if (topTORA < 1000 || bottomTORA < 1000)
-                    errorWindow("TORA value must be between 1000 and 5000 inclusive.");
-                else if (topTODA < 1000 || bottomTODA < 1000)
-                    errorWindow("TODA value must be between 1000 and 10000 inclusive.");
-                else if (topLDA > topTORA || bottomLDA > bottomTORA)
-                    errorWindow( "LDA value must be higher than TORA value.");
-                else if (bottomLDA + topLDA - 500 < topTORA || bottomLDA + topLDA - 500 < bottomTORA )
-                    errorWindow("LDA values must sum to a value that is at least 500 greater than TORA.");
-                else {
-                    if(topHValue > 18) {
+                if( topLDA > topDistThr || bottomLDA > bottomDistThr ) {
+                    errorWindow("The displaced Threshold value cannot be bigger than the TORA value");
+                } else {
+                    if (topHValue > 18) {
                         if (bottomTODA < bottomTORA) {
                             errorWindow("Lower Threshold TODA value must be greater than or equal to TORA value.");
                             error = true;
                         }
                         if (topASDA < topTORA) {
-                            errorWindow( "Higher Threshold ASDA value must be greater than or equal to TORA value.");
+                            errorWindow("Higher Threshold ASDA value must be greater than or equal to TORA value.");
                             error = true;
                         }
                     } else {
@@ -136,12 +124,12 @@ public class RunwayCreationController {
                             error = true;
                         }
                         if (bottomASDA < bottomTORA) {
-                            errorWindow( "Higher Threshold ASDA value must be greater than or equal to TORA value.");
+                            errorWindow("Higher Threshold ASDA value must be greater than or equal to TORA value.");
                             error = true;
                         }
                     }
 
-                    if(!error) {
+                    if (!error) {
                         Airport airport = parentController.getAirport();
                         Runway runway;
                         if (topHValue > 18) {
@@ -162,7 +150,7 @@ public class RunwayCreationController {
                         parentController.setAllButtonsDisable(false);
                         runwayCancelButtonEvent(event);
                     }
-            }
+                }
             }  catch (NullPointerException | NumberFormatException ex) {
               parentController.setAllButtonsDisable(false);
               runwayCancelButtonEvent(event);
@@ -172,39 +160,40 @@ public class RunwayCreationController {
     }
 
     @FXML
-    void leftLdaKeyTyped (KeyEvent event) {
-        leftLdaStr = parentController.checkDouble(leftLDA, leftLdaStr, 0, 5000, 12);
+    void leftThrKeyTyped (KeyEvent event) {
+        leftThrStr = parentController.checkDouble(leftDispThr, leftThrStr, 0, 20000, 12);
     }
 
     @FXML
-    void rightLdaKeyTyped (KeyEvent event) {
-        rightLdaStr = parentController.checkDouble(rightLDA, rightLdaStr, 0, 5000, 12);
+    void rightThrKeyTyped (KeyEvent event) {
+        rightThrStr = parentController.checkDouble(rightDispThr, rightThrStr, 0, 20000, 12);
     }
+
     @FXML
     void leftToraKeyTyped (KeyEvent event) {
-        leftToraStr = parentController.checkDouble(leftTORA, leftToraStr, 0, 5000, 12);
+        leftToraStr = parentController.checkDouble(leftTORA, leftToraStr, 0, 20000, 12);
     }
     @FXML
     void rightToraKeyTyped (KeyEvent event) {
-        rightToraStr = parentController.checkDouble(rightTORA, rightToraStr, 0, 5000, 12);
+        rightToraStr = parentController.checkDouble(rightTORA, rightToraStr, 0, 20000, 12);
     }
 
     @FXML
     void leftTodaKeyTyped (KeyEvent event) {
-        leftTodaStr = parentController.checkDouble(leftTODA, leftTodaStr, 0, 10000, 12);
+        leftTodaStr = parentController.checkDouble(leftTODA, leftTodaStr, 0, 20000, 12);
     }
 
     @FXML
     void rightTodaKeyTyped (KeyEvent event) {
-        rightTodaStr = parentController.checkDouble(rightTODA, rightTodaStr, 0, 10000, 12);
+        rightTodaStr = parentController.checkDouble(rightTODA, rightTodaStr, 0, 20000, 12);
     }
     @FXML
     void leftAsdaKeyTyped (KeyEvent event) {
-        leftAsdaStr = parentController.checkDouble(leftASDA, leftAsdaStr, 0, 10000, 12);
+        leftAsdaStr = parentController.checkDouble(leftASDA, leftAsdaStr, 0, 20000, 12);
     }
     @FXML
     void rightAsdaKeyTyped (KeyEvent event) {
-        rightAsdaStr = parentController.checkDouble(rightASDA, rightAsdaStr, 0, 10000, 12);
+        rightAsdaStr = parentController.checkDouble(rightASDA, rightAsdaStr, 0, 20000, 12);
     }
 
     public void errorWindow(String errorMsg) {

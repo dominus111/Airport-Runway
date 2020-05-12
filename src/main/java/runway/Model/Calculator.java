@@ -90,7 +90,6 @@ public class Calculator {
         double newTORA = distToTHR + displacedTHR - slopeValue - stripEnd;
         double newLDA = distToTHR - RESA - stripEnd;
 
-
         // When displaying check if fisplacedThr == 0
         if(displacedTHR == 0)
             calculationBrkdwn += "TORA = Distance from Threshold - Slope Calculation - Strip End \n" +
