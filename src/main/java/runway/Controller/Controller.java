@@ -118,7 +118,7 @@ public class Controller {
     @FXML
     protected RadioButton leftB, rightB;
     @FXML
-    private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA, sideLineRESA;
+    private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA, tempMarker;
     @FXML
     private Rectangle rightStopway, rightClearway, sideDisplacedThreshold, topRunaway, sideObstacle;
 
@@ -1340,7 +1340,7 @@ public class Controller {
         sideLeftButton.setText(current.getLeftRunway().toString());
         sideRightButton.setText(current.getRightRunway().toString());
         sideRESA.setVisible(false);
-        sideLineRESA.setVisible(false);
+        tempMarker.setVisible(false);
         sideLineTODA.setVisible(true);
         sideLineTORA.setVisible(true);
         sideLineASDA.setVisible(true);
@@ -1406,7 +1406,7 @@ public class Controller {
         if(current.getObstacle() != null){
             sideObstacle.setVisible(true);
             sideRESA.setVisible(true);
-            sideLineRESA.setVisible(true);
+            tempMarker.setVisible(true);
 
             if(leftView) {
                 translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max);
@@ -1419,13 +1419,14 @@ public class Controller {
             sideObstacle.setTranslateY(20 - current.getObstacle().getHeight());
             sideObstacle.setHeight(current.getObstacle().getHeight());
 
-            sideLineRESA.setStartX(PIXEL_START - translate);
-
             sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
             sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
 
             rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
             rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max));
+
+            tempMarker.setStartX(2*PIXEL_START + PIXEL_START + 320 + translate - 1.5*sideObstacle.getWidth() + PIXEL_TOTAL * (240/max));
+            tempMarker.setEndX(2*PIXEL_START + PIXEL_START + 320 + translate - 1.5*sideObstacle.getWidth() - PIXEL_TOTAL * (240/max));
 
             rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
             rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max));
@@ -1433,7 +1434,7 @@ public class Controller {
         }else{
             sideObstacle.setVisible(false);
             sideRESA.setVisible(false);
-            sideLineRESA.setVisible(false);
+            tempMarker.setVisible(false);
         }
 
 //        if( current.getObstacle() != null){
