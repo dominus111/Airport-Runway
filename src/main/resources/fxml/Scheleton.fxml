@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="879.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
+<VBox prefHeight="879.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="1000.0">
         <columnConstraints>
@@ -80,7 +80,7 @@
                               </RadioButton>
                               <RadioButton fx:id="landingRadioButton" layoutX="562.0" layoutY="47.0" mnemonicParsing="false" onAction="#topLandingButton" text="Landing" toggleGroup="$topViewGroup" />
                               <Button fx:id="rotateRadioButton" layoutX="23.0" layoutY="588.0" mnemonicParsing="false" onAction="#rotateEvent" text="Button" />
-                              <CheckBox fx:id="colorBlind" layoutX="262.0" layoutY="592.0" mnemonicParsing="false" onAction="#selectColorBlindness" text="Colour blindness" />
+                              <CheckBox fx:id="colorBlind2" layoutX="262.0" layoutY="592.0" mnemonicParsing="false" onAction="#selectColorBlindness" text="Colour blindness" />
                            </children>
                         </AnchorPane>
                   </content>
