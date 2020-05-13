@@ -118,6 +118,8 @@ public class ObjectCreationController {
         if (!disable) {
             parentController.setAllButtonsDisable(false);
             parentController.addObjButton.setDisable(true);
+            parentController.saveButton.setVisible(true);
+            parentController.resultsLable.setVisible(true);
             if (parentController.leftB.isSelected()) {
                 parentController.topLeftButton(new ActionEvent());
             } else

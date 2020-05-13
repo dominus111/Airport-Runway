@@ -58,14 +58,14 @@ public class Controller {
     @FXML
     protected Button topShowCalcButton, bottomShowCalcButton;
     @FXML
-    protected Button rotateRadioButton;
+    protected Button rotateRadioButton, saveButton;
     @FXML
     protected Line arrowLine;
 
     @FXML
     protected ImageView image, image1;
     @FXML
-    protected Label lableDir, hideShowLable;
+    protected Label lableDir, hideShowLable, resultsLable;
 
     @FXML
     private AnchorPane notificationBox;
@@ -165,6 +165,8 @@ public class Controller {
                 runwaySelect.getItems().add(currentRunway.toString());
             }
             removeObjButton.setDisable(true);
+            saveButton.setVisible(false);
+            resultsLable.setVisible(false);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
             disableButtons();
@@ -197,6 +199,8 @@ public class Controller {
             makeGraphicsVisible(false);
             disableViewButtons(true);
             addObjButton.setDisable(true);
+            saveButton.setVisible(false);
+            resultsLable.setVisible(false);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
         } else {
@@ -207,11 +211,15 @@ public class Controller {
 
             if(current.getObstacle() != null) {
                 addObjButton.setDisable(true);
+                saveButton.setVisible(true);
+                resultsLable.setVisible(true);
                 bottomShowCalcButton.setDisable(false);
                 topShowCalcButton.setDisable(false);
             }
             else {
                 addObjButton.setDisable(false);
+                saveButton.setVisible(false);
+                resultsLable.setVisible(false);
                 bottomShowCalcButton.setDisable(true);
                 topShowCalcButton.setDisable(true);
             }
@@ -230,6 +238,8 @@ public class Controller {
         runwaySelect.setDisable(true);
         addRunwayButton.setDisable(true);
         addObjButton.setDisable(true);
+        saveButton.setVisible(false);
+        resultsLable.setVisible(false);
         bottomShowCalcButton.setDisable(true);
         topShowCalcButton.setDisable(true);
         removeRunwayButton.setDisable(true);
@@ -1614,6 +1624,8 @@ public class Controller {
             removeObjButton.setDisable(true);
             removeObjButton.setText("No object on Runway");
             addObjButton.setDisable(true);
+            resultsLable.setVisible(true);
+            saveButton.setVisible(true);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
             disableViewButtons(true);
@@ -1636,12 +1648,16 @@ public class Controller {
                 if (current.getObstacle() != null) {
                     removeObjButton.setDisable(false);
                     addObjButton.setDisable(true);
+                    saveButton.setVisible(true);
+                    resultsLable.setVisible(true);
                     bottomShowCalcButton.setDisable(false);
                     topShowCalcButton.setDisable(false);
                     removeObjButton.setText("Remove Object " + current.getObstacle().getName());
                 } else {
                     removeObjButton.setDisable(true);
                     addObjButton.setDisable(false);
+                    saveButton.setVisible(false);
+                    resultsLable.setVisible(false);
                     bottomShowCalcButton.setDisable(true);
                     topShowCalcButton.setDisable(true);
                     removeObjButton.setText("No object on Runway");
@@ -1867,6 +1883,8 @@ public class Controller {
             topRunwayUpdate();
             notify("Object removed from runway " + runway + ".");
             addObjButton.setDisable(false);
+            saveButton.setVisible(false);
+            resultsLable.setVisible(false);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
             removeObjButton.setDisable(true);
