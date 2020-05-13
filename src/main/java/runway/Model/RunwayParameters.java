@@ -90,4 +90,13 @@ public class RunwayParameters {
         if (!displacedThreshold.getValue().equals(obj.displacedThreshold.getValue())) return false;
         return true;
     }
+
+    @Override
+    public String toString() {
+        return  "tora: " + tora.getValue() +
+                "\ntoda: " + toda.getValue() +
+                "\nasda: " + asda.getValue() +
+                "\nlda: " + lda.getValue() +
+                "\ndisplaced threshold: " + displacedThreshold.getValue();
+    }
 }

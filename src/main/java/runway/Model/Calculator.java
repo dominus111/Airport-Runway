@@ -58,7 +58,7 @@ public class Calculator {
         double newTora = 0, newLda = 0, newToda = 0, newAsda = 0;
         if (land) {
             newLda = runwayParam.getTora() - distToTHR - (stripEnd + RESA) - (50*height);
-            calculationBrkdwn+="LDA = Tora - Object treshold - Strip end - RESA - height*slope\n" +
+            calculationBrkdwn+="LDA = Tora - Object Threshold - Strip end - RESA - height * slope\n" +
                     "LDA = "+runwayParam.getLda();
 
         } else {
@@ -66,9 +66,13 @@ public class Calculator {
             newAsda = runwayParam.getAsda() - distToTHR - (stripEnd + RESA);
             newToda = runwayParam.getToda() - distToTHR - (stripEnd + RESA);
             calculationBrkdwn+="TORA = Initial TORA - Object Threshold - Strip End - RESA\n" +
-                    "TORA = "+runwayParam.getTora()+" - "+distToTHR+" - "+ (stripEnd + RESA)+"\n" +
+                    "TORA = "+runwayParam.getTora()+" - "+distToTHR+" - "+ stripEnd + " - " + RESA+"\n" +
                     "TORA = "+newTora+"\n \n" +
+                    "ASDA = Initial ASDA - Object Threshold - Strip End - RESA \n" +
+                    "ASDA = " + runwayParam.getAsda() + " - " + distToTHR + " - " +  stripEnd + " - " + RESA+"\n" +
             "ASDA = " + newAsda+ "\n \n" +
+                    "TODA = Initial TODA - Object Threshold - Strip End - RESA \n" +
+                    "TODA = " + runwayParam.getToda() + " - " + distToTHR + " - " +  stripEnd + " - " + RESA+"\n" +
             "TODA = "+newToda+ " \n \n";
         }
         /*
@@ -112,10 +116,13 @@ public class Calculator {
             newTora = runwayParam.getTora() - distT - (stripEnd + RESA)- (50*height);
             newAsda = runwayParam.getAsda() - distT - (stripEnd + RESA)- (50*height);
             newToda = newTora;
-            calculationBrkdwn+="TORA = Initial TORA - Object Threshold - Strip End - RESA - height*slope\n" +
+            calculationBrkdwn+="TORA = Initial TORA - Object Threshold - Strip End - RESA - height * slope\n" +
                     "TORA = "+runwayParam.getTora()+" - "+distToTHR+" - "+ (stripEnd + RESA)+" - "+ slopeValue+ "\n" +
                     "TORA = "+newTora+"\n \n" +
-                    "ASDA = "  + newAsda+ "\n \n" +
+                    "ASDA = Initial ASDA - Object Threshold - Strip End - RESA - height * slope\n" +
+                    "ASDA = "+runwayParam.getAsda()+" - "+distToTHR+" - "+ (stripEnd + RESA)+" - "+ slopeValue+ "\n" +
+                    "ASDA = "+newAsda+"\n \n" +
+                    "TODA = new TORA \n" +
                     "TODA = " + newToda+ " \n \n";
         }
 

@@ -108,9 +108,9 @@ public class ObjectCreationController {
 
             } catch (NullPointerException | NumberFormatException ex) {
                 errorWindow("Name field can contain between 1 and 20 characters. \n" +
-                        "The object's height must be a positive value smaller or equal to 50. \n" +
-                        "Distance to center line value must be between -75 and 75. \n" +
-                        "Distance to thresholds values must between -60 an 500.");
+                        "The object's height must be a positive value. \n" +
+                        "Distance to center line value must be between smaller than TORA / 15. \n" +
+                        "Distance to thresholds values must between smaller that the TORA value.");
                 disable = true;
             }
         }
@@ -118,6 +118,8 @@ public class ObjectCreationController {
         if (!disable) {
             parentController.setAllButtonsDisable(false);
             parentController.addObjButton.setDisable(true);
+            parentController.saveButton.setVisible(true);
+            parentController.resultsLable.setVisible(true);
             if (parentController.leftB.isSelected()) {
                 parentController.topLeftButton(new ActionEvent());
             } else
@@ -146,7 +148,7 @@ public class ObjectCreationController {
 
     @FXML
     void heightOnKeyTyped (KeyEvent event) {
-        height = parentController.checkDouble(heightTextField,height, 1, 50, 12);
+        height = parentController.checkDouble(heightTextField,height, 1, 2000, 12);
     }
 
     @FXML

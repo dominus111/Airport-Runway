@@ -27,6 +27,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -57,14 +58,14 @@ public class Controller {
     @FXML
     protected Button topShowCalcButton, bottomShowCalcButton;
     @FXML
-    protected Button rotateRadioButton;
+    protected Button rotateRadioButton, saveButton;
     @FXML
     protected Line arrowLine;
 
     @FXML
     protected ImageView image, image1;
     @FXML
-    protected Label lableDir, hideShowLable;
+    protected Label lableDir, hideShowLable, resultsLable;
 
     @FXML
     private AnchorPane notificationBox;
@@ -149,7 +150,7 @@ public class Controller {
         options = FXCollections.observableArrayList(xmlImporter.getAirports());
         if(airportList!=null) {
             airportList.setItems(options);
-            System.out.println(options.size());
+//            System.out.println(options.size());
         }
 
         if(options.isEmpty()){
@@ -164,6 +165,8 @@ public class Controller {
                 runwaySelect.getItems().add(currentRunway.toString());
             }
             removeObjButton.setDisable(true);
+            saveButton.setVisible(false);
+            resultsLable.setVisible(false);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
             disableButtons();
@@ -197,6 +200,8 @@ public class Controller {
             makeGraphicsVisible(false);
             disableViewButtons(true);
             addObjButton.setDisable(true);
+            saveButton.setVisible(false);
+            resultsLable.setVisible(false);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
         } else {
@@ -207,11 +212,15 @@ public class Controller {
 
             if(current.getObstacle() != null) {
                 addObjButton.setDisable(true);
+                saveButton.setVisible(true);
+                resultsLable.setVisible(true);
                 bottomShowCalcButton.setDisable(false);
                 topShowCalcButton.setDisable(false);
             }
             else {
                 addObjButton.setDisable(false);
+                saveButton.setVisible(false);
+                resultsLable.setVisible(false);
                 bottomShowCalcButton.setDisable(true);
                 topShowCalcButton.setDisable(true);
             }
@@ -230,6 +239,8 @@ public class Controller {
         runwaySelect.setDisable(true);
         addRunwayButton.setDisable(true);
         addObjButton.setDisable(true);
+        saveButton.setVisible(false);
+        resultsLable.setVisible(false);
         bottomShowCalcButton.setDisable(true);
         topShowCalcButton.setDisable(true);
         removeRunwayButton.setDisable(true);
@@ -594,12 +605,12 @@ public class Controller {
                 String str = current.getLeftRunway().getDesignator();
                 String value =  str.substring(0, str.length() - 1);
                 rotate = Integer.parseInt(value) * 10;
-                System.out.println(rotate);
+//                System.out.println(rotate);
             } else{
                 String str = current.getRightRunway().getDesignator();
                 String value =  str.substring(0, str.length() - 1);
                 rotate = Integer.parseInt(value) * 10;
-                System.out.println(rotate);
+//                System.out.println(rotate);
             }
         }
         return rotate;
@@ -1652,6 +1663,8 @@ public class Controller {
             removeObjButton.setDisable(true);
             removeObjButton.setText("No object on Runway");
             addObjButton.setDisable(true);
+            resultsLable.setVisible(true);
+            saveButton.setVisible(true);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
             disableViewButtons(true);
@@ -1674,12 +1687,16 @@ public class Controller {
                 if (current.getObstacle() != null) {
                     removeObjButton.setDisable(false);
                     addObjButton.setDisable(true);
+                    saveButton.setVisible(true);
+                    resultsLable.setVisible(true);
                     bottomShowCalcButton.setDisable(false);
                     topShowCalcButton.setDisable(false);
                     removeObjButton.setText("Remove Object " + current.getObstacle().getName());
                 } else {
                     removeObjButton.setDisable(true);
                     addObjButton.setDisable(false);
+                    saveButton.setVisible(false);
+                    resultsLable.setVisible(false);
                     bottomShowCalcButton.setDisable(true);
                     topShowCalcButton.setDisable(true);
                     removeObjButton.setText("No object on Runway");
@@ -1905,6 +1922,8 @@ public class Controller {
             topRunwayUpdate();
             notify("Object removed from runway " + runway + ".");
             addObjButton.setDisable(false);
+            saveButton.setVisible(false);
+            resultsLable.setVisible(false);
             bottomShowCalcButton.setDisable(true);
             topShowCalcButton.setDisable(true);
             removeObjButton.setDisable(true);
@@ -2078,4 +2097,71 @@ public class Controller {
 
     public void xmlSelectionEvent(ActionEvent actionEvent) {
     }
+
+    @FXML
+    public void saveEvent(ActionEvent actionEvent) {
+
+            if (current == null) return;
+
+            FileChooser fileChooser = new FileChooser();
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setOnCloseRequest(e -> {
+                makeGraphicsVisible(true);
+                disableViewButtons(false);
+                setAllButtonsDisable(false);
+                runwaySelectEvent(e);
+            });
+
+            fileChooser.setTitle("Save");
+            fileChooser.setInitialFileName("results.txt");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+            setAllButtonsDisable(true);
+            disableButtons();
+            makeGraphicsVisible(false);
+            disableViewButtons(true);
+            try {
+                File file = fileChooser.showSaveDialog(dialog);
+
+                if (file != null) {
+                    var pw = new PrintWriter(new FileWriter(file));
+
+                    var left = current.getLeftRunway();
+                    var right = current.getRightRunway();
+
+                    pw.println("Airport: " + airport.getName());
+                    pw.println("Runway: " + current);
+                    pw.println();
+
+                    pw.println("Left Runway: " + left.getDesignator());
+                    pw.println("Initial Parameters");
+                    pw.println(left.getInitialParameters());
+                    if (left.getRecalculatedParameters() != null) {
+                        pw.println("Recalculated Parameters");
+                        pw.println(left.getRecalculatedParameters());
+                    }
+                    pw.println();
+
+                    pw.println("Right Runway: " + right.getDesignator());
+                    pw.println("Initial Parameters");
+                    pw.println(right.getInitialParameters());
+                    if (right.getRecalculatedParameters() != null) {
+                        pw.println("Recalculated Parameters");
+                        pw.println(right.getRecalculatedParameters());
+                    }
+                    pw.println();
+
+                    if (current.getObstacle() != null) {
+                        pw.println("Obstacle: " + current.getObstacle().getName());
+                        pw.println("Height: " + current.getObstacle().getHeight());
+                    }
+
+
+                    pw.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            setAllButtonsDisable(false);
+        }
 }
