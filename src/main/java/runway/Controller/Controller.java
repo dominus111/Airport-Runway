@@ -606,19 +606,19 @@ public class Controller {
 
     @FXML
     void rotateEvent (ActionEvent e) {
-            int rotate;
-            rotate = getRotation();
-            if (rotateRadioButton.getText().equals("Rotate to initial position")) {
-                rotateToValue(90);
-                rotateRadioButton.setText("Match compas heading: " + rotate);
-            } else {
+        int rotate;
+        rotate = getRotation();
+        if (rotateRadioButton.getText().equals("Rotate to initial position")) {
+            rotateToValue(90);
+            rotateRadioButton.setText("Match compas heading: " + rotate);
+        } else {
 
-                if (rotate > 180 )
-                    rotateToValue(rotate - 180);
-                else
-                    rotateToValue(rotate);
+            if (rotate > 180 )
+                rotateToValue(rotate - 180);
+            else
+                rotateToValue(rotate);
 
-                rotateRadioButton.setText("Rotate to initial position");
+            rotateRadioButton.setText("Rotate to initial position");
         }
 
     }
@@ -854,7 +854,7 @@ public class Controller {
 
                         /**
                          *  LANDING
-                          */
+                         */
                     } else {
                         lineLDA.setVisible(true);
                         textLDA.setVisible(true);
@@ -1440,12 +1440,18 @@ public class Controller {
                 translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max);
             }
             sideObstacle.setTranslateX(PIXEL_START + 317 + translate);
+
+            boolean leftOfObject = false;
+            if(PIXEL_START + 317 + translate < max / 2){
+                leftOfObject = true;
+            }
             translate += sideObstacle.getWidth();
             sideObstacle.setTranslateY(20 - current.getObstacle().getHeight());
             sideObstacle.setHeight(current.getObstacle().getHeight());
 
-            sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
-            sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
+            sideLineLDA.setStartX(30 + PIXEL_START + PIXEL_TOTAL * ((tora - lda) / max));
+            sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
+            sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max) + 30);
 
             rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
             rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max));
@@ -2007,8 +2013,8 @@ public class Controller {
                 } else
                     cleanString = string.replaceAll("[^0-9.]", "");
 
-                if (cleanString.length() > maxLength)
-                    cleanString = cleanString.substring(0,maxLength);
+            if (cleanString.length() > maxLength)
+                cleanString = cleanString.substring(0,maxLength);
 
             try {
                 double value = Double.parseDouble(cleanString);
