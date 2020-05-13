@@ -1466,7 +1466,7 @@ public class Controller {
             if(translate < max / 2){
                 rightOfObject = true;
                 System.out.println("LAND TO THE RIGHT " + (translate) + " " + (max / 2));
-                sideLineLDA.setStartX(sideLineLDA.getStartX() + PIXEL_TOTAL * (translate + 240) / max + 10);
+                sideLineLDA.setStartX(PIXEL_START + PIXEL_TOTAL * (translate + 240) / max + 10);
                 sideLineLDA.setEndX(sideLineLDA.getEndX() + PIXEL_TOTAL * translate / max);
                 if(sideTakeoff){
                     max = scale(tora, toda, (toda + translate), asda);
@@ -1518,6 +1518,7 @@ public class Controller {
             slope.setVisible(false);
         }
 
+
 //        if( current.getObstacle() != null){
 //            sideObstacle.setVisible(true);
 //            sideRESA.setVisible(true);
@@ -1560,30 +1561,30 @@ public class Controller {
 //        sideLineASDA.setStartX(PIXEL_START);
 //        sideLineASDA.setEndX(PIXEL_START + PIXEL_TOTAL * (asda / max));
 //
-//        if(sideLineLDA.getStartX() < PIXEL_START || sideLineLDA.getStartX() > PIXEL_END){
-//            sideLineLDA.setStartX(PIXEL_START);
-//        }
-//        if(sideLineASDA.getStartX() < PIXEL_START || sideLineASDA.getStartX() > PIXEL_END){
-//            sideLineASDA.setStartX(PIXEL_START);
-//        }
-//        if(sideLineTODA.getStartX() < PIXEL_START || sideLineTODA.getStartX() > PIXEL_END){
-//            sideLineTODA.setStartX(PIXEL_START);
-//        }
-//        if(sideLineTORA.getStartX() < PIXEL_START || sideLineTORA.getStartX() > PIXEL_END){
-//            sideLineTORA.setStartX(PIXEL_START);
-//        }
-//        if(sideLineTORA.getEndX() > PIXEL_END || sideLineTORA.getStartX() < PIXEL_START){
-//            sideLineTORA.setEndX(PIXEL_END);
-//        }
-//        if(sideLineTODA.getEndX() > PIXEL_END || sideLineTODA.getStartX() < PIXEL_START){
-//            sideLineTODA.setEndX(PIXEL_END);
-//        }
-//        if(sideLineLDA.getEndX() > PIXEL_END || sideLineLDA.getStartX() < PIXEL_START){
-//            sideLineLDA.setEndX(PIXEL_END);
-//        }
-//        if(sideLineASDA.getEndX() > PIXEL_END || sideLineASDA.getStartX() < PIXEL_START){
-//            sideLineASDA.setEndX(PIXEL_END);
-//        }
+        if(sideLineLDA.getStartX() < PIXEL_START || sideLineLDA.getStartX() > PIXEL_END){
+            sideLineLDA.setStartX(PIXEL_START);
+        }
+        if(sideLineASDA.getStartX() < PIXEL_START || sideLineASDA.getStartX() > PIXEL_END){
+            sideLineASDA.setStartX(PIXEL_START);
+        }
+        if(sideLineTODA.getStartX() < PIXEL_START || sideLineTODA.getStartX() > PIXEL_END){
+            sideLineTODA.setStartX(PIXEL_START);
+        }
+        if(sideLineTORA.getStartX() < PIXEL_START || sideLineTORA.getStartX() > PIXEL_END){
+            sideLineTORA.setStartX(PIXEL_START);
+        }
+        if(sideLineTORA.getEndX() > PIXEL_END || sideLineTORA.getStartX() < PIXEL_START){
+            sideLineTORA.setEndX(PIXEL_END);
+        }
+        if(sideLineTODA.getEndX() > PIXEL_END || sideLineTODA.getStartX() < PIXEL_START){
+            sideLineTODA.setEndX(PIXEL_END);
+        }
+        if(sideLineLDA.getEndX() > PIXEL_END || sideLineLDA.getStartX() < PIXEL_START){
+            sideLineLDA.setEndX(PIXEL_END);
+        }
+        if(sideLineASDA.getEndX() > PIXEL_END || sideLineASDA.getStartX() < PIXEL_START){
+            sideLineASDA.setEndX(PIXEL_END);
+        }
         sideOnAnchorPane.setVisible(true);
     }
 
