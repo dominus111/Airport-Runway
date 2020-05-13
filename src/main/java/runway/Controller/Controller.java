@@ -171,6 +171,7 @@ public class Controller {
             makeGraphicsVisible(false);
             topLeftArrow.setVisible(false);
         }
+        sideTakeoff = true;
     }
 
     public Airport getAirport() {
@@ -1332,6 +1333,7 @@ public class Controller {
 
 
     public void runwayUpdate() {
+        topRunwayUpdate();
         takingOffRadioButtonSide.setDisable(true);
         landingRadioButtonSide.setDisable(true);
 
@@ -1349,11 +1351,14 @@ public class Controller {
         sideRightButton.setText(current.getRightRunway().toString());
         sideRESA.setVisible(false);
         tempMarker.setVisible(false);
+        slope.setVisible(false);
         sideLineTODA.setVisible(true);
         sideLineTORA.setVisible(true);
         sideLineASDA.setVisible(true);
         sideLineLDA.setVisible(true);
         sideLDA.setVisible(true);
+
+
 
         if (leftView) {
             v = current.getLeftRunway();
@@ -1396,14 +1401,16 @@ public class Controller {
             displacedThreshold = v.getInitialParameters().getdispTHR();
         }
 
+        sideTORA.setText("TORA: " + Math.round(tora) + "m");
+        sideTODA.setText("TODA: " + Math.round(toda) + "m");
+        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
+        sideLDA.setText("LDA: " + Math.round(lda) + "m");
+
         double max = scale(tora, toda, lda, asda);
 
         double translate = 0;
 
-        sideTORA.setText("TORA: " + Math.round(tora) + "m");
-        sideLDA.setText("LDA: " + Math.round(lda) + "m");
-        sideTODA.setText("TODA: " + Math.round(toda) + "m");
-        sideASDA.setText("ASDA: " + Math.round(asda) + "m");
+
 
         sideLineTORA.setStartX(PIXEL_START);
         sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
@@ -1432,40 +1439,72 @@ public class Controller {
             sideObstacle.setVisible(true);
             sideRESA.setVisible(true);
             tempMarker.setVisible(true);
-
+            slope.setVisible(true);
             if(leftView) {
-                translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max);
+                translate = current.getObstacle().getoParam().getDistToLTHR();
             }
             else{
-                translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max);
+                translate = current.getObstacle().getoParam().getDistToRTHR();
+                System.out.println("RightView");
             }
-            sideObstacle.setTranslateX(PIXEL_START + 317 + translate);
+            sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * translate / max);
+            //tempMarker.setEndX(2*PIXEL_START + PIXEL_START + 320 + translate - 1.5*sideObstacle.getWidth() - PIXEL_TOTAL * (240/max));
 
-            boolean leftOfObject = false;
-            if(PIXEL_START + 317 + translate < max / 2){
-                leftOfObject = true;
+
+            boolean rightOfObject = false;
+            if(translate < max / 2){
+                rightOfObject = true;
+                System.out.println("LAND TO THE RIGHT " + (translate) + " " + (max / 2));
+                sideLineLDA.setStartX(sideLineLDA.getStartX() + PIXEL_TOTAL * (translate + 240) / max + 10);
+                sideLineLDA.setEndX(sideLineLDA.getEndX() + PIXEL_TOTAL * translate / max);
+                if(sideTakeoff){
+                    max = scale(tora, toda, (toda + translate), asda);
+                    sideLineTORA.setStartX(sideLineTORA.getStartX() + PIXEL_TOTAL * (translate + 240) / max + 10);
+                    sideLineTODA.setStartX(sideLineTODA.getStartX() + PIXEL_TOTAL * (translate + 240) / max + 10);
+                    sideLineASDA.setStartX(sideLineASDA.getStartX() + PIXEL_TOTAL * (translate + 240) / max + 10);
+
+                    sideLineTODA.setEndX(sideLineTODA.getStartX() + PIXEL_TOTAL * toda / max);
+                    sideLineASDA.setEndX(sideLineASDA.getStartX() + PIXEL_TOTAL * asda / max);
+                    sideLineTORA.setEndX(sideLineTORA.getStartX() + PIXEL_TOTAL * tora / max);
+
+
+                }
+                sideObstacle.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * translate / max);
+                tempMarker.setStartX(PIXEL_START + PIXEL_TOTAL * translate / max + 10);
+                tempMarker.setEndX(PIXEL_START + PIXEL_TOTAL * (translate + 240) / max + 10);
+                slope.setStartX(PIXEL_START + PIXEL_TOTAL * translate / max + 10);
+                slope.setEndX(PIXEL_START + PIXEL_TOTAL * (translate + 240) / max + 10);
+                slope.setEndY(sideObstacle.getHeight());
+
             }
-            translate += sideObstacle.getWidth();
-            sideObstacle.setTranslateY(20 - current.getObstacle().getHeight());
-            sideObstacle.setHeight(current.getObstacle().getHeight());
+            else{
+                System.out.println("LAND TO THE LEFT");
+                tempMarker.setStartX(PIXEL_START + PIXEL_TOTAL * translate / max + 10);
+                tempMarker.setEndX(PIXEL_START + PIXEL_TOTAL * (translate - 240) / max + 10);
+                slope.setStartX(PIXEL_START + PIXEL_TOTAL * translate / max + 10);
+                slope.setEndX(PIXEL_START + PIXEL_TOTAL * (translate - 240) / max + 10);
+                slope.setEndY(sideObstacle.getHeight());
+                rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora - 240 + translate)/ max);
+                rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora  - 240 - translate) / max));
 
-            sideLineLDA.setStartX(30 + PIXEL_START + PIXEL_TOTAL * ((tora - lda) / max));
-            sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
-            sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max) + 30);
+                rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora + 240 + translate)/ max);
+                rightClearway.setWidth(PIXEL_TOTAL * (tora - 240 - translate)/ max);
+            }
+            if(sideTakeoff){
+                rightClearway.setVisible(false);
+                rightStopway.setVisible(false);
+            }
+            else{
+                rightClearway.setVisible(true);
+                rightStopway.setVisible(true);
+            }
 
-            rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
-            rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max));
-
-            tempMarker.setStartX(2*PIXEL_START + PIXEL_START + 320 + translate - 1.5*sideObstacle.getWidth() + PIXEL_TOTAL * (240/max));
-            tempMarker.setEndX(2*PIXEL_START + PIXEL_START + 320 + translate - 1.5*sideObstacle.getWidth() - PIXEL_TOTAL * (240/max));
-
-            rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
-            rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max));
 
         }else{
             sideObstacle.setVisible(false);
             sideRESA.setVisible(false);
             tempMarker.setVisible(false);
+            slope.setVisible(false);
         }
 
 //        if( current.getObstacle() != null){
