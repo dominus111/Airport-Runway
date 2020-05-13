@@ -1,8 +1,5 @@
 package runway.Controller;
 
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,22 +11,15 @@ import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.*;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.*;
-import javafx.util.Callback;
 import runway.Model.*;
 
-import javax.swing.*;
-import javax.swing.border.Border;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -37,13 +27,10 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.ListIterator;
 
 public class Controller {
 
@@ -104,7 +91,7 @@ public class Controller {
     @FXML
     private Polyline topPoly, midPoly, bottomPoly;
     @FXML
-    private RadioButton takingOffRadioButton, landingRadioButton;
+    private RadioButton takingOffRadioButton, landingRadioButton, takingOffRadioButtonSide, landingRadioButtonSide;
 
     private double initialLength;
     /**
@@ -118,7 +105,7 @@ public class Controller {
     @FXML
     protected RadioButton leftB, rightB;
     @FXML
-    private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA, sideLineRESA;
+    private Line sideLineTODA, sideLineLDA, sideLineTORA, sideLineASDA, tempMarker, slope;
     @FXML
     private Rectangle rightStopway, rightClearway, sideDisplacedThreshold, topRunaway, sideObstacle;
 
@@ -128,6 +115,8 @@ public class Controller {
     private TableColumn<RunwayParameters, Double> leftTora, leftToda, leftAsda, leftLda, rightTora, rightToda, rightAsda, rightLda;
     @FXML
     private Label leftRParamLabel, rightRParamLabel;
+
+    Boolean sideTakeoff;
 
     /**
      * NOTIFICATIONS
@@ -515,17 +504,23 @@ public class Controller {
 
 
     public void leftSideButtonClick(ActionEvent actionEvent) {
+        leftB.selectedProperty().set(true);
         if (runwaySelect.getValue() != null) {
             leftView = true;
             runwayUpdate();
+            topRunwayUpdate();
         }
+        updateRotationLable();
     }
 
     public void rightSideButtonClick(ActionEvent actionEvent) {
+        rightB.selectedProperty().set(true);
         if (runwaySelect.getValue() != null) {
             leftView = false;
             runwayUpdate();
+            topRunwayUpdate();
         }
+        updateRotationLable();
     }
 
     public void updateRotationLable() {
@@ -535,40 +530,51 @@ public class Controller {
     }
 
     public void topLeftButton(ActionEvent actionEvent) {
-        if (runwaySelect.getValue() != null) {
-            leftView = true;
-            topRunwayUpdate();
-        }
-        updateRotationLable();
+        sideLeftButton.selectedProperty().set(true);
+        leftSideButtonClick(actionEvent);
+
     }
 
     public void topRightButton(ActionEvent actionEvent) {
-        if (runwaySelect.getValue() != null) {
-            leftView = false;
-            topRunwayUpdate();
-        }
-        updateRotationLable();
+        sideRightButton.selectedProperty().set(true);
+        rightSideButtonClick(actionEvent);
+    }
+
+    public void sideTakingoffButton(ActionEvent actionEvent) {
+        takingOffRadioButton.selectedProperty().set(true);
+        topTakingoffButton(actionEvent);
+    }
+
+    public void sideLandingButton(ActionEvent actionEvent) {
+        landingRadioButton.selectedProperty().set(true);
+        topLandingButton(actionEvent);
     }
 
     public void topTakingoffButton(ActionEvent actionEvent) {
+        takingOffRadioButtonSide.selectedProperty().set(true);
         if (runwaySelect.getValue() != null) {
             topTakingoff = true;
+            sideTakeoff = true;
             Calculator calculator = new Calculator();
             calculator.setLanding(false);
             calculator.calculate(current.getObstacle().getoParam(), current);
             updateTables();
             topRunwayUpdate();
+            runwayUpdate();
         }
     }
 
     public void topLandingButton(ActionEvent actionEvent) {
+        landingRadioButtonSide.selectedProperty().set(true);
         if (runwaySelect.getValue() != null) {
             topTakingoff = false;
+            sideTakeoff = false;
             Calculator calculator = new Calculator();
             calculator.setLanding(true);
             calculator.calculate(current.getObstacle().getoParam(), current);
             updateTables();
             topRunwayUpdate();
+            runwayUpdate();
         }
     }
 
@@ -600,19 +606,19 @@ public class Controller {
 
     @FXML
     void rotateEvent (ActionEvent e) {
-            int rotate;
-            rotate = getRotation();
-            if (rotateRadioButton.getText().equals("Rotate to initial position")) {
-                rotateToValue(90);
-                rotateRadioButton.setText("Match compas heading: " + rotate);
-            } else {
+        int rotate;
+        rotate = getRotation();
+        if (rotateRadioButton.getText().equals("Rotate to initial position")) {
+            rotateToValue(90);
+            rotateRadioButton.setText("Match compas heading: " + rotate);
+        } else {
 
-                if (rotate > 180 )
-                    rotateToValue(rotate - 180);
-                else
-                    rotateToValue(rotate);
+            if (rotate > 180 )
+                rotateToValue(rotate - 180);
+            else
+                rotateToValue(rotate);
 
-                rotateRadioButton.setText("Rotate to initial position");
+            rotateRadioButton.setText("Rotate to initial position");
         }
 
     }
@@ -848,7 +854,7 @@ public class Controller {
 
                         /**
                          *  LANDING
-                          */
+                         */
                     } else {
                         lineLDA.setVisible(true);
                         textLDA.setVisible(true);
@@ -1326,6 +1332,8 @@ public class Controller {
 
 
     public void runwayUpdate() {
+        takingOffRadioButtonSide.setDisable(true);
+        landingRadioButtonSide.setDisable(true);
 
         if(colorBlindSide.isSelected()) {
             rightClearway.setFill(Color.PURPLE);
@@ -1340,11 +1348,12 @@ public class Controller {
         sideLeftButton.setText(current.getLeftRunway().toString());
         sideRightButton.setText(current.getRightRunway().toString());
         sideRESA.setVisible(false);
-        sideLineRESA.setVisible(false);
+        tempMarker.setVisible(false);
         sideLineTODA.setVisible(true);
         sideLineTORA.setVisible(true);
         sideLineASDA.setVisible(true);
         sideLineLDA.setVisible(true);
+        sideLDA.setVisible(true);
 
         if (leftView) {
             v = current.getLeftRunway();
@@ -1358,13 +1367,26 @@ public class Controller {
         Integer PIXEL_END = 316;
 
         double tora, lda, toda, asda, displacedThreshold;
-        if(updated && v.getRecalculatedParameters().getTora() > 0 && v.getRecalculatedParameters().getToda() > 0 && v.getRecalculatedParameters().getAsda() > 0
-                && v.getRecalculatedParameters().getLda() > 0 && v.getRecalculatedParameters().getdispTHR() > 0) {
-            tora = v.getRecalculatedParameters().getTora();
+        if(updated){
             lda = v.getRecalculatedParameters().getLda();
             toda = v.getRecalculatedParameters().getToda();
             asda = v.getRecalculatedParameters().getAsda();
             displacedThreshold = v.getRecalculatedParameters().getdispTHR();
+            tora = v.getRecalculatedParameters().getTora();
+
+            if(tora == 0){
+                tora = v.getInitialParameters().getTora();
+            }
+            if(toda == 0){
+                toda = v.getInitialParameters().getToda();
+            }
+            if(asda == 0){
+                asda = v.getInitialParameters().getAsda();
+            }
+            if(lda == 0){
+                sideLineLDA.setVisible(false);
+                sideLDA.setVisible(false);
+            }
         }
         else{
             tora = v.getInitialParameters().getTora();
@@ -1404,9 +1426,12 @@ public class Controller {
         rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max) - translate);
 
         if(current.getObstacle() != null){
+            takingOffRadioButtonSide.setDisable(false);
+            landingRadioButtonSide.setDisable(false);
+            sideRESA.setText("RESA: 480m");
             sideObstacle.setVisible(true);
             sideRESA.setVisible(true);
-            sideLineRESA.setVisible(true);
+            tempMarker.setVisible(true);
 
             if(leftView) {
                 translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToLTHR() / max);
@@ -1415,23 +1440,32 @@ public class Controller {
                 translate = PIXEL_TOTAL * (current.getObstacle().getoParam().getDistToRTHR() / max);
             }
             sideObstacle.setTranslateX(PIXEL_START + 317 + translate);
+
+            boolean leftOfObject = false;
+            if(PIXEL_START + 317 + translate < max / 2){
+                leftOfObject = true;
+            }
             translate += sideObstacle.getWidth();
             sideObstacle.setTranslateY(20 - current.getObstacle().getHeight());
             sideObstacle.setHeight(current.getObstacle().getHeight());
 
-            sideLineLDA.setStartX(PIXEL_START + Double.max(PIXEL_TOTAL * (displacedThreshold / max), translate));
-            sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (lda / max) + Double.max(PIXEL_TOTAL * ((displacedThreshold) / max), translate));
+            sideLineLDA.setStartX(30 + PIXEL_START + PIXEL_TOTAL * ((tora - lda) / max));
+            sideLineLDA.setEndX(PIXEL_START + PIXEL_TOTAL * (tora / max));
+            sideDisplacedThreshold.setWidth(PIXEL_TOTAL * (displacedThreshold / max) + 30);
 
-            rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
-            rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max) - translate);
+            rightClearway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
+            rightClearway.setWidth(PIXEL_TOTAL * ((toda - tora) / max));
 
-            rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max) + translate);
-            rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max) - translate);
+            tempMarker.setStartX(2*PIXEL_START + PIXEL_START + 320 + translate - 1.5*sideObstacle.getWidth() + PIXEL_TOTAL * (240/max));
+            tempMarker.setEndX(2*PIXEL_START + PIXEL_START + 320 + translate - 1.5*sideObstacle.getWidth() - PIXEL_TOTAL * (240/max));
+
+            rightStopway.setTranslateX(PIXEL_START + 317 + PIXEL_TOTAL * (tora / max));
+            rightStopway.setWidth(PIXEL_TOTAL * ((asda - tora) / max));
 
         }else{
             sideObstacle.setVisible(false);
             sideRESA.setVisible(false);
-            sideLineRESA.setVisible(false);
+            tempMarker.setVisible(false);
         }
 
 //        if( current.getObstacle() != null){
@@ -1979,8 +2013,8 @@ public class Controller {
                 } else
                     cleanString = string.replaceAll("[^0-9.]", "");
 
-                if (cleanString.length() > maxLength)
-                    cleanString = cleanString.substring(0,maxLength);
+            if (cleanString.length() > maxLength)
+                cleanString = cleanString.substring(0,maxLength);
 
             try {
                 double value = Double.parseDouble(cleanString);
