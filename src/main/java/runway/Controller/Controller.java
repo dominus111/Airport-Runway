@@ -27,6 +27,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -149,7 +150,7 @@ public class Controller {
         options = FXCollections.observableArrayList(xmlImporter.getAirports());
         if(airportList!=null) {
             airportList.setItems(options);
-            System.out.println(options.size());
+//            System.out.println(options.size());
         }
 
         if(options.isEmpty()){
@@ -593,12 +594,12 @@ public class Controller {
                 String str = current.getLeftRunway().getDesignator();
                 String value =  str.substring(0, str.length() - 1);
                 rotate = Integer.parseInt(value) * 10;
-                System.out.println(rotate);
+//                System.out.println(rotate);
             } else{
                 String str = current.getRightRunway().getDesignator();
                 String value =  str.substring(0, str.length() - 1);
                 rotate = Integer.parseInt(value) * 10;
-                System.out.println(rotate);
+//                System.out.println(rotate);
             }
         }
         return rotate;
@@ -2039,4 +2040,71 @@ public class Controller {
 
     public void xmlSelectionEvent(ActionEvent actionEvent) {
     }
+
+    @FXML
+    public void saveEvent(ActionEvent actionEvent) {
+
+            if (current == null) return;
+
+            FileChooser fileChooser = new FileChooser();
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.setOnCloseRequest(e -> {
+                makeGraphicsVisible(true);
+                disableViewButtons(false);
+                setAllButtonsDisable(false);
+                runwaySelectEvent(e);
+            });
+
+            fileChooser.setTitle("Save");
+            fileChooser.setInitialFileName("results.txt");
+            fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+            setAllButtonsDisable(true);
+            disableButtons();
+            makeGraphicsVisible(false);
+            disableViewButtons(true);
+            try {
+                File file = fileChooser.showSaveDialog(dialog);
+
+                if (file != null) {
+                    var pw = new PrintWriter(new FileWriter(file));
+
+                    var left = current.getLeftRunway();
+                    var right = current.getRightRunway();
+
+                    pw.println("Airport: " + airport.getName());
+                    pw.println("Runway: " + current);
+                    pw.println();
+
+                    pw.println("Left Runway: " + left.getDesignator());
+                    pw.println("Initial Parameters");
+                    pw.println(left.getInitialParameters());
+                    if (left.getRecalculatedParameters() != null) {
+                        pw.println("Recalculated Parameters");
+                        pw.println(left.getRecalculatedParameters());
+                    }
+                    pw.println();
+
+                    pw.println("Right Runway: " + right.getDesignator());
+                    pw.println("Initial Parameters");
+                    pw.println(right.getInitialParameters());
+                    if (right.getRecalculatedParameters() != null) {
+                        pw.println("Recalculated Parameters");
+                        pw.println(right.getRecalculatedParameters());
+                    }
+                    pw.println();
+
+                    if (current.getObstacle() != null) {
+                        pw.println("Obstacle: " + current.getObstacle().getName());
+                        pw.println("Height: " + current.getObstacle().getHeight());
+                    }
+
+
+                    pw.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            setAllButtonsDisable(false);
+        }
 }

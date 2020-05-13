@@ -28,7 +28,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="879.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
+<VBox prefHeight="879.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runway.Controller.Controller">
    <children>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="1000.0">
         <columnConstraints>
@@ -241,6 +241,16 @@
                               </Label>
                            </children>
                         </AnchorPane>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="63.0" prefWidth="332.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="2.0" text="Results">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#saveEvent" prefHeight="25.0" prefWidth="119.0" text="Save" fx:id="saveButton" />
                      </children>
                   </Pane>
                </children>
