@@ -1,8 +1,9 @@
 //module RunwayRedeclarationTeam19.main {
-module runwayredeclaration {
+module RunwayRedeclarationTeam19 {
     requires javafx.controls;
     requires javafx.fxml;
 
     opens runway.View to javafx.graphics;
     opens runway.Controller to javafx.fxml;
+    exports runway;
 }

@@ -24,19 +24,19 @@ class CalculatorTest {
 
         System.out.println("Data for left runway");
         System.out.println(leftParams);
-        assertEquals(3346, leftParams.getTora());
-        assertEquals(3346, leftParams.getAsda());
-        assertEquals(3346, leftParams.getToda());
-        assertEquals(2985, leftParams.getLda());
+        assertEquals(3652, leftParams.getTora());
+        assertEquals(3652, leftParams.getAsda());
+        assertEquals(3652, leftParams.getToda());
+        assertEquals(0, leftParams.getLda());
 
         var rightParams = runway09L27R.getRightRunway().getRecalculatedParameters();
 
         System.out.println("Data for right runway");
         System.out.println(rightParams);
-        assertEquals(2986, rightParams.getToda());
-        assertEquals(2986, rightParams.getAsda());
-        assertEquals(2986, rightParams.getToda());
-        assertEquals(3346, rightParams.getLda());
+        assertEquals(2746, rightParams.getToda());
+        assertEquals(2746, rightParams.getAsda());
+        assertEquals(2746, rightParams.getToda());
+        assertEquals(0, rightParams.getLda());
     }
 
     @DisplayName("Heathrow 2")
@@ -56,10 +56,10 @@ class CalculatorTest {
 
         System.out.println("Data for left runway");
         System.out.println(leftParams);
-        assertEquals(1850, leftParams.getTora());
-        assertEquals(1850, leftParams.getAsda());
-        assertEquals(1850, leftParams.getToda());
-        assertEquals(2553, leftParams.getLda());
+        assertEquals(1303, leftParams.getTora());
+        assertEquals(1303, leftParams.getAsda());
+        assertEquals(1303, leftParams.getToda());
+        assertEquals(0, leftParams.getLda());
 
         var rightParams = runway09R27L.getRightRunway().getRecalculatedParameters();
 
@@ -68,7 +68,7 @@ class CalculatorTest {
         assertEquals(2860, rightParams.getToda());
         assertEquals(2860, rightParams.getAsda());
         assertEquals(2860, rightParams.getToda());
-        assertEquals(1850, rightParams.getLda());
+        assertEquals(0, rightParams.getLda());
     }
 
     @DisplayName("Heathrow 3")
@@ -88,19 +88,19 @@ class CalculatorTest {
 
         System.out.println("Data for left runway");
         System.out.println(leftParams);
-        assertEquals(2903, leftParams.getTora());
-        assertEquals(2903, leftParams.getAsda());
-        assertEquals(2903, leftParams.getToda());
-        assertEquals(2393, leftParams.getLda());
+        assertEquals(3210, leftParams.getTora());
+        assertEquals(3210, leftParams.getAsda());
+        assertEquals(3210, leftParams.getToda());
+        assertEquals(0, leftParams.getLda());
 
         var rightParams = runway09R27L.getRightRunway().getRecalculatedParameters();
 
         System.out.println("Data for right runway");
         System.out.println(rightParams);
-        assertEquals(2393, rightParams.getToda());
-        assertEquals(2393, rightParams.getAsda());
-        assertEquals(2393, rightParams.getToda());
-        assertEquals(2903, rightParams.getLda());
+        assertEquals(2153, rightParams.getToda());
+        assertEquals(2153, rightParams.getAsda());
+        assertEquals(2153, rightParams.getToda());
+        assertEquals(0, rightParams.getLda());
     }
 
     //@DisplayName("Heathrow 4")
