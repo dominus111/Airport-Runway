@@ -1,5 +1,5 @@
 # Airport Runway
-![](/sample.png)/
+<img src="sample.png" width="200">
 
 The project simulates an airport runway for landing and taking off\
 It includes and extra feature of adding an obstacle on the runway
