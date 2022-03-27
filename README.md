@@ -1,4 +1,5 @@
-#Airport Runway
+# Airport Runway
+![]/sample.png
 
 The project simulates an airport runway for landing and taking off\
 It includes and extra feature of adding an obstacle on the runway
